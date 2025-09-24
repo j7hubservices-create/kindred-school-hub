@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Link } from "react-router-dom";
 import { 
   Settings, 
   Users, 
@@ -55,45 +56,46 @@ const PortalsSection = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {portals.map((portal, index) => (
-            <Card 
-              key={index} 
-              className="border-none shadow-card hover:shadow-school transition-all duration-300 group cursor-pointer"
-            >
-              <CardContent className="p-6 text-center">
-                <div className={`
-                  ${portal.color === 'primary' ? 'bg-primary text-primary-foreground' : ''}
-                  ${portal.color === 'secondary' ? 'bg-secondary text-secondary-foreground' : ''}
-                  ${portal.color === 'accent' ? 'bg-accent text-accent-foreground' : ''}
-                  w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300
-                `}>
-                  <portal.icon className="h-8 w-8" />
-                </div>
-                
-                <h3 className="text-xl font-semibold text-foreground mb-2">
-                  {portal.title}
-                </h3>
-                
-                <p className="text-sm text-muted-foreground mb-4">
-                  Access your portal
-                </p>
-                
-                <p className="text-xs text-muted-foreground mb-6">
-                  {portal.description}
-                </p>
-                
-                <Button 
-                  className={`
-                    w-full group-hover:translate-x-1 transition-transform duration-300
-                    ${portal.color === 'primary' ? 'bg-primary hover:bg-primary-dark text-primary-foreground' : ''}
-                    ${portal.color === 'secondary' ? 'bg-secondary hover:bg-secondary/90 text-secondary-foreground' : ''}
-                    ${portal.color === 'accent' ? 'bg-accent hover:bg-accent/90 text-accent-foreground' : ''}
-                  `}
-                >
-                  Access Portal
-                  <ArrowRight className="h-4 w-4 ml-2" />
-                </Button>
-              </CardContent>
-            </Card>
+            <Link key={index} to="/portals">
+              <Card 
+                className="border-none shadow-card hover:shadow-school transition-all duration-300 group cursor-pointer"
+              >
+                <CardContent className="p-6 text-center">
+                  <div className={`
+                    ${portal.color === 'primary' ? 'bg-primary text-primary-foreground' : ''}
+                    ${portal.color === 'secondary' ? 'bg-secondary text-secondary-foreground' : ''}
+                    ${portal.color === 'accent' ? 'bg-accent text-accent-foreground' : ''}
+                    w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300
+                  `}>
+                    <portal.icon className="h-8 w-8" />
+                  </div>
+                  
+                  <h3 className="text-xl font-semibold text-foreground mb-2">
+                    {portal.title}
+                  </h3>
+                  
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Access your portal
+                  </p>
+                  
+                  <p className="text-xs text-muted-foreground mb-6">
+                    {portal.description}
+                  </p>
+                  
+                  <Button 
+                    className={`
+                      w-full group-hover:translate-x-1 transition-transform duration-300
+                      ${portal.color === 'primary' ? 'bg-primary hover:bg-primary-dark text-primary-foreground' : ''}
+                      ${portal.color === 'secondary' ? 'bg-secondary hover:bg-secondary/90 text-secondary-foreground' : ''}
+                      ${portal.color === 'accent' ? 'bg-accent hover:bg-accent/90 text-accent-foreground' : ''}
+                    `}
+                  >
+                    Access Portal
+                    <ArrowRight className="h-4 w-4 ml-2" />
+                  </Button>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
       </div>

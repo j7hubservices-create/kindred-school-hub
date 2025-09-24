@@ -2,6 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Calendar, ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import newsAdeyemo from "@/assets/news-adeyemo.jpg";
 import newsCultural from "@/assets/news-cultural.jpg"; 
 import newsNeco from "@/assets/news-neco.jpg";
@@ -45,54 +46,58 @@ const NewsSection = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {newsItems.map((item, index) => (
-            <Card key={index} className="border-none shadow-card hover:shadow-school transition-all duration-300 group overflow-hidden">
-              <div className="relative">
-                <img 
-                  src={item.image} 
-                  alt={item.title}
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <div className="absolute top-4 left-4">
-                  <Badge className="bg-secondary text-secondary-foreground">
-                    {item.category}
-                  </Badge>
-                </div>
-              </div>
-              
-              <CardContent className="p-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <Calendar className="h-4 w-4 text-muted-foreground" />
-                  <span className="text-sm text-muted-foreground">{item.date}</span>
+            <Link key={index} to="/blog">
+              <Card className="border-none shadow-card hover:shadow-school transition-all duration-300 group overflow-hidden">
+                <div className="relative">
+                  <img 
+                    src={item.image} 
+                    alt={item.title}
+                    className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <Badge className="bg-secondary text-secondary-foreground">
+                      {item.category}
+                    </Badge>
+                  </div>
                 </div>
                 
-                <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">
-                  {item.title}
-                </h3>
-                
-                <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
-                  {item.excerpt}
-                </p>
-                
-                <Button 
-                  variant="ghost" 
-                  className="text-primary hover:text-primary-dark p-0 h-auto font-semibold group-hover:translate-x-1 transition-transform duration-300"
-                >
-                  Read More
-                  <ArrowRight className="h-4 w-4 ml-1" />
-                </Button>
-              </CardContent>
-            </Card>
+                <CardContent className="p-6">
+                  <div className="flex items-center gap-2 mb-3">
+                    <Calendar className="h-4 w-4 text-muted-foreground" />
+                    <span className="text-sm text-muted-foreground">{item.date}</span>
+                  </div>
+                  
+                  <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors duration-300">
+                    {item.title}
+                  </h3>
+                  
+                  <p className="text-sm text-muted-foreground mb-4 line-clamp-3">
+                    {item.excerpt}
+                  </p>
+                  
+                  <Button 
+                    variant="ghost" 
+                    className="text-primary hover:text-primary-dark p-0 h-auto font-semibold group-hover:translate-x-1 transition-transform duration-300"
+                  >
+                    Read More
+                    <ArrowRight className="h-4 w-4 ml-1" />
+                  </Button>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
         
         <div className="text-center">
-          <Button 
-            size="lg" 
-            className="bg-primary hover:bg-primary-dark text-primary-foreground font-semibold"
-          >
-            View All Posts
-            <ArrowRight className="h-5 w-5 ml-2" />
-          </Button>
+          <Link to="/blog">
+            <Button 
+              size="lg" 
+              className="bg-primary hover:bg-primary-dark text-primary-foreground font-semibold"
+            >
+              View All Posts
+              <ArrowRight className="h-5 w-5 ml-2" />
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

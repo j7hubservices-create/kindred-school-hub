@@ -1,19 +1,20 @@
 import { Phone, Mail, MapPin, Facebook, Twitter, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 import schoolLogo from "@/assets/school-logo.png";
 
 const Footer = () => {
   const quickLinks = [
-    "About Us",
-    "Admissions", 
-    "Academic Programs",
-    "School Fees",
-    "E-Learning Portal",
-    "Student Portal",
-    "Staff Portal",
-    "Gallery",
-    "News & Events",
-    "Contact Us"
+    { name: "About Us", path: "/about" },
+    { name: "Admissions", path: "/admissions" }, 
+    { name: "Academic Programs", path: "/about" },
+    { name: "School Fees", path: "/school-fees" },
+    { name: "E-Learning Portal", path: "/e-learning" },
+    { name: "Student Portal", path: "/portals" },
+    { name: "Staff Portal", path: "/portals" },
+    { name: "Gallery", path: "/gallery" },
+    { name: "News & Events", path: "/blog" },
+    { name: "Contact Us", path: "/contact" }
   ];
 
   const academicPrograms = [
@@ -70,9 +71,11 @@ const Footer = () => {
             <ul className="space-y-2">
               {quickLinks.map((link, index) => (
                 <li key={index}>
-                  <Button variant="ghost" className="h-auto p-0 text-sm opacity-90 hover:opacity-100 hover:bg-transparent">
-                    {link}
-                  </Button>
+                  <Link to={link.path}>
+                    <Button variant="ghost" className="h-auto p-0 text-sm opacity-90 hover:opacity-100 hover:bg-transparent">
+                      {link.name}
+                    </Button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -137,15 +140,21 @@ const Footer = () => {
               © 2025 Our God Reigns Crystal School. All rights reserved.
             </div>
             <div className="flex gap-6 text-sm opacity-90">
-              <Button variant="ghost" className="h-auto p-0 text-sm opacity-90 hover:opacity-100 hover:bg-transparent">
-                Privacy Policy
-              </Button>
-              <Button variant="ghost" className="h-auto p-0 text-sm opacity-90 hover:opacity-100 hover:bg-transparent">
-                Terms of Service
-              </Button>
-              <Button variant="ghost" className="h-auto p-0 text-sm opacity-90 hover:opacity-100 hover:bg-transparent">
-                Admission Policy
-              </Button>
+              <Link to="/admissions">
+                <Button variant="ghost" className="h-auto p-0 text-sm opacity-90 hover:opacity-100 hover:bg-transparent">
+                  Privacy Policy
+                </Button>
+              </Link>
+              <Link to="/admissions">
+                <Button variant="ghost" className="h-auto p-0 text-sm opacity-90 hover:opacity-100 hover:bg-transparent">
+                  Terms of Service
+                </Button>
+              </Link>
+              <Link to="/admissions">
+                <Button variant="ghost" className="h-auto p-0 text-sm opacity-90 hover:opacity-100 hover:bg-transparent">
+                  Admission Policy
+                </Button>
+              </Link>
             </div>
           </div>
         </div>

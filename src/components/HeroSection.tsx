@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Trophy } from "lucide-react";
+import { Link } from "react-router-dom";
 import schoolFlyer from "@/assets/school-flyer.jpg";
 
 const HeroSection = () => {
@@ -55,19 +56,23 @@ const HeroSection = () => {
             
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button 
-                size="lg" 
-                className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-8 shadow-lg"
-              >
-                Apply for Admission →
-              </Button>
-              <Button 
-                size="lg" 
-                variant="outline" 
-                className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary font-semibold px-8"
-              >
-                Learn More
-              </Button>
+              <Link to="/admissions">
+                <Button 
+                  size="lg" 
+                  className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-8 shadow-lg"
+                >
+                  Apply for Admission →
+                </Button>
+              </Link>
+              <Link to="/about">
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary font-semibold px-8"
+                >
+                  Learn More
+                </Button>
+              </Link>
             </div>
           </div>
           
