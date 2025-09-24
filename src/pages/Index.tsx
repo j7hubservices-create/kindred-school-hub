@@ -1,12 +1,14 @@
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
-import HeroSection from "@/components/HeroSection";
+import HeroSlider from "@/components/HeroSlider";
 import GraduatesSection from "@/components/GraduatesSection";
+import VisionMissionSection from "@/components/VisionMissionSection";
 import AboutSection from "@/components/AboutSection";
 import ProprietressSection from "@/components/ProprietressSection";
 import AcademicProgramsSection from "@/components/AcademicProgramsSection";
-import PortalsSection from "@/components/PortalsSection";
+import WhyChooseUsSection from "@/components/WhyChooseUsSection";
 import CampusLifeSection from "@/components/CampusLifeSection";
+import TestimonialsSection from "@/components/TestimonialsSection";
 import NewsSection from "@/components/NewsSection";
 import Footer from "@/components/Footer";
 
@@ -15,13 +17,15 @@ const Index = () => {
     <div className="min-h-screen">
       <Header />
       <Navigation />
-      <HeroSection />
+      <HeroSlider />
       <GraduatesSection />
+      <VisionMissionSection />
       <AboutSection />
       <ProprietressSection />
       <AcademicProgramsSection />
-      <PortalsSection />
+      <WhyChooseUsSection />
       <CampusLifeSection />
+      <TestimonialsSection />
       <NewsSection />
       <Footer />
     </div>

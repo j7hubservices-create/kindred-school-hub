@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ExternalLink } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import schoolLogo from "@/assets/school-logo.png";
 
@@ -15,10 +15,16 @@ const Navigation = () => {
     { name: "Library", path: "/library" },
     { name: "E-Learning", path: "/e-learning" },
     { name: "School Fees", path: "/school-fees" },
-    { name: "Portals", path: "/portals" },
     { name: "Gallery", path: "/gallery" },
     { name: "Blog", path: "/blog" },
     { name: "Contact", path: "/contact" }
+  ];
+
+  const portalItems = [
+    { name: "Student Portal", url: "https://ogrcs.edutams.net/student" },
+    { name: "Parent Portal", url: "https://ogrcs.edutams.net/parent" },
+    { name: "Staff Portal", url: "https://ogrcs.edutams.net/staff" },
+    { name: "Admin Portal", path: "/portals" }
   ];
 
   return (
@@ -52,6 +58,42 @@ const Navigation = () => {
                 </Button>
               </Link>
             ))}
+            
+            {/* Portals Dropdown */}
+            <div className="relative group">
+              <Button
+                variant="ghost"
+                className="text-foreground hover:text-primary hover:bg-primary/10 font-medium"
+              >
+                Portals
+                <ExternalLink className="h-3 w-3 ml-1" />
+              </Button>
+              
+              <div className="absolute top-full left-0 mt-1 w-48 bg-background border border-border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                {portalItems.map((portal, index) => (
+                  <div key={index}>
+                    {portal.url ? (
+                      <a 
+                        href={portal.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-4 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary"
+                      >
+                        {portal.name}
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    ) : (
+                      <Link 
+                        to={portal.path} 
+                        className="flex items-center gap-2 px-4 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary"
+                      >
+                        {portal.name}
+                      </Link>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -82,6 +124,35 @@ const Navigation = () => {
                   </Button>
                 </Link>
               ))}
+              
+              {/* Mobile Portals */}
+              <div className="pt-2 border-t border-border">
+                <div className="text-xs font-semibold text-muted-foreground px-3 py-2">PORTALS</div>
+                {portalItems.map((portal, index) => (
+                  <div key={index}>
+                    {portal.url ? (
+                      <a 
+                        href={portal.url} 
+                        target="_blank" 
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 px-3 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {portal.name}
+                        <ExternalLink className="h-3 w-3" />
+                      </a>
+                    ) : (
+                      <Link 
+                        to={portal.path} 
+                        className="flex items-center gap-2 px-3 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary"
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {portal.name}
+                      </Link>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}
