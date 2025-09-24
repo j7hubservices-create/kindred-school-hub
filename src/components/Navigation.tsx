@@ -1,22 +1,24 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 import schoolLogo from "@/assets/school-logo.png";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
 
   const menuItems = [
-    "Home",
-    "About", 
-    "Admissions",
-    "Library",
-    "E-Learning",
-    "School Fees",
-    "Portals",
-    "Gallery",
-    "Blog",
-    "Contact"
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Admissions", path: "/admissions" },
+    { name: "Library", path: "/library" },
+    { name: "E-Learning", path: "/e-learning" },
+    { name: "School Fees", path: "/school-fees" },
+    { name: "Portals", path: "/portals" },
+    { name: "Gallery", path: "/gallery" },
+    { name: "Blog", path: "/blog" },
+    { name: "Contact", path: "/contact" }
   ];
 
   return (
@@ -24,7 +26,7 @@ const Navigation = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-3">
             <img 
               src={schoolLogo} 
               alt="Our God Reigns Crystal School Logo" 
@@ -34,18 +36,21 @@ const Navigation = () => {
               <h2 className="text-lg font-bold text-primary">Our God Reigns Crystal School</h2>
               <p className="text-xs text-secondary font-medium">Light to the World</p>
             </div>
-          </div>
+          </Link>
 
           {/* Desktop Menu */}
           <div className="hidden lg:flex items-center space-x-1">
             {menuItems.map((item) => (
-              <Button
-                key={item}
-                variant="ghost"
-                className="text-foreground hover:text-primary hover:bg-primary/10 font-medium"
-              >
-                {item}
-              </Button>
+              <Link key={item.name} to={item.path}>
+                <Button
+                  variant="ghost"
+                  className={`text-foreground hover:text-primary hover:bg-primary/10 font-medium ${
+                    location.pathname === item.path ? 'text-primary bg-primary/10' : ''
+                  }`}
+                >
+                  {item.name}
+                </Button>
+              </Link>
             ))}
           </div>
 
@@ -65,14 +70,17 @@ const Navigation = () => {
           <div className="lg:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 border-t border-border bg-background">
               {menuItems.map((item) => (
-                <Button
-                  key={item}
-                  variant="ghost"
-                  className="w-full justify-start text-foreground hover:text-primary hover:bg-primary/10"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item}
-                </Button>
+                <Link key={item.name} to={item.path}>
+                  <Button
+                    variant="ghost"
+                    className={`w-full justify-start text-foreground hover:text-primary hover:bg-primary/10 ${
+                      location.pathname === item.path ? 'text-primary bg-primary/10' : ''
+                    }`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Button>
+                </Link>
               ))}
             </div>
           </div>
