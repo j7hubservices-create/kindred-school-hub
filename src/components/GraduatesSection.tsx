@@ -2,7 +2,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, Award, Users } from "lucide-react";
-import graduateStudent from "@/assets/graduate-student.jpg";
+import graduateIndividual from "@/assets/graduate-individual.jpg";
 
 const GraduatesSection = () => {
   const achievements = [
@@ -31,7 +31,7 @@ const GraduatesSection = () => {
           <div className="relative">
             <div className="rounded-2xl overflow-hidden shadow-card">
               <img 
-                src={graduateStudent} 
+                src={graduateIndividual} 
                 alt="Our God Reigns Crystal School Graduate" 
                 className="w-full h-[500px] object-cover"
               />

@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
 import schoolLogo from "@/assets/school-logo.png";
 
 const Navigation = () => {
-  const navItems = [
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const menuItems = [
     "Home",
     "About", 
     "Admissions",
@@ -16,42 +20,63 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="bg-white shadow-card border-b">
+    <nav className="bg-background border-b border-border sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
+        <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center gap-3">
             <img 
               src={schoolLogo} 
               alt="Our God Reigns Crystal School Logo" 
-              className="h-12 w-12 object-contain"
+              className="h-10 w-10 object-contain"
             />
             <div>
-              <h1 className="text-xl font-bold text-primary">Our God Reigns Crystal School</h1>
-              <p className="text-sm text-muted-foreground">Light to the World</p>
+              <h2 className="text-lg font-bold text-primary">Our God Reigns Crystal School</h2>
+              <p className="text-xs text-secondary font-medium">Light to the World</p>
             </div>
           </div>
-          
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-6">
-            {navItems.map((item) => (
+
+          {/* Desktop Menu */}
+          <div className="hidden lg:flex items-center space-x-1">
+            {menuItems.map((item) => (
               <Button
                 key={item}
                 variant="ghost"
-                className="text-foreground hover:text-primary font-medium"
+                className="text-foreground hover:text-primary hover:bg-primary/10 font-medium"
               >
                 {item}
               </Button>
             ))}
           </div>
-          
+
           {/* Mobile Menu Button */}
-          <div className="lg:hidden">
-            <Button variant="ghost" size="sm">
-              Menu
-            </Button>
-          </div>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="lg:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </Button>
         </div>
+
+        {/* Mobile Menu */}
+        {isMenuOpen && (
+          <div className="lg:hidden">
+            <div className="px-2 pt-2 pb-3 space-y-1 border-t border-border bg-background">
+              {menuItems.map((item) => (
+                <Button
+                  key={item}
+                  variant="ghost"
+                  className="w-full justify-start text-foreground hover:text-primary hover:bg-primary/10"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item}
+                </Button>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );

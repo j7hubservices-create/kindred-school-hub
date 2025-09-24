@@ -1,20 +1,23 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Trophy } from "lucide-react";
-import admissionFlyer from "@/assets/admission-flyer.jpg";
+import schoolFlyer from "@/assets/school-flyer.jpg";
 
 const HeroSection = () => {
   return (
     <section className="relative min-h-[600px] bg-gradient-hero overflow-hidden">
-      {/* Diagonal Background Pattern */}
+      {/* Background Pattern */}
       <div className="absolute inset-0 bg-gradient-diagonal opacity-20"></div>
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMiIgZmlsbD0iIzAwMCIgZmlsbC1vcGFjaXR5PSIwLjEiLz4KPC9zdmc+')] opacity-30"></div>
+      <div className="absolute inset-0" style={{
+        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+        backgroundSize: '60px 60px'
+      }}></div>
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-2 gap-12 items-center min-h-[600px]">
           {/* Left Content */}
           <div className="text-primary-foreground py-12 lg:py-20">
-            <Badge className="bg-secondary text-secondary-foreground mb-6 px-4 py-2">
+            <Badge className="bg-secondary text-secondary-foreground mb-6 px-4 py-2 font-semibold">
               Admission Open for 2025/2026 Session
             </Badge>
             
@@ -26,7 +29,7 @@ const HeroSection = () => {
             
             <p className="text-xl mb-4 font-semibold">Light to the World</p>
             
-            <p className="text-lg mb-8 leading-relaxed max-w-md">
+            <p className="text-lg mb-8 leading-relaxed max-w-lg opacity-95">
               Where academic excellence meets Christian values. Nurturing tomorrow's leaders with 
               integrity, knowledge, and divine purpose.
             </p>
@@ -54,7 +57,7 @@ const HeroSection = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button 
                 size="lg" 
-                className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-8"
+                className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-semibold px-8 shadow-lg"
               >
                 Apply for Admission →
               </Button>
@@ -68,15 +71,15 @@ const HeroSection = () => {
             </div>
           </div>
           
-          {/* Right Content - Admission Flyer */}
+          {/* Right Content - School Flyer */}
           <div className="flex justify-center lg:justify-end">
             <div className="relative">
               <img 
-                src={admissionFlyer} 
+                src={schoolFlyer} 
                 alt="Our God Reigns Crystal School - Admission in Progress" 
-                className="rounded-lg shadow-school w-full max-w-md lg:w-[400px] h-auto"
+                className="rounded-2xl shadow-school w-full max-w-md lg:w-[420px] h-auto"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-lg"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent rounded-2xl"></div>
             </div>
           </div>
         </div>
