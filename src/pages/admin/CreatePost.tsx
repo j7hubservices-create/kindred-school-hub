@@ -10,7 +10,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { z } from 'zod';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Upload, X } from 'lucide-react';
 
 const postSchema = z.object({
   title: z.string().min(1, 'Title is required').max(200, 'Title must be less than 200 characters'),
@@ -30,6 +30,7 @@ const CreatePost = () => {
   const navigate = useNavigate();
   const { profile } = useAuth();
   const [loading, setLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const [formData, setFormData] = useState({
     title: '',
@@ -71,6 +72,45 @@ const CreatePost = () => {
       title: value,
       slug: generateSlug(value)
     }));
+  };
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please select an image file');
+      return;
+    }
+
+    setUploading(true);
+
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}.${fileExt}`;
+
+      const { error: uploadError } = await supabase.storage
+        .from('gallery')
+        .upload(fileName, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data } = supabase.storage
+        .from('gallery')
+        .getPublicUrl(fileName);
+
+      setFormData({ ...formData, featured_image_url: data.publicUrl });
+      toast.success('Image uploaded successfully');
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      toast.error('Failed to upload image');
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  const removeImage = () => {
+    setFormData({ ...formData, featured_image_url: '' });
   };
 
   const handleSubmit = async (e: React.FormEvent, publishNow: boolean = false) => {
@@ -184,6 +224,55 @@ const CreatePost = () => {
               <p className="text-xs text-gray-500">
                 {formData.excerpt.length}/500 characters
               </p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="featured_image">Featured Image</Label>
+              {formData.featured_image_url ? (
+                <div className="space-y-2">
+                  <div className="relative w-full h-48 bg-muted rounded-lg overflow-hidden">
+                    <img
+                      src={formData.featured_image_url}
+                      alt="Featured image preview"
+                      className="w-full h-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.src = '/placeholder.svg';
+                      }}
+                    />
+                    <Button
+                      type="button"
+                      variant="destructive"
+                      size="sm"
+                      className="absolute top-2 right-2"
+                      onClick={removeImage}
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  <Input
+                    id="featured_image"
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageUpload}
+                    className="cursor-pointer"
+                    disabled={uploading}
+                  />
+                  {uploading && <p className="text-sm text-muted-foreground">Uploading...</p>}
+                  <div className="text-center">
+                    <p className="text-sm text-muted-foreground">Or enter image URL:</p>
+                    <Input
+                      type="url"
+                      value={formData.featured_image_url}
+                      onChange={(e) => setFormData({ ...formData, featured_image_url: e.target.value })}
+                      placeholder="https://example.com/image.jpg"
+                      className="mt-2"
+                    />
+                  </div>
+                </div>
+              )}
             </div>
 
             <div className="space-y-2">

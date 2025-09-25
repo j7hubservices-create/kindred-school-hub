@@ -38,9 +38,16 @@ const Gallery = () => {
 
   const fetchImages = async () => {
     try {
-      setImages([]);
+      const { data, error } = await supabase
+        .from('gallery')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+      setImages(data || []);
     } catch (error) {
       console.error('Error fetching images:', error);
+      toast.error('Failed to fetch images');
     } finally {
       setLoading(false);
     }
@@ -90,8 +97,22 @@ const Gallery = () => {
     }
 
     try {
-      // Gallery functionality is disabled - table doesn't exist
-      toast.error('Gallery functionality is not available yet');
+      const { error } = await supabase
+        .from('gallery')
+        .insert([
+          {
+            title: formData.title,
+            image_url: formData.image_url,
+            uploaded_by: profile?.user_id
+          }
+        ]);
+
+      if (error) throw error;
+
+      toast.success('Image added successfully');
+      setDialogOpen(false);
+      setFormData({ title: '', image_url: '' });
+      fetchImages();
     } catch (error) {
       console.error('Error saving image:', error);
       toast.error('Failed to save image');
@@ -100,8 +121,15 @@ const Gallery = () => {
 
   const handleDelete = async (imageId: string) => {
     try {
-      // Gallery functionality is disabled - table doesn't exist
-      toast.error('Gallery functionality is not available yet');
+      const { error } = await supabase
+        .from('gallery')
+        .delete()
+        .eq('id', imageId);
+
+      if (error) throw error;
+
+      toast.success('Image deleted successfully');
+      fetchImages();
     } catch (error) {
       console.error('Error deleting image:', error);
       toast.error('Failed to delete image');
