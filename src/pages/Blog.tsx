@@ -10,15 +10,10 @@ import { formatDistance } from "date-fns";
 interface Post {
   id: string;
   title: string;
-  slug: string;
   excerpt: string | null;
   content: string | null;
-  featured_image_url: string | null;
-  published_at: string;
-  categories: {
-    name: string;
-    slug: string;
-  } | null;
+  image_url: string | null;
+  created_at: string;
   profiles: {
     full_name: string;
   } | null;
@@ -35,14 +30,13 @@ const Blog = () => {
   const fetchPosts = async () => {
     try {
       const { data, error } = await supabase
-        .from('posts')
+        .from('content_items')
         .select(`
           *,
-          categories:category_id (name, slug),
           profiles:author_id (full_name)
         `)
-        .eq('status', 'published')
-        .order('published_at', { ascending: false });
+        .eq('published', true)
+        .order('created_at', { ascending: false });
 
       if (error) throw error;
       setPosts(data || []);
@@ -85,10 +79,10 @@ const Blog = () => {
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {posts.map((post) => (
                 <Card key={post.id} className="border-emerald-200 shadow-lg hover:shadow-xl transition-shadow">
-                  {post.featured_image_url && (
+                  {post.image_url && (
                     <div className="relative">
                       <img 
-                        src={post.featured_image_url} 
+                        src={post.image_url} 
                         alt={post.title}
                         className="w-full h-48 object-cover rounded-t-lg"
                         onError={(e) => {
@@ -99,13 +93,11 @@ const Blog = () => {
                   )}
                   <CardHeader>
                     <div className="flex items-center justify-between mb-2">
-                      {post.categories && (
-                        <Badge variant="secondary" className="text-xs">
-                          {post.categories.name}
-                        </Badge>
-                      )}
+                      <Badge variant="secondary" className="text-xs">
+                        News
+                      </Badge>
                       <span className="text-xs text-gray-500">
-                        {formatDistance(new Date(post.published_at), new Date(), { addSuffix: true })}
+                        {formatDistance(new Date(post.created_at), new Date(), { addSuffix: true })}
                       </span>
                     </div>
                     <CardTitle className="text-emerald-600 hover:text-emerald-700 transition-colors">

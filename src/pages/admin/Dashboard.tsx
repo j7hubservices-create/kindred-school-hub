@@ -41,58 +41,30 @@ const Dashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
-      // Fetch post stats
+      // Use content_items instead of posts
       const { data: posts } = await supabase
-        .from('posts')
-        .select('status');
+        .from('content_items')
+        .select('published');
       
       const totalPosts = posts?.length || 0;
-      const publishedPosts = posts?.filter(p => p.status === 'published').length || 0;
-      const draftPosts = posts?.filter(p => p.status === 'draft').length || 0;
-
-      // Fetch categories count
-      const { count: categoriesCount } = await supabase
-        .from('categories')
-        .select('*', { count: 'exact', head: true });
-
-      // Fetch gallery images count
-      const { count: imagesCount } = await supabase
-        .from('gallery_images')
-        .select('*', { count: 'exact', head: true });
+      const publishedPosts = posts?.filter(p => p.published === true).length || 0;
+      const draftPosts = posts?.filter(p => p.published === false).length || 0;
 
       // Fetch users count
       const { count: usersCount } = await supabase
         .from('profiles')
         .select('*', { count: 'exact', head: true });
 
-      // Fetch recent activities
-      const { data: activities } = await supabase
-        .from('admin_activities')
-        .select(`
-          id,
-          action,
-          resource_type,
-          created_at,
-          profiles:user_id (
-            full_name
-          )
-        `)
-        .order('created_at', { ascending: false })
-        .limit(10);
-
       setStats({
         totalPosts,
         publishedPosts,
         draftPosts,
-        totalCategories: categoriesCount || 0,
-        totalImages: imagesCount || 0,
+        totalCategories: 0, // Categories table doesn't exist
+        totalImages: 0, // Gallery images table doesn't exist
         totalUsers: usersCount || 0
       });
 
-      setRecentActivities(activities?.map(activity => ({
-        ...activity,
-        user: activity.profiles as any
-      })) || []);
+      setRecentActivities([]);
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
     } finally {

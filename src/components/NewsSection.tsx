@@ -19,27 +19,24 @@ const NewsSection = () => {
       id: "static-1",
       title: "Miss Adeyemo wins one Million naira prize",
       excerpt: "Congratulations, Miss Adeyemo! You have truly made us all proud and have shown that with dedication, hard work, and quality education, our students can achieve greatness at the national level.",
-      featured_image_url: newsAdeyemo,
-      published_at: "2025-09-23T00:00:00Z",
-      categories: { name: "Achievement", slug: "achievement" },
+      image_url: newsAdeyemo,
+      created_at: "2025-09-23T00:00:00Z",
       profiles: { full_name: "Admin" }
     },
     {
       id: "static-2", 
       title: "Our annual Cultural Heritage Celebration",
       excerpt: "Our annual Cultural Heritage Celebration for the 2024/2025 academic session was a spectacular showcase of Nigerian culture and traditions. Students from all levels participated enthusiastically in various cultural activities.",
-      featured_image_url: newsCultural,
-      published_at: "2025-09-23T00:00:00Z",
-      categories: { name: "Events", slug: "events" },
+      image_url: newsCultural,
+      created_at: "2025-09-23T00:00:00Z",
       profiles: { full_name: "Admin" }
     },
     {
       id: "static-3",
       title: "NECO EXCELLENCE AWARDS 2025",
       excerpt: "Our God Reigns Crystal School was proudly represented at the Learn Africa Education Development Foundation NECO Excellence Awards 2025, where our students and school received national recognition for outstanding academic performance.",
-      featured_image_url: newsNeco,
-      published_at: "2025-09-23T00:00:00Z",
-      categories: { name: "Achievement", slug: "achievement" },
+      image_url: newsNeco,
+      created_at: "2025-09-23T00:00:00Z",
       profiles: { full_name: "Admin" }
     }
   ];
@@ -51,10 +48,10 @@ const NewsSection = () => {
   const fetchPosts = async () => {
     try {
       const { data, error } = await supabase
-        .from('posts')
-        .select(`*, categories:category_id (name, slug), profiles:author_id (full_name)`)
-        .eq('status', 'published')
-        .order('published_at', { ascending: false })
+        .from('content_items')
+        .select(`*, profiles:author_id (full_name)`)
+        .eq('published', true)
+        .order('created_at', { ascending: false })
         .limit(3);
       if (error) throw error;
       setPosts(data || []);
@@ -87,23 +84,21 @@ const NewsSection = () => {
             <Card key={post.id} className="shadow-school hover-scale transition-all duration-300 border-none overflow-hidden group">
               <div className="relative">
                 <img 
-                  src={post.featured_image_url || "/placeholder.svg"} 
+                  src={post.image_url || "/placeholder.svg"} 
                   alt={post.title}
                   className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute top-4 left-4">
-                  {post.categories && (
-                    <Badge className="bg-primary text-primary-foreground">
-                      {post.categories.name}
-                    </Badge>
-                  )}
+                  <Badge className="bg-primary text-primary-foreground">
+                    News
+                  </Badge>
                 </div>
               </div>
               
               <CardHeader className="pb-3">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
                   <CalendarDays className="h-4 w-4" />
-                  <span>{formatDistance(new Date(post.published_at), new Date(), { addSuffix: true })}</span>
+                  <span>{formatDistance(new Date(post.created_at), new Date(), { addSuffix: true })}</span>
                   <User className="h-4 w-4 ml-2" />
                   <span>{post.profiles?.full_name || 'Admin'}</span>
                 </div>

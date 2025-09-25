@@ -12,12 +12,8 @@ interface Post {
   title: string;
   content: string;
   excerpt: string;
-  featured_image_url: string | null;
-  published_at: string;
-  categories: {
-    name: string;
-    slug: string;
-  } | null;
+  image_url: string | null;
+  created_at: string;
   profiles: {
     full_name: string;
   } | null;
@@ -33,18 +29,16 @@ const BlogPreviewSection = () => {
       id: "1",
       title: "Welcome Back to School - New Academic Session 2025/2026",
       excerpt: "We are excited to welcome all students back for another year of academic excellence and character development.",
-      featured_image_url: "/src/assets/news-cultural.jpg",
-      published_at: "2025-01-15",
-      categories: { name: "School News", slug: "school-news" },
+      image_url: "/src/assets/news-cultural.jpg",
+      created_at: "2025-01-15",
       profiles: { full_name: "Admin" }
     },
     {
       id: "2", 
       title: "Outstanding NECO Results - Congratulations to Our Students",
       excerpt: "Our students have once again excelled in their NECO examinations, achieving remarkable results across all subjects.",
-      featured_image_url: "/src/assets/news-neco.jpg",
-      published_at: "2025-01-10",
-      categories: { name: "Academic", slug: "academic" },
+      image_url: "/src/assets/news-neco.jpg",
+      created_at: "2025-01-10",
       profiles: { full_name: "Academic Team" }
     }
   ];
@@ -56,24 +50,20 @@ const BlogPreviewSection = () => {
   const fetchPosts = async () => {
     try {
       const { data, error } = await supabase
-        .from('posts')
+        .from('content_items')
         .select(`
           id,
           title,
           content,
           excerpt,
-          featured_image_url,
-          published_at,
-          categories (
-            name,
-            slug
-          ),
-          profiles (
+          image_url,
+          created_at,
+          profiles:author_id (
             full_name
           )
         `)
-        .eq('status', 'published')
-        .order('published_at', { ascending: false })
+        .eq('published', true)
+        .order('created_at', { ascending: false })
         .limit(3);
 
       if (error) {
@@ -126,9 +116,9 @@ const BlogPreviewSection = () => {
           {displayPosts.map((post) => (
             <Card key={post.id} className="shadow-card hover-scale transition-all duration-300 border-primary/20 overflow-hidden">
               <div className="relative">
-                {post.featured_image_url && (
+                {post.image_url && (
                   <img 
-                    src={post.featured_image_url} 
+                    src={post.image_url} 
                     alt={post.title}
                     className="w-full h-48 object-cover"
                     onError={(e) => {
@@ -137,18 +127,16 @@ const BlogPreviewSection = () => {
                     }}
                   />
                 )}
-                {post.categories && (
-                  <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground">
-                    {post.categories.name}
-                  </Badge>
-                )}
+                <Badge className="absolute top-4 left-4 bg-accent text-accent-foreground">
+                  News
+                </Badge>
               </div>
               
               <CardContent className="p-6">
                 <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
                   <div className="flex items-center gap-1">
                     <Calendar className="h-4 w-4" />
-                    <span>{format(new Date(post.published_at), 'MMM dd, yyyy')}</span>
+                    <span>{format(new Date(post.created_at), 'MMM dd, yyyy')}</span>
                   </div>
                   {post.profiles && (
                     <div className="flex items-center gap-1">

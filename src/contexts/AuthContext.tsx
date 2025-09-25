@@ -38,7 +38,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           .from('profiles')
           .select('id', { count: 'exact', head: true });
 
-        const role = (count ?? 0) === 0 ? 'admin' : 'user';
+        const role = (count ?? 0) === 0 ? 'admin' : 'student';
 
         const { data: inserted } = await supabase
           .from('profiles')

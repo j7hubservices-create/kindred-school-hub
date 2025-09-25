@@ -47,13 +47,8 @@ const CreatePost = () => {
 
   const fetchCategories = async () => {
     try {
-      const { data, error } = await supabase
-        .from('categories')
-        .select('id, name')
-        .order('name');
-
-      if (error) throw error;
-      setCategories(data || []);
+      // Categories table doesn't exist yet, using empty array
+      setCategories([]);
     } catch (error) {
       console.error('Error fetching categories:', error);
     }
@@ -91,40 +86,23 @@ const CreatePost = () => {
 
       postSchema.parse(submitData);
 
-      // Check if slug is unique
-      const { data: existingPost } = await supabase
-        .from('posts')
-        .select('id')
-        .eq('slug', submitData.slug)
-        .single();
-
-      if (existingPost) {
-        setErrors({ slug: 'This URL slug is already taken' });
-        return;
-      }
-
+      // Use content_items table instead of posts
       const { data, error } = await supabase
-        .from('posts')
+        .from('content_items')
         .insert({
-          ...submitData,
-          author_id: profile.id,
-          published_at: publishNow ? new Date().toISOString() : null
+          title: submitData.title,
+          content: submitData.content,
+          excerpt: submitData.excerpt,
+          image_url: submitData.featured_image_url || null,
+          content_type: 'news',
+          published: publishNow,
+          featured: false,
+          author_id: profile.id
         })
         .select()
         .single();
 
       if (error) throw error;
-
-      // Log activity
-      await supabase
-        .from('admin_activities')
-        .insert({
-          user_id: profile.id,
-          action: 'created',
-          resource_type: 'post',
-          resource_id: data.id,
-          details: { title: data.title, status: data.status }
-        });
 
       toast.success(`Post ${publishNow ? 'published' : 'saved as draft'} successfully`);
       navigate('/admin-cms/posts');

@@ -64,13 +64,8 @@ const GallerySliderSection = () => {
 
   const fetchGalleryImages = async () => {
     try {
-      const { data, error } = await supabase
-        .from('gallery_images')
-        .select('id, title, image_url, alt_text')
-        .limit(10);
-
-      if (error) throw error;
-      setGalleryImages(data || []);
+      // Use static images for now since gallery_images table doesn't exist
+      setGalleryImages([]);
     } catch (error) {
       console.error('Error fetching gallery images:', error);
     }
