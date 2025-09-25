@@ -17,28 +17,28 @@ const PortalsSection = () => {
       description: "School administration and management access",
       icon: Settings,
       color: "primary",
-      link: "/portals/admin"
+      link: "https://ogrcs.edutams.net/"
     },
     {
       title: "Staff Portal", 
       description: "Teachers and staff resources",
       icon: Users,
       color: "secondary",
-      link: "/portals/staff"
+      link: "https://ogrcs.edutams.net/"
     },
     {
       title: "Parent Portal",
       description: "Track your child's progress", 
       icon: User,
       color: "accent",
-      link: "/portals/parent"
+      link: "https://ogrcs.edutams.net/"
     },
     {
       title: "Student Portal",
       description: "Access learning materials and grades",
       icon: GraduationCap,
       color: "primary",
-      link: "/portals/student"
+      link: "https://ogrcs.edutams.net/"
     }
   ];
 
@@ -56,7 +56,7 @@ const PortalsSection = () => {
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {portals.map((portal, index) => (
-            <Link key={index} to="/portals">
+            <a key={index} href={portal.link} target="_blank" rel="noopener noreferrer">
               <Card 
                 className="border-none shadow-card hover:shadow-school transition-all duration-300 group cursor-pointer"
               >
@@ -95,7 +95,7 @@ const PortalsSection = () => {
                   </Button>
                 </CardContent>
               </Card>
-            </Link>
+            </a>
           ))}
         </div>
       </div>

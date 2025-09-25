@@ -21,10 +21,10 @@ const Navigation = () => {
   ];
 
   const portalItems = [
-    { name: "Student Portal", url: "https://ogrcs.edutams.net/student" },
-    { name: "Parent Portal", url: "https://ogrcs.edutams.net/parent" },
-    { name: "Staff Portal", url: "https://ogrcs.edutams.net/staff" },
-    { name: "Admin Portal", url: "https://ogrcs.edutams.net/admin" }
+    { name: "Student Portal", url: "https://ogrcs.edutams.net/" },
+    { name: "Parent Portal", url: "https://ogrcs.edutams.net/" },
+    { name: "Staff Portal", url: "https://ogrcs.edutams.net/" },
+    { name: "Admin Portal", url: "https://ogrcs.edutams.net/" }
   ];
 
   return (
