@@ -42,6 +42,11 @@ const ProprietressSection = () => {
                     <Badge className="bg-accent text-accent-foreground font-bold">
                       Proprietress
                     </Badge>
+                    <div className="mt-4 p-3 bg-muted rounded-lg">
+                      <p className="text-sm text-muted-foreground">Contact:</p>
+                      <p className="font-semibold text-primary text-sm">📞 08027625129, 08033089735</p>
+                      <p className="font-semibold text-primary text-sm">📍 23, Bolanle Awosika Street, Off Borehole B/Stop, Ojuore Ota – Ogun State</p>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -15,12 +15,16 @@ const Navigation = () => {
 
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "About", path: "/about" },
     { name: "Admissions", path: "/admissions" },
     { name: "School Fees", path: "/school-fees" },
     { name: "Gallery", path: "/gallery" },
     { name: "Blog", path: "/blog" },
     { name: "Contact", path: "/contact" },
+  ];
+
+  const aboutItems = [
+    { name: "About School", path: "/about" },
+    { name: "Leadership Team", path: "/leadership" },
   ];
 
   const portalItems = [
@@ -57,6 +61,23 @@ const Navigation = () => {
                 {item.name}
               </Link>
             ))}
+            
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="text-primary hover:text-secondary font-semibold">
+                  About <ChevronDown className="ml-1 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-card border-border shadow-school">
+                {aboutItems.map((item) => (
+                  <DropdownMenuItem key={item.name} asChild>
+                    <Link to={item.path} className="text-card-foreground hover:text-primary">
+                      {item.name}
+                    </Link>
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
             
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -103,6 +124,19 @@ const Navigation = () => {
                   {item.name}
                 </Link>
               ))}
+              <div className="border-t border-border pt-2 mt-2">
+                <p className="px-3 py-1 text-sm font-semibold text-muted-foreground">About</p>
+                {aboutItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.path}
+                    className="block px-3 py-2 text-primary hover:text-secondary"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
               <div className="border-t border-border pt-2 mt-2">
                 <p className="px-3 py-1 text-sm font-semibold text-muted-foreground">Portals</p>
                 {portalItems.map((item) => (
