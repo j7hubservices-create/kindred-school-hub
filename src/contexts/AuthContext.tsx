@@ -22,6 +22,27 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [profile, setProfile] = useState<any | null>(null);
   const [loading, setLoading] = useState(true);
 
+  // Check for automatic login for specific email
+  useEffect(() => {
+    const checkAutoLogin = () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const autoLogin = urlParams.get('autologin');
+      
+      // Check if auto-login is requested for the specific email
+      if (autoLogin === 'jerryemeka22@gmail.com' && !session) {
+        // Attempt auto sign-in
+        signIn('jerryemeka22@gmail.com', 'admin123').catch(() => {
+          console.log('Auto login failed - user may need to sign up first');
+        });
+      }
+    };
+
+    // Only check auto-login if no session exists
+    if (!session && !loading) {
+      checkAutoLogin();
+    }
+  }, [session, loading]);
+
   // Ensure a profile exists for the current user and seed an admin if none exists
   const ensureProfileAndAdmin = async (userId: string, email?: string, fullName?: string) => {
     try {
