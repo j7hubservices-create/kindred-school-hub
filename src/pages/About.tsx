@@ -21,6 +21,31 @@ const About = () => {
         </div>
       </section>
 
+      {/* Vision and Mission */}
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="grid md:grid-cols-2 gap-8">
+            <Card className="shadow-card border-primary/20">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold text-primary mb-4">Our Vision</h3>
+                <p className="text-card-foreground leading-relaxed">
+                  To provide qualitative and affordable education. To raise God fearing leaders who will impact their generation and beyond with excellence and integrity.
+                </p>
+              </CardContent>
+            </Card>
+            
+            <Card className="shadow-card border-secondary/20">
+              <CardContent className="p-8">
+                <h3 className="text-2xl font-bold text-secondary mb-4">Our Mission</h3>
+                <p className="text-card-foreground leading-relaxed">
+                  To maintain high standards at all times. To always ensure that our services are not overpriced. To nurture our students in the way of the Lord. To mentor our students to occupy leadership positions in society.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Enhanced About Content */}
       <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
@@ -76,30 +101,6 @@ const About = () => {
         </div>
       </section>
 
-      {/* Vision and Mission */}
-      <section className="py-16 bg-muted/30">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-8">
-            <Card className="shadow-card border-primary/20">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-primary mb-4">Our Vision</h3>
-                <p className="text-card-foreground leading-relaxed">
-                  To provide qualitative and affordable education. To raise God fearing leaders who will impact their generation and beyond with excellence and integrity.
-                </p>
-              </CardContent>
-            </Card>
-            
-            <Card className="shadow-card border-secondary/20">
-              <CardContent className="p-8">
-                <h3 className="text-2xl font-bold text-secondary mb-4">Our Mission</h3>
-                <p className="text-card-foreground leading-relaxed">
-                  To maintain high standards at all times. To always ensure that our services are not overpriced. To nurture our students in the way of the Lord. To mentor our students to occupy leadership positions in society.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </section>
 
       <Footer />
     </div>
