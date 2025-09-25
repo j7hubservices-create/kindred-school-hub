@@ -74,7 +74,7 @@ const NewsSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6">
             School News & Updates
           </h2>
-          <p className="text-xl text-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
             Stay informed about the latest happenings, achievements, and events at Our God Reigns Crystal School
           </p>
         </div>
@@ -125,12 +125,12 @@ const NewsSection = () => {
         </div>
 
         <div className="text-center">
-            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold">
-              <Link to="/blog">
-                <ExternalLink className="mr-2 h-5 w-5" />
-                View All News & Updates
-              </Link>
-            </Button>
+          <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold">
+            <Link to="/blog">
+              <ExternalLink className="mr-2 h-5 w-5" />
+              View All News & Updates
+            </Link>
+          </Button>
         </div>
       </div>
     </section>

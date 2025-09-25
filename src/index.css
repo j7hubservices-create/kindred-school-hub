@@ -8,33 +8,33 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Our God Reigns Crystal School Brand Colors - Refined Palette */
+    /* Our God Reigns Crystal School Brand Colors */
     --background: 0 0% 100%;
-    --foreground: 51 100% 50%; /* Gold text instead of black */
+    --foreground: 0 0% 13%;
     
     --card: 0 0% 100%;
-    --card-foreground: 51 100% 50%; /* Gold text */
+    --card-foreground: 0 0% 13%;
     
     --popover: 0 0% 100%;
-    --popover-foreground: 51 100% 50%; /* Gold text */
+    --popover-foreground: 0 0% 13%;
     
     /* Primary - Dark Green #014421 */
     --primary: 140 98% 14%;
     --primary-foreground: 0 0% 100%;
-    --primary-light: 140 80% 20%;
+    --primary-light: 140 80% 25%;
     --primary-dark: 140 100% 10%;
     
-    /* Secondary - Dark Green variant for sections */
-    --secondary: 140 98% 14%;
+    /* Secondary - Red #D32F2F */
+    --secondary: 0 66% 51%;
     --secondary-foreground: 0 0% 100%;
     
-    /* Muted tones using white and gold */
+    /* Muted tones */
     --muted: 0 0% 96%;
-    --muted-foreground: 51 100% 45%; /* Darker gold for muted text */
+    --muted-foreground: 0 0% 45%;
     
-    /* Accent - Yellow-Gold #FFD700 for highlights and CTAs */
+    /* Accent - Yellow-Gold #FFD700 */
     --accent: 51 100% 50%;
-    --accent-foreground: 140 98% 14%; /* Dark green on gold backgrounds */
+    --accent-foreground: 0 0% 13%;
     
     /* Destructive */
     --destructive: 0 66% 51%;
@@ -47,8 +47,8 @@ All colors MUST be HSL.
     
     --radius: 0.75rem;
     
-    /* Custom gradients using refined brand colors */
-    --gradient-hero: linear-gradient(135deg, hsl(140 98% 14%) 0%, hsl(51 100% 50%) 100%);
+    /* Custom gradients using brand colors */
+    --gradient-hero: linear-gradient(135deg, hsl(140 98% 14%) 0%, hsl(51 100% 50%) 50%, hsl(0 66% 51%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(51 100% 50%) 0%, hsl(140 98% 14%) 100%);
     --gradient-diagonal: linear-gradient(45deg, transparent 40%, hsl(140 98% 14% / 0.1) 50%, transparent 60%);
     
@@ -56,20 +56,20 @@ All colors MUST be HSL.
     --shadow-card: 0 4px 6px -1px hsl(140 98% 14% / 0.1), 0 2px 4px -1px hsl(140 98% 14% / 0.06);
     --shadow-school: 0 10px 25px -3px hsl(140 98% 14% / 0.25), 0 4px 6px -2px hsl(140 98% 14% / 0.15);
 
-    /* Chart colors using refined brand palette */
+    /* Chart colors using brand palette */
     --chart-1: 140 98% 14%;
     --chart-2: 51 100% 50%;
-    --chart-3: 0 0% 13%;
-    --chart-4: 0 0% 100%;
-    --chart-5: 140 80% 20%;
+    --chart-3: 0 66% 51%;
+    --chart-4: 0 0% 13%;
+    --chart-5: 140 80% 25%;
 
     /* Sidebar colors using brand palette */
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 51 100% 50%; /* Gold text */
+    --sidebar-foreground: 0 0% 13%;
     --sidebar-primary: 140 98% 14%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 0 0% 96%;
-    --sidebar-accent-foreground: 51 100% 50%; /* Gold text */
+    --sidebar-accent-foreground: 0 0% 13%;
     --sidebar-border: 0 0% 90%;
     --sidebar-ring: 140 98% 14%;
   }
@@ -91,8 +91,8 @@ All colors MUST be HSL.
     --primary-light: 140 60% 35%;
     --primary-dark: 140 98% 14%;
     
-    /* Secondary - Dark Grey for dark mode */
-    --secondary: 0 0% 20%;
+    /* Secondary - Red adapted for dark mode */
+    --secondary: 0 66% 51%;
     --secondary-foreground: 0 0% 100%;
     
     /* Muted tones for dark mode */
@@ -112,20 +112,20 @@ All colors MUST be HSL.
     --input: 0 0% 25%;
     --ring: 140 80% 25%;
     
-    /* Chart colors for dark mode using refined palette */
+    /* Chart colors for dark mode */
     --chart-1: 140 80% 25%;
     --chart-2: 51 100% 50%;
-    --chart-3: 0 0% 20%;
+    --chart-3: 0 66% 51%;
     --chart-4: 0 0% 100%;
     --chart-5: 140 60% 35%;
 
     /* Sidebar colors using brand palette */
     --sidebar-background: 0 0% 13%;
-    --sidebar-foreground: 51 100% 50%; /* Gold text for dark mode */
+    --sidebar-foreground: 0 0% 100%;
     --sidebar-primary: 140 98% 14%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 0 0% 18%;
-    --sidebar-accent-foreground: 51 100% 50%; /* Gold text for dark mode */
+    --sidebar-accent-foreground: 0 0% 100%;
     --sidebar-border: 0 0% 25%;
     --sidebar-ring: 140 80% 25%;
   }
