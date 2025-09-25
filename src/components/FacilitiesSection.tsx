@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { 
   BookOpen, 
   Monitor, 
-  Flask, 
+  Beaker, 
   Trophy,
   Wifi,
   Shield,
@@ -31,7 +31,7 @@ const FacilitiesSection = () => {
       features: ["30+ computers", "High-speed internet", "Software training", "E-learning tools"]
     },
     {
-      icon: Flask,
+      icon: Beaker,
       title: "Science Laboratories",
       description: "Fully equipped physics, chemistry, and biology labs for practical experiments and research",
       features: ["Modern equipment", "Safety protocols", "Practical sessions", "Research projects"]
@@ -70,7 +70,7 @@ const FacilitiesSection = () => {
 
   const highlights = [
     { number: "30+", label: "Modern Classrooms", icon: Users },
-    { number: "3", label: "Science Labs", icon: Flask },
+    { number: "3", label: "Science Labs", icon: Beaker },
     { number: "24/7", label: "Security Coverage", icon: Shield },
     { number: "5000+", label: "Library Books", icon: BookOpen }
   ];

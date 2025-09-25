@@ -13,6 +13,8 @@ import TestimonialsSection from "@/components/TestimonialsSection";
 import FacilitiesSection from "@/components/FacilitiesSection";
 import CallToActionSection from "@/components/CallToActionSection";
 import ContactSection from "@/components/ContactSection";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Index = () => {
   return (
