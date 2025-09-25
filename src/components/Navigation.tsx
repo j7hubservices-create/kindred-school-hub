@@ -1,13 +1,7 @@
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import schoolLogo from "@/assets/school-logo-new.jpeg";
 
 const Navigation = () => {
@@ -15,25 +9,13 @@ const Navigation = () => {
 
   const navItems = [
     { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
     { name: "Admissions", path: "/admissions" },
-    { name: "School Fees", path: "/school-fees" },
+    { name: "Library", path: "/library" },
+    { name: "E-Learning", path: "/e-learning" },
     { name: "Gallery", path: "/gallery" },
     { name: "Blog", path: "/blog" },
     { name: "Contact", path: "/contact" },
-  ];
-
-  const aboutItems = [
-    { name: "About School", path: "/about" },
-    { name: "Leadership Team", path: "/leadership" },
-    { name: "E-Learning", path: "/e-learning" },
-    { name: "Library", path: "/library" },
-  ];
-
-  const portalItems = [
-    { name: "Student Portal", path: "https://ogrcs.edutams.net/" },
-    { name: "Staff Portal", path: "https://ogrcs.edutams.net/" },
-    { name: "Library", path: "/library" },
-    { name: "Admin Portal", path: "/admin-cms" },
   ];
 
   return (
@@ -58,54 +40,14 @@ const Navigation = () => {
               <Link
                 key={item.name}
                 to={item.path}
-                className="text-primary hover:text-secondary font-semibold transition-colors story-link"
+                className="text-primary hover:text-accent font-semibold transition-colors"
               >
                 {item.name}
               </Link>
             ))}
             
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-primary hover:text-secondary font-semibold">
-                  About <ChevronDown className="ml-1 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-card border-border shadow-school">
-                {aboutItems.map((item) => (
-                  <DropdownMenuItem key={item.name} asChild>
-                    <Link to={item.path} className="text-card-foreground hover:text-primary">
-                      {item.name}
-                    </Link>
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-            
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="text-primary hover:text-secondary font-semibold">
-                  Portals <ChevronDown className="ml-1 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="bg-card border-border shadow-school">
-                {portalItems.map((item) => (
-                  <DropdownMenuItem key={item.name} asChild>
-                    {item.path.startsWith('http') ? (
-                      <a href={item.path} target="_blank" rel="noopener noreferrer" className="text-card-foreground hover:text-primary">
-                        {item.name}
-                      </a>
-                    ) : (
-                      <Link to={item.path} className="text-card-foreground hover:text-primary">
-                        {item.name}
-                      </Link>
-                    )}
-                  </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <Button asChild className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold">
-              <Link to="/admissions">🚀 Apply Now</Link>
+            <Button asChild className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold">
+              <Link to="/portals">Portals</Link>
             </Button>
           </div>
 
@@ -127,54 +69,15 @@ const Navigation = () => {
                 <Link
                   key={item.name}
                   to={item.path}
-                  className="block px-4 py-3 text-primary hover:text-secondary hover:bg-muted/50 rounded-lg font-semibold text-base touch-manipulation"
+                  className="block px-4 py-3 text-primary hover:text-accent hover:bg-muted/50 rounded-lg font-semibold text-base touch-manipulation"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
-              <div className="border-t border-border pt-4 mt-4">
-                <p className="px-4 py-2 text-sm font-semibold text-muted-foreground uppercase tracking-wider">About</p>
-                {aboutItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    className="block px-4 py-3 text-primary hover:text-secondary hover:bg-muted/50 rounded-lg text-base touch-manipulation"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-              <div className="border-t border-border pt-4 mt-4">
-                <p className="px-4 py-2 text-sm font-semibold text-muted-foreground uppercase tracking-wider">Portals</p>
-                {portalItems.map((item) => (
-                  item.path.startsWith('http') ? (
-                    <a
-                      key={item.name}
-                      href={item.path}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block px-4 py-3 text-primary hover:text-secondary hover:bg-muted/50 rounded-lg text-base touch-manipulation"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {item.name}
-                    </a>
-                  ) : (
-                    <Link
-                      key={item.name}
-                      to={item.path}
-                      className="block px-4 py-3 text-primary hover:text-secondary hover:bg-muted/50 rounded-lg text-base touch-manipulation"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {item.name}
-                    </Link>
-                  )
-                ))}
-              </div>
               <div className="pt-4 mt-4">
-                <Button asChild className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold text-lg py-4 touch-manipulation">
-                  <Link to="/admissions" onClick={() => setIsMobileMenuOpen(false)}>🚀 Apply Now</Link>
+                <Button asChild className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-lg py-4 touch-manipulation">
+                  <Link to="/portals" onClick={() => setIsMobileMenuOpen(false)}>Portals</Link>
                 </Button>
               </div>
             </div>
