@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Our God Reigns Crystal School Brand Colors */
+    /* Our God Reigns Crystal School Brand Colors - Refined Palette */
     --background: 0 0% 100%;
     --foreground: 0 0% 13%;
     
@@ -21,18 +21,18 @@ All colors MUST be HSL.
     /* Primary - Dark Green #014421 */
     --primary: 140 98% 14%;
     --primary-foreground: 0 0% 100%;
-    --primary-light: 140 80% 25%;
+    --primary-light: 140 80% 20%;
     --primary-dark: 140 100% 10%;
     
-    /* Secondary - Red #D32F2F */
-    --secondary: 0 66% 51%;
+    /* Secondary - Dark Grey #222222 for professional text */
+    --secondary: 0 0% 13%;
     --secondary-foreground: 0 0% 100%;
     
-    /* Muted tones */
+    /* Muted tones using white and dark grey */
     --muted: 0 0% 96%;
     --muted-foreground: 0 0% 45%;
     
-    /* Accent - Yellow-Gold #FFD700 */
+    /* Accent - Yellow-Gold #FFD700 for highlights and CTAs */
     --accent: 51 100% 50%;
     --accent-foreground: 0 0% 13%;
     
@@ -47,8 +47,8 @@ All colors MUST be HSL.
     
     --radius: 0.75rem;
     
-    /* Custom gradients using brand colors */
-    --gradient-hero: linear-gradient(135deg, hsl(140 98% 14%) 0%, hsl(51 100% 50%) 50%, hsl(0 66% 51%) 100%);
+    /* Custom gradients using refined brand colors */
+    --gradient-hero: linear-gradient(135deg, hsl(140 98% 14%) 0%, hsl(51 100% 50%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(51 100% 50%) 0%, hsl(140 98% 14%) 100%);
     --gradient-diagonal: linear-gradient(45deg, transparent 40%, hsl(140 98% 14% / 0.1) 50%, transparent 60%);
     
@@ -56,12 +56,12 @@ All colors MUST be HSL.
     --shadow-card: 0 4px 6px -1px hsl(140 98% 14% / 0.1), 0 2px 4px -1px hsl(140 98% 14% / 0.06);
     --shadow-school: 0 10px 25px -3px hsl(140 98% 14% / 0.25), 0 4px 6px -2px hsl(140 98% 14% / 0.15);
 
-    /* Chart colors using brand palette */
+    /* Chart colors using refined brand palette */
     --chart-1: 140 98% 14%;
     --chart-2: 51 100% 50%;
-    --chart-3: 0 66% 51%;
-    --chart-4: 0 0% 13%;
-    --chart-5: 140 80% 25%;
+    --chart-3: 0 0% 13%;
+    --chart-4: 0 0% 100%;
+    --chart-5: 140 80% 20%;
 
     /* Sidebar colors using brand palette */
     --sidebar-background: 0 0% 100%;
@@ -91,8 +91,8 @@ All colors MUST be HSL.
     --primary-light: 140 60% 35%;
     --primary-dark: 140 98% 14%;
     
-    /* Secondary - Red adapted for dark mode */
-    --secondary: 0 66% 51%;
+    /* Secondary - Dark Grey for dark mode */
+    --secondary: 0 0% 20%;
     --secondary-foreground: 0 0% 100%;
     
     /* Muted tones for dark mode */
@@ -112,10 +112,10 @@ All colors MUST be HSL.
     --input: 0 0% 25%;
     --ring: 140 80% 25%;
     
-    /* Chart colors for dark mode */
+    /* Chart colors for dark mode using refined palette */
     --chart-1: 140 80% 25%;
     --chart-2: 51 100% 50%;
-    --chart-3: 0 66% 51%;
+    --chart-3: 0 0% 20%;
     --chart-4: 0 0% 100%;
     --chart-5: 140 60% 35%;
 
