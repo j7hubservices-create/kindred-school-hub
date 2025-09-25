@@ -43,7 +43,7 @@ const AboutSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6">
             Excellence in Education
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl text-foreground max-w-3xl mx-auto leading-relaxed">
             For over a decade, Our God Reigns Crystal School has been committed to providing 
             quality education that combines academic excellence with strong moral foundations.
           </p>
@@ -94,7 +94,7 @@ const AboutSection = () => {
               </div>
             </div>
 
-            <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold">
+            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold">
               <Link to="/admissions">
                 Join Our School Family
               </Link>
@@ -127,7 +127,7 @@ const AboutSection = () => {
             Discover how we can help your child achieve academic excellence and moral growth.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" variant="secondary" className="font-bold">
+            <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold">
               <Link to="/admissions">Apply for Admission</Link>
             </Button>
             <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary font-bold">
