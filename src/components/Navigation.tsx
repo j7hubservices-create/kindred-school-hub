@@ -24,7 +24,7 @@ const Navigation = () => {
     { name: "Student Portal", url: "https://ogrcs.edutams.net/student" },
     { name: "Parent Portal", url: "https://ogrcs.edutams.net/parent" },
     { name: "Staff Portal", url: "https://ogrcs.edutams.net/staff" },
-    { name: "Admin Portal", path: "/portals" }
+    { name: "Admin Portal", url: "https://ogrcs.edutams.net/admin" }
   ];
 
   return (
@@ -72,24 +72,15 @@ const Navigation = () => {
               <div className="absolute top-full left-0 mt-1 w-48 bg-background border border-border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
                 {portalItems.map((portal, index) => (
                   <div key={index}>
-                    {portal.url ? (
-                      <a 
-                        href={portal.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary"
-                      >
-                        {portal.name}
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
-                    ) : (
-                      <Link 
-                        to={portal.path} 
-                        className="flex items-center gap-2 px-4 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary"
-                      >
-                        {portal.name}
-                      </Link>
-                    )}
+                    <a 
+                      href={portal.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary"
+                    >
+                      {portal.name}
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
                   </div>
                 ))}
               </div>
@@ -130,26 +121,16 @@ const Navigation = () => {
                 <div className="text-xs font-semibold text-muted-foreground px-3 py-2">PORTALS</div>
                 {portalItems.map((portal, index) => (
                   <div key={index}>
-                    {portal.url ? (
-                      <a 
-                        href={portal.url} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-2 px-3 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        {portal.name}
-                        <ExternalLink className="h-3 w-3" />
-                      </a>
-                    ) : (
-                      <Link 
-                        to={portal.path} 
-                        className="flex items-center gap-2 px-3 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary"
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        {portal.name}
-                      </Link>
-                    )}
+                    <a 
+                      href={portal.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-3 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {portal.name}
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
                   </div>
                 ))}
               </div>
