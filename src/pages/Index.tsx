@@ -25,42 +25,42 @@ const Index = () => {
       {/* Main Content Sections */}
       <main className="space-y-0">
         {/* Achievement Highlight */}
-        <section className="py-16 bg-muted/50">
+        <section className="py-8 bg-muted/50">
           <GraduatesSection />
         </section>
         
         {/* Vision & Mission */}
-        <section className="py-20 bg-background">
+        <section className="py-8 bg-background">
           <VisionMissionSection />
         </section>
         
         {/* About Section */}
-        <section className="py-20 bg-muted/30">
+        <section className="py-8 bg-muted/30">
           <AboutSection />
         </section>
         
         {/* Leadership Message */}
-        <section className="py-20 bg-background">
+        <section className="py-8 bg-background">
           <ProprietressSection />
         </section>
         
         {/* Academic Programs */}
-        <section className="py-20 bg-primary/5">
+        <section className="py-8 bg-primary/5">
           <AcademicProgramsSection />
         </section>
         
         {/* Why Choose Us */}
-        <section className="py-20 bg-background">
+        <section className="py-8 bg-background">
           <WhyChooseUsSection />
         </section>
         
         {/* Gallery Preview */}
-        <section className="py-20 bg-muted/40">
+        <section className="py-8 bg-muted/40">
           <GallerySliderSection />
         </section>
         
         {/* Blog/News Preview */}
-        <section className="py-20 bg-background">
+        <section className="py-8 bg-background">
           <BlogPreviewSection />
         </section>
       </main>
