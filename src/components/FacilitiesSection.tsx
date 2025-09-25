@@ -16,55 +16,73 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
+// Import facility images
+import libraryImage from "@/assets/gallery-1.jpg";
+import ictLabImage from "@/assets/gallery-2.jpg";
+import scienceLabImage from "@/assets/gallery-3.jpg";
+import sportsImage from "@/assets/gallery-4.jpg";
+import securityImage from "@/assets/gallery-5.jpg";
+import digitalLearningImage from "@/assets/gallery-6.jpg";
+import classroomImage from "@/assets/gallery-students-1.jpg";
+import adminImage from "@/assets/school-flyer-main.jpg";
+
 const FacilitiesSection = () => {
   const facilities = [
     {
       icon: BookOpen,
       title: "Well-Stocked Library",
       description: "Comprehensive collection of textbooks, reference materials, and digital resources for all subjects",
-      features: ["Over 5,000 books", "Study areas", "Research materials", "Digital resources"]
+      features: ["Over 5,000 books", "Study areas", "Research materials", "Digital resources"],
+      image: libraryImage
     },
     {
       icon: Monitor,
       title: "ICT Laboratory",
       description: "Modern computer lab with high-speed internet for digital literacy and technology education",
-      features: ["30+ computers", "High-speed internet", "Software training", "E-learning tools"]
+      features: ["30+ computers", "High-speed internet", "Software training", "E-learning tools"],
+      image: ictLabImage
     },
     {
       icon: Beaker,
       title: "Science Laboratories",
       description: "Fully equipped physics, chemistry, and biology labs for practical experiments and research",
-      features: ["Modern equipment", "Safety protocols", "Practical sessions", "Research projects"]
+      features: ["Modern equipment", "Safety protocols", "Practical sessions", "Research projects"],
+      image: scienceLabImage
     },
     {
       icon: Trophy,
       title: "Sports Facilities",
       description: "Spacious field and courts for various sports activities and physical education programs",
-      features: ["Football field", "Basketball court", "Athletics track", "Sports equipment"]
+      features: ["Football field", "Basketball court", "Athletics track", "Sports equipment"],
+      image: sportsImage
     },
     {
       icon: Shield,
       title: "Security System",
       description: "24/7 security with CCTV surveillance and trained security personnel ensuring student safety",
-      features: ["CCTV monitoring", "Security guards", "Controlled access", "Emergency protocols"]
+      features: ["CCTV monitoring", "Security guards", "Controlled access", "Emergency protocols"],
+      image: securityImage
     },
     {
       icon: Wifi,
       title: "Digital Learning",
       description: "Wi-Fi enabled campus supporting digital learning and E-Note educational system",
-      features: ["Campus-wide Wi-Fi", "E-Note system", "Digital curriculum", "Online resources"]
+      features: ["Campus-wide Wi-Fi", "E-Note system", "Digital curriculum", "Online resources"],
+      image: digitalLearningImage
     },
     {
       icon: Users,
       title: "Modern Classrooms",
       description: "Spacious, well-ventilated classrooms equipped with modern teaching aids and furniture",
-      features: ["Interactive boards", "Comfortable seating", "Good ventilation", "Natural lighting"]
+      features: ["Interactive boards", "Comfortable seating", "Good ventilation", "Natural lighting"],
+      image: classroomImage
     },
     {
       icon: Home,
       title: "Administrative Block",
       description: "Well-organized administrative offices for efficient school management and student services",
-      features: ["Principal's office", "Staff room", "Records office", "Reception area"]
+      features: ["Principal's office", "Staff room", "Records office", "Reception area"],
+      image: adminImage
     }
   ];
 
@@ -101,30 +119,48 @@ const FacilitiesSection = () => {
           ))}
         </div>
 
-        {/* Detailed Facilities */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+        {/* Detailed Facilities List */}
+        <div className="space-y-12 mb-16">
           {facilities.map((facility, index) => (
-            <Card key={index} className="shadow-school hover-scale transition-all duration-300 border-none">
-              <CardContent className="p-6">
-                <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mb-4">
-                  <facility.icon className="h-8 w-8 text-primary" />
+            <div key={index} className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 items-center`}>
+              {/* Image Section */}
+              <div className="w-full lg:w-1/2 relative">
+                <div className="relative overflow-hidden rounded-2xl shadow-school">
+                  <img 
+                    src={facility.image} 
+                    alt={facility.title}
+                    className="w-full h-64 lg:h-80 object-cover transition-transform duration-300 hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent"></div>
+                  <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm p-3 rounded-full">
+                    <facility.icon className="h-6 w-6 text-primary" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Content Section */}
+              <div className="w-full lg:w-1/2 space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center">
+                    <facility.icon className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="text-2xl lg:text-3xl font-bold text-primary">{facility.title}</h3>
                 </div>
                 
-                <h3 className="text-xl font-bold text-primary mb-3">{facility.title}</h3>
-                <p className="text-muted-foreground mb-4 leading-relaxed text-sm">
+                <p className="text-muted-foreground leading-relaxed text-base lg:text-lg">
                   {facility.description}
                 </p>
                 
-                <div className="space-y-2">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   {facility.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-center gap-2">
-                      <ArrowRight className="h-3 w-3 text-secondary flex-shrink-0" />
-                      <span className="text-xs text-muted-foreground">{feature}</span>
+                    <div key={idx} className="flex items-center gap-3 bg-muted/50 p-3 rounded-lg">
+                      <ArrowRight className="h-4 w-4 text-accent flex-shrink-0" />
+                      <span className="text-sm font-medium text-foreground">{feature}</span>
                     </div>
                   ))}
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           ))}
         </div>
 
