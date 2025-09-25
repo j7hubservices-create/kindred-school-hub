@@ -64,8 +64,25 @@ const GallerySliderSection = () => {
 
   const fetchGalleryImages = async () => {
     try {
-      // Use static images for now since gallery_images table doesn't exist
-      setGalleryImages([]);
+      // Fetch gallery images from content_items with content_type 'news' and specific tag
+      const { data, error } = await supabase
+        .from('content_items')
+        .select('id, title, image_url')
+        .eq('content_type', 'news')
+        .eq('published', true)
+        .not('image_url', 'is', null)
+        .order('created_at', { ascending: false })
+        .limit(20);
+
+      if (data && !error) {
+        const formattedImages: GalleryImage[] = data.map(item => ({
+          id: item.id,
+          title: item.title,
+          image_url: item.image_url || '/placeholder.svg',
+          alt_text: item.title
+        }));
+        setGalleryImages(formattedImages);
+      }
     } catch (error) {
       console.error('Error fetching gallery images:', error);
     }

@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import BlogPreviewSection from "@/components/BlogPreviewSection";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -374,6 +375,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Latest News Posts */}
+      <BlogPreviewSection />
 
       {/* Contact Information */}
       <section className="py-16 bg-background">

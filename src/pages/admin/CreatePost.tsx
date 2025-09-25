@@ -98,7 +98,7 @@ const CreatePost = () => {
           content_type: 'news',
           published: publishNow,
           featured: false,
-          author_id: profile.id
+          author_id: profile?.id || null
         })
         .select()
         .single();
