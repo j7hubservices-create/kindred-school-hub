@@ -49,10 +49,16 @@ const CreatePost = () => {
 
   const fetchCategories = async () => {
     try {
-      // Categories table doesn't exist yet, using empty array
-      setCategories([]);
+      const { data, error } = await supabase
+        .from('categories')
+        .select('id, name')
+        .order('name');
+
+      if (error) throw error;
+      setCategories(data || []);
     } catch (error) {
       console.error('Error fetching categories:', error);
+      setCategories([]);
     }
   };
 
@@ -295,12 +301,18 @@ const CreatePost = () => {
                   <SelectTrigger className={errors.category_id ? 'border-red-500' : ''}>
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
-                  <SelectContent>
-                    {categories.map((category) => (
-                      <SelectItem key={category.id} value={category.id}>
-                        {category.name}
+                  <SelectContent className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg z-[100]">
+                    {categories.length > 0 ? (
+                      categories.map((category) => (
+                        <SelectItem key={category.id} value={category.id} className="hover:bg-gray-100 dark:hover:bg-gray-700">
+                          {category.name}
+                        </SelectItem>
+                      ))
+                    ) : (
+                      <SelectItem value="no-categories" disabled>
+                        No categories available
                       </SelectItem>
-                    ))}
+                    )}
                   </SelectContent>
                 </Select>
                 {errors.category_id && <p className="text-red-500 text-sm">{errors.category_id}</p>}
