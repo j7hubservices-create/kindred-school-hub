@@ -18,23 +18,23 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 160 100% 15%;
     
-    /* Primary - Deep Forest Green from flyer */
-    --primary: 160 100% 20%;
+    /* Primary - Green from school logo */
+    --primary: 155 95% 25%;
     --primary-foreground: 0 0% 98%;
-    --primary-light: 160 80% 35%;
-    --primary-dark: 160 100% 15%;
+    --primary-light: 155 80% 40%;
+    --primary-dark: 155 100% 15%;
     
-    /* Secondary - Bright Red from flyer */
-    --secondary: 0 85% 50%;
+    /* Secondary - Blue accent from logo */
+    --secondary: 210 85% 45%;
     --secondary-foreground: 0 0% 98%;
     
     /* Muted tones */
-    --muted: 160 15% 96%;
-    --muted-foreground: 160 10% 40%;
+    --muted: 155 20% 96%;
+    --muted-foreground: 155 15% 40%;
     
-    /* Accent - Gold/Yellow from flyer */
-    --accent: 50 100% 50%;
-    --accent-foreground: 160 100% 15%;
+    /* Accent - Gold/Yellow from logo */
+    --accent: 50 100% 60%;
+    --accent-foreground: 155 100% 15%;
     
     /* Destructive */
     --destructive: 0 84% 60%;
@@ -47,10 +47,10 @@ All colors MUST be HSL.
     
     --radius: 0.75rem;
     
-    /* Custom gradients from flyer design */
-    --gradient-hero: linear-gradient(135deg, hsl(160 100% 20%) 0%, hsl(160 90% 25%) 50%, hsl(160 100% 20%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(0 85% 50%) 0%, hsl(50 100% 50%) 100%);
-    --gradient-diagonal: linear-gradient(45deg, transparent 40%, hsl(160 100% 90% / 0.1) 50%, transparent 60%);
+    /* Custom gradients matching school logo */
+    --gradient-hero: linear-gradient(135deg, hsl(155 95% 25%) 0%, hsl(210 85% 45%) 50%, hsl(155 95% 25%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(50 100% 60%) 0%, hsl(210 85% 45%) 100%);
+    --gradient-diagonal: linear-gradient(45deg, transparent 40%, hsl(155 100% 90% / 0.1) 50%, transparent 60%);
     
     /* Shadows */
     --shadow-card: 0 4px 6px -1px hsl(160 100% 20% / 0.1), 0 2px 4px -1px hsl(160 100% 20% / 0.06);

@@ -25,13 +25,15 @@ const Navigation = () => {
   const aboutItems = [
     { name: "About School", path: "/about" },
     { name: "Leadership Team", path: "/leadership" },
+    { name: "E-Learning", path: "/e-learning" },
+    { name: "Library", path: "/library" },
   ];
 
   const portalItems = [
     { name: "Student Portal", path: "/e-learning" },
     { name: "Library", path: "/library" },
     { name: "Staff Portal", path: "/portals" },
-    { name: "Admin Portal", path: "/admin-cms" },
+    { name: "Admin Portal", path: "/admin-cms/dashboard" },
   ];
 
   return (

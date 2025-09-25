@@ -6,10 +6,10 @@ import { Badge } from "@/components/ui/badge";
 import { Mail, Phone, Award } from "lucide-react";
 
 // Import leadership images
-import proprietressImage from "@/assets/proprietress.jpg";
-import principalImage from "@/assets/principal.jpg";
-import vicePrincipalImage from "@/assets/vice-principal.jpg";
-import chairmanImage from "@/assets/chairman.jpg";
+import proprietressImage from "@/assets/proprietress-new.jpg";
+import principalImage from "@/assets/principal-new.jpg";
+import vicePrincipalImage from "@/assets/vice-principal-new.jpg";
+import chairmanImage from "@/assets/chairman-new.jpg";
 
 const Leadership = () => {
   const leadershipTeam = [
@@ -17,33 +17,33 @@ const Leadership = () => {
       name: "Pastor (Mrs) Kehinde Adetuberu",
       position: "Proprietress",
       image: proprietressImage,
-      bio: "Visionary leader dedicated to providing quality Christian education and nurturing young minds for excellence.",
+      bio: "Leading our school with vision, faith, and unwavering commitment to excellence in education and character development. Passionate about nurturing young minds in both academic excellence and moral uprightness.",
       qualifications: ["M.Ed in Educational Management", "B.A in English Language", "Ordained Minister"],
-      contact: { email: "proprietress@ogrc.edu.ng", phone: "08027625129" }
+      contact: { email: "ogrcs@yahoo.com", phone: "08027625129" }
     },
     {
-      name: "Dr. Adebayo Johnson",
+      name: "Pastor Akinsanya Aderemi Adetuberu (FCA)",
+      position: "Chairman",
+      image: chairmanImage,
+      bio: "Distinguished chartered accountant and spiritual leader providing strategic oversight and governance to ensure the school's continued growth and academic success.",
+      qualifications: ["Fellow of Chartered Accountants (FCA)", "B.Sc in Accounting", "Ordained Minister"],
+      contact: { email: "ogrcs@yahoo.com", phone: "08033089735" }
+    },
+    {
+      name: "Pastor Joseph Oladele",
       position: "Principal",
       image: principalImage,
-      bio: "Experienced educator with over 20 years in academic leadership, committed to academic excellence and character development.",
-      qualifications: ["Ph.D in Educational Leadership", "M.Sc in Mathematics", "B.Ed in Mathematics"],
-      contact: { email: "principal@ogrc.edu.ng", phone: "08033089735" }
+      bio: "Experienced educator overseeing daily academic operations and ensuring the highest standards of education and discipline in all school activities.",
+      qualifications: ["M.Ed in Educational Administration", "B.Ed in Mathematics", "Ordained Minister"],
+      contact: { email: "ogrcs@yahoo.com", phone: "08147059922" }
     },
     {
-      name: "Mrs. Folake Adeyemi",
-      position: "Vice Principal (Academics)",
+      name: "Mrs Abosede Taiwo",
+      position: "Vice Principal",
       image: vicePrincipalImage,
-      bio: "Passionate about curriculum development and academic innovation, ensuring students receive world-class education.",
-      qualifications: ["M.Ed in Curriculum Studies", "B.Sc in Chemistry", "PGDE"],
-      contact: { email: "vp.academics@ogrc.edu.ng", phone: "08045123456" }
-    },
-    {
-      name: "Chief Samuel Okoye",
-      position: "Chairman, Board of Trustees",
-      image: chairmanImage,
-      bio: "Distinguished businessman and philanthropist with a heart for education and youth development.",
-      qualifications: ["MBA in Business Administration", "B.Sc in Economics", "Fellow, Nigerian Institute of Management"],
-      contact: { email: "chairman@ogrc.edu.ng", phone: "08067891234" }
+      bio: "Supporting academic excellence and student welfare with dedication and professional expertise in curriculum development and student management.",
+      qualifications: ["M.Ed in Curriculum Studies", "B.Sc in Education", "PGDE"],
+      contact: { email: "ogrcs@yahoo.com", phone: "08067795900" }
     }
   ];
 
