@@ -57,10 +57,11 @@ const GallerySliderSection = () => {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % Math.max(allImages.length, 1));
+      const totalImages = galleryImages.length > 0 ? galleryImages.length : staticImages.length;
+      setCurrentSlide((prev) => (prev + 1) % Math.max(totalImages, 1));
     }, 5000);
     return () => clearInterval(timer);
-  }, [galleryImages.length]);
+  }, [galleryImages.length, staticImages.length]);
 
   const fetchGalleryImages = async () => {
     try {
@@ -107,7 +108,7 @@ const GallerySliderSection = () => {
     };
   }, []);
 
-  const allImages = [...galleryImages, ...staticImages];
+  const allImages = galleryImages.length > 0 ? galleryImages : staticImages;
   const visibleImages = allImages.slice(currentSlide, currentSlide + 4);
   
   if (visibleImages.length < 4 && allImages.length > 4) {
@@ -141,28 +142,35 @@ const GallerySliderSection = () => {
         <div className="relative">
           {/* Gallery Slider */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-            {visibleImages.map((image, index) => (
-              <Card key={`${image.id}-${index}`} className="group overflow-hidden hover-scale shadow-card">
-                <CardContent className="p-0">
-                  <div className="relative">
-                    <img
-                      src={image.image_url}
-                      alt={image.alt_text || image.title}
-                      className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
-                      onError={(e) => {
-                        e.currentTarget.src = '/placeholder.svg';
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                      <Camera className="h-8 w-8 text-primary-foreground" />
+            {allImages.length > 0 ? (
+              visibleImages.map((image, index) => (
+                <Card key={`${image.id}-${index}`} className="group overflow-hidden hover-scale shadow-card">
+                  <CardContent className="p-0">
+                    <div className="relative">
+                      <img
+                        src={image.image_url}
+                        alt={image.alt_text || image.title}
+                        className="w-full h-64 object-cover transition-transform duration-300 group-hover:scale-110"
+                        onError={(e) => {
+                          e.currentTarget.src = '/placeholder.svg';
+                        }}
+                      />
+                      <div className="absolute inset-0 bg-primary/60 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <Camera className="h-8 w-8 text-primary-foreground" />
+                      </div>
+                      <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-primary/80 to-transparent p-4">
+                        <h3 className="text-primary-foreground font-semibold text-sm">{image.title}</h3>
+                      </div>
                     </div>
-                    <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-primary/80 to-transparent p-4">
-                      <h3 className="text-primary-foreground font-semibold text-sm">{image.title}</h3>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+                  </CardContent>
+                </Card>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-12">
+                <Camera className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+                <p className="text-muted-foreground text-lg">No gallery images available yet</p>
+              </div>
+            )}
           </div>
 
           {/* Navigation Arrows */}
@@ -171,6 +179,7 @@ const GallerySliderSection = () => {
             size="icon"
             className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 bg-primary text-primary-foreground border-none hover:bg-primary-dark shadow-school"
             onClick={prevSlide}
+            disabled={allImages.length <= 4}
           >
             <ChevronLeft className="h-5 w-5" />
           </Button>
@@ -179,23 +188,26 @@ const GallerySliderSection = () => {
             size="icon"
             className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 bg-primary text-primary-foreground border-none hover:bg-primary-dark shadow-school"
             onClick={nextSlide}
+            disabled={allImages.length <= 4}
           >
             <ChevronRight className="h-5 w-5" />
           </Button>
         </div>
 
-        {/* Gallery Indicators */}
-        <div className="flex justify-center space-x-2 mb-8">
-          {Array.from({ length: Math.ceil(allImages.length / 4) }).map((_, index) => (
-            <button
-              key={index}
-              className={`w-3 h-3 rounded-full transition-colors ${
-                Math.floor(currentSlide / 4) === index ? 'bg-primary' : 'bg-muted-foreground/30'
-              }`}
-              onClick={() => setCurrentSlide(index * 4)}
-            />
-          ))}
-        </div>
+        {/* Gallery Indicators */} 
+        {allImages.length > 4 && (
+          <div className="flex justify-center space-x-2 mb-8">
+            {Array.from({ length: Math.ceil(allImages.length / 4) }).map((_, index) => (
+              <button
+                key={index}
+                className={`w-3 h-3 rounded-full transition-colors ${
+                  Math.floor(currentSlide / 4) === index ? 'bg-primary' : 'bg-muted-foreground/30'
+                }`}
+                onClick={() => setCurrentSlide(index * 4)}
+              />
+            ))}
+          </div>
+        )}
 
         {/* View All Button */}
         <div className="text-center">
