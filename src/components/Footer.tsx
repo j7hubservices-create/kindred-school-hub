@@ -1,7 +1,7 @@
 import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, Youtube } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import schoolLogo from "@/assets/school-logo.png";
+import schoolLogo from "@/assets/school-logo-main.jpeg";
 
 const Footer = () => {
   const quickLinks = [

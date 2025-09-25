@@ -1,42 +1,44 @@
+import { Link } from "react-router-dom";
 import { useState } from "react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Menu, X, ExternalLink } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
-import schoolLogo from "@/assets/school-logo.png";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import schoolLogo from "@/assets/school-logo-main.jpeg";
 
 const Navigation = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const menuItems = [
+  const navItems = [
     { name: "Home", path: "/" },
     { name: "About", path: "/about" },
     { name: "Admissions", path: "/admissions" },
-    { name: "Library", path: "/library" },
-    { name: "E-Learning", path: "/e-learning" },
     { name: "School Fees", path: "/school-fees" },
     { name: "Gallery", path: "/gallery" },
     { name: "Blog", path: "/blog" },
-    { name: "Contact", path: "/contact" }
+    { name: "Contact", path: "/contact" },
   ];
 
   const portalItems = [
-    { name: "Student Portal", url: "https://ogrcs.edutams.net/" },
-    { name: "Parent Portal", url: "https://ogrcs.edutams.net/" },
-    { name: "Staff Portal", url: "https://ogrcs.edutams.net/" },
-    { name: "Admin Portal", url: "https://ogrcs.edutams.net/" }
+    { name: "Student Portal", path: "/e-learning" },
+    { name: "Library", path: "/library" },
+    { name: "Staff Portal", path: "/portals" },
+    { name: "Admin Portal", path: "/admin-cms" },
   ];
 
   return (
-    <nav className="bg-background border-b border-border sticky top-0 z-50 shadow-sm">
+    <nav className="bg-primary-foreground shadow-card sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link to="/" className="flex items-center gap-3">
+          <Link to="/" className="flex items-center space-x-3">
             <img 
               src={schoolLogo} 
               alt="Our God Reigns Crystal School Logo" 
-              className="h-10 w-10 object-contain"
+              className="h-10 w-10 rounded-full object-cover"
             />
             <div>
               <h2 className="text-lg font-bold text-primary">Our God Reigns Crystal School</h2>
@@ -44,105 +46,74 @@ const Navigation = () => {
             </div>
           </Link>
 
-          {/* Desktop Menu */}
-          <div className="hidden lg:flex items-center space-x-1">
-            {menuItems.map((item) => (
-              <Link key={item.name} to={item.path}>
-                <Button
-                  variant="ghost"
-                  className={`text-foreground hover:text-primary hover:bg-primary/10 font-medium ${
-                    location.pathname === item.path ? 'text-primary bg-primary/10' : ''
-                  }`}
-                >
-                  {item.name}
-                </Button>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex items-center space-x-6">
+            {navItems.map((item) => (
+              <Link
+                key={item.name}
+                to={item.path}
+                className="text-primary hover:text-secondary font-semibold transition-colors story-link"
+              >
+                {item.name}
               </Link>
             ))}
             
-            {/* Portals Dropdown */}
-            <div className="relative group">
-              <Button
-                variant="ghost"
-                className="text-foreground hover:text-primary hover:bg-primary/10 font-medium"
-              >
-                Portals
-                <ExternalLink className="h-3 w-3 ml-1" />
-              </Button>
-              
-              <div className="absolute top-full left-0 mt-1 w-48 bg-background border border-border rounded-md shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                {portalItems.map((portal, index) => (
-                  <div key={index}>
-                    <a 
-                      href={portal.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-4 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary"
-                    >
-                      {portal.name}
-                      <ExternalLink className="h-3 w-3" />
-                    </a>
-                  </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="text-primary hover:text-secondary font-semibold">
+                  Portals <ChevronDown className="ml-1 h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-card border-border shadow-school">
+                {portalItems.map((item) => (
+                  <DropdownMenuItem key={item.name} asChild>
+                    <Link to={item.path} className="text-card-foreground hover:text-primary">
+                      {item.name}
+                    </Link>
+                  </DropdownMenuItem>
                 ))}
-              </div>
-            </div>
-            
-            {/* Admin Login Button */}
-            <Link to="/auth">
-              <Button
-                variant="outline"
-                size="sm"
-                className="border-emerald-600 text-emerald-600 hover:bg-emerald-50"
-              >
-                Admin Login
-              </Button>
-            </Link>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <Button asChild className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold">
+              <Link to="/admissions">🚀 Apply Now</Link>
+            </Button>
           </div>
 
-          {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="sm"
-            className="lg:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          {/* Mobile menu button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden text-primary hover:text-secondary"
           >
-            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
+            {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
 
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="lg:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1 border-t border-border bg-background">
-              {menuItems.map((item) => (
-                <Link key={item.name} to={item.path}>
-                  <Button
-                    variant="ghost"
-                    className={`w-full justify-start text-foreground hover:text-primary hover:bg-primary/10 ${
-                      location.pathname === item.path ? 'text-primary bg-primary/10' : ''
-                    }`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Button>
+        {/* Mobile Navigation */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden border-t border-border">
+            <div className="px-2 pt-2 pb-3 space-y-1">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className="block px-3 py-2 text-primary hover:text-secondary font-semibold"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.name}
                 </Link>
               ))}
-              
-              {/* Mobile Portals */}
-              <div className="pt-2 border-t border-border">
-                <div className="text-xs font-semibold text-muted-foreground px-3 py-2">PORTALS</div>
-                {portalItems.map((portal, index) => (
-                  <div key={index}>
-                    <a 
-                      href={portal.url} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-2 px-3 py-2 text-sm text-foreground hover:bg-primary/10 hover:text-primary"
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      {portal.name}
-                      <ExternalLink className="h-3 w-3" />
-                    </a>
-                  </div>
+              <div className="border-t border-border pt-2 mt-2">
+                <p className="px-3 py-1 text-sm font-semibold text-muted-foreground">Portals</p>
+                {portalItems.map((item) => (
+                  <Link
+                    key={item.name}
+                    to={item.path}
+                    className="block px-3 py-2 text-primary hover:text-secondary"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
                 ))}
               </div>
             </div>

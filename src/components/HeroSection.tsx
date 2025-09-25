@@ -1,58 +1,93 @@
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import admissionFlyer from "@/assets/admission-flyer-new.jpg";
+import { Badge } from "@/components/ui/badge";
+import { GraduationCap, Users, BookOpen, Award } from "lucide-react";
+import schoolFlyer from "@/assets/school-flyer-main.jpg";
+import schoolLogo from "@/assets/school-logo-main.jpeg";
 
 const HeroSection = () => {
   return (
-    <section className="bg-gradient-to-br from-emerald-600 via-emerald-700 to-emerald-800 text-white py-20">
-      <div className="container mx-auto px-4">
+    <section className="bg-gradient-hero text-primary-foreground py-20 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-diagonal opacity-10"></div>
+      <div className="container mx-auto px-4 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
-          <div className="flex-1 space-y-6">
-            <div className="inline-block bg-yellow-500 text-black px-4 py-2 rounded-full text-sm font-semibold">
-              Admission Open for 2025/2026 Session
-            </div>
+          <div className="flex-1 space-y-8">
+            <Badge className="bg-secondary text-secondary-foreground px-6 py-3 text-lg font-bold">
+              🚀 ADMISSION IN PROGRESS - JSS & SSS CLASSES
+            </Badge>
             
-            <h1 className="text-4xl md:text-6xl font-bold leading-tight">
-              Our God Reigns<br />
-              <span className="text-yellow-400">Crystal School</span>
-            </h1>
-            
-            <div className="text-xl md:text-2xl font-semibold text-yellow-100">
-              Light to the World
-            </div>
-            
-            <p className="text-lg md:text-xl text-gray-100 max-w-2xl">
-              Where academic excellence meets Christian values. Nurturing tomorrow's leaders with 
-              integrity, knowledge, and divine purpose.
-            </p>
-            
-            <div className="flex flex-col sm:flex-row gap-4 pt-4">
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 flex-1">
-                <div className="text-yellow-400 font-semibold text-sm mb-1">JSS & SSS</div>
-                <div className="text-white">Available Classes</div>
+            <div className="space-y-4">
+              <h1 className="text-5xl md:text-7xl font-bold leading-tight">
+                Our God Reigns<br />
+                <span className="text-secondary">Crystal School</span>
+              </h1>
+              
+              <div className="text-2xl md:text-3xl font-bold text-secondary">
+                Light to the World
               </div>
-              <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-4 flex-1">
-                <div className="text-yellow-400 font-semibold text-sm mb-1">Excellence</div>
-                <div className="text-white">Academic Record</div>
+              
+              <p className="text-xl md:text-2xl text-primary-foreground/90 max-w-2xl leading-relaxed">
+                ...a place for academic and moral excellence
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-6">
+              <div className="bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/20 rounded-xl p-4 text-center">
+                <GraduationCap className="h-8 w-8 text-secondary mx-auto mb-2" />
+                <div className="text-secondary font-bold text-sm">QUALITY</div>
+                <div className="text-primary-foreground text-xs">Education</div>
+              </div>
+              <div className="bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/20 rounded-xl p-4 text-center">
+                <Users className="h-8 w-8 text-secondary mx-auto mb-2" />
+                <div className="text-secondary font-bold text-sm">CARING</div>
+                <div className="text-primary-foreground text-xs">Teachers</div>
+              </div>
+              <div className="bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/20 rounded-xl p-4 text-center">
+                <BookOpen className="h-8 w-8 text-secondary mx-auto mb-2" />
+                <div className="text-secondary font-bold text-sm">MODERN</div>
+                <div className="text-primary-foreground text-xs">Curriculum</div>
+              </div>
+              <div className="bg-primary-foreground/10 backdrop-blur-sm border border-primary-foreground/20 rounded-xl p-4 text-center">
+                <Award className="h-8 w-8 text-secondary mx-auto mb-2" />
+                <div className="text-secondary font-bold text-sm">PROVEN</div>
+                <div className="text-primary-foreground text-xs">Results</div>
               </div>
             </div>
             
-            <div className="flex flex-col sm:flex-row gap-4 pt-6">
-              <Button asChild className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold">
-                <Link to="/admissions">Apply for Admission</Link>
+            <div className="flex flex-col sm:flex-row gap-4 pt-8">
+              <Button 
+                asChild 
+                size="lg"
+                className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold text-lg px-8 py-4"
+              >
+                <Link to="/admissions">🎓 Apply for Admission</Link>
               </Button>
-              <Button asChild variant="outline" className="border-white text-white hover:bg-white hover:text-emerald-800">
-                <Link to="/about">Learn More</Link>
+              <Button 
+                asChild 
+                variant="outline" 
+                size="lg"
+                className="border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary font-bold text-lg px-8 py-4"
+              >
+                <Link to="/about">📚 Learn More</Link>
               </Button>
             </div>
           </div>
           
-          <div className="flex-1 max-w-md">
-            <img 
-              src={admissionFlyer} 
-              alt="Our God Reigns Crystal School - Admission in Progress"
-              className="w-full h-auto rounded-lg shadow-2xl"
-            />
+          <div className="flex-1 max-w-lg relative">
+            <div className="relative">
+              <img 
+                src={schoolFlyer} 
+                alt="Our God Reigns Crystal School - Admission in Progress"
+                className="w-full h-auto rounded-2xl shadow-school hover-scale"
+              />
+              <div className="absolute -top-4 -right-4 bg-secondary text-secondary-foreground rounded-full p-4 shadow-school">
+                <img 
+                  src={schoolLogo} 
+                  alt="School Logo" 
+                  className="h-12 w-12"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
