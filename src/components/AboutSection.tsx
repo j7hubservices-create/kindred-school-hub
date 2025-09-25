@@ -136,49 +136,6 @@ const AboutSection = () => {
           ))}
         </div>
 
-        {/* School Heritage & Achievement Highlights */}
-        <div className="mb-20">
-          <Card className="bg-white/95 backdrop-blur-sm p-8 shadow-school border-accent/20">
-            <div className="text-center mb-8">
-              <h3 className="text-3xl font-bold text-primary mb-4">Our Heritage & Achievements</h3>
-              <p className="text-lg text-foreground max-w-3xl mx-auto">
-                A decade of transforming lives through education, character building, and spiritual growth
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="text-center">
-                <div className="bg-accent/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Award className="h-10 w-10 text-accent" />
-                </div>
-                <h4 className="text-xl font-bold text-primary mb-2">Academic Excellence</h4>
-                <p className="text-foreground">
-                  Consistent outstanding performance in WAEC and NECO examinations with 95%+ pass rates
-                </p>
-              </div>
-              
-              <div className="text-center">
-                <div className="bg-primary/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Users className="h-10 w-10 text-primary" />
-                </div>
-                <h4 className="text-xl font-bold text-primary mb-2">Community Impact</h4>
-                <p className="text-foreground">
-                  Over 2000 graduates making positive contributions in their communities and chosen careers
-                </p>
-              </div>
-              
-              <div className="text-center">
-                <div className="bg-accent/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Star className="h-10 w-10 text-accent" />
-                </div>
-                <h4 className="text-xl font-bold text-primary mb-2">Recognition</h4>
-                <p className="text-foreground">
-                  Multiple awards for educational excellence and community service in Ogun State
-                </p>
-              </div>
-            </div>
-          </Card>
-        </div>
 
         {/* Core Values */}
         <div className="mb-20">
@@ -248,58 +205,6 @@ const AboutSection = () => {
           </div>
         </div>
 
-        {/* Enhanced Leadership Section */}
-        <div className="mb-20">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-primary mb-4">Meet Our Leadership</h3>
-            <p className="text-lg text-foreground max-w-2xl mx-auto">
-              Experienced educators and leaders dedicated to your child's success and holistic development
-            </p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {leadership.map((leader, index) => (
-              <Card key={index} className="overflow-hidden shadow-school hover-scale border-none bg-white/95 backdrop-blur-sm">
-                <CardContent className="p-0">
-                  <div className="relative">
-                    <img 
-                      src={leader.image} 
-                      alt={leader.name}
-                      className="w-full h-48 object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent"></div>
-                    <div className="absolute bottom-4 left-4 text-white">
-                      <h4 className="font-bold text-lg">{leader.name}</h4>
-                      <p className="text-accent text-sm font-medium">{leader.title}</p>
-                    </div>
-                  </div>
-                  <div className="p-4 text-center bg-white">
-                    <p className="text-sm text-foreground">{leader.description}</p>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-
-        {/* Enhanced Call to Action */}
-        <Card className="bg-gradient-hero text-white p-12 text-center shadow-school relative overflow-hidden">
-          <div className="absolute inset-0 bg-primary/95"></div>
-          <div className="relative z-10">
-            <h3 className="text-3xl font-bold mb-4">Ready to Begin This Journey?</h3>
-            <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-              Join our community of learners, leaders, and change-makers. Give your child 
-              the foundation for a bright and successful future with us at Our God Reigns Crystal School.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-lg px-8">
-                <Link to="/admissions">Apply for Admission</Link>
-              </Button>
-              <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary font-bold text-lg px-8">
-                <Link to="/contact">Schedule a Visit</Link>
-              </Button>
-            </div>
-          </div>
-        </Card>
       </div>
     </section>
   );

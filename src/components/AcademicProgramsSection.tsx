@@ -87,46 +87,6 @@ const AcademicProgramsSection = () => {
           ))}
         </div>
 
-        <div className="mb-12">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-primary mb-4">Special Programs & Activities</h3>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Beyond academics, we offer diverse programs to nurture every aspect of student development
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {specialPrograms.map((program, index) => (
-              <Card key={index} className="text-center p-6 shadow-card hover-scale transition-all duration-200 border-none">
-                <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <program.icon className="h-8 w-8 text-accent" />
-                </div>
-                <h4 className="text-lg font-bold text-primary mb-2">{program.title}</h4>
-                <p className="text-sm text-muted-foreground">{program.description}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-
-        <div className="text-center">
-          <Card className="bg-gradient-hero text-white p-12 shadow-school relative overflow-hidden">
-            <div className="absolute inset-0 bg-primary/95"></div>
-            <div className="relative z-10">
-              <h3 className="text-3xl font-bold mb-4">Ready to Enroll Your Child?</h3>
-              <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-                Give your child the foundation for academic success and character development
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" className="bg-accent hover:bg-accent/90 text-accent-foreground font-bold text-lg px-8">
-                  <Link to="/admissions">Apply for Admission</Link>
-                </Button>
-                <Button asChild size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-primary font-bold text-lg px-8">
-                  <Link to="/contact">Schedule a Visit</Link>
-                </Button>
-              </div>
-            </div>
-          </Card>
-        </div>
       </div>
     </section>
   );
