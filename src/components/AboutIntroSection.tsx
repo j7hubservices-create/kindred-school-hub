@@ -15,11 +15,11 @@ const AboutIntroSection = () => {
             
             <div className="space-y-6 text-lg text-muted-foreground">
               <p>
-                <strong className="text-foreground">Our Mission:</strong> To provide quality education that nurtures academic excellence, character development, and spiritual growth in a safe, supportive environment where every child can discover and develop their unique God-given potential.
+                <strong className="text-foreground">Our Vision:</strong> To provide qualitative and affordable education. To raise God fearing leaders.
               </p>
               
               <p>
-                <strong className="text-foreground">Our Vision:</strong> To be a beacon of educational excellence that produces well-rounded individuals who are academically sound, morally upright, and spiritually grounded to become positive change agents in society.
+                <strong className="text-foreground">Our Mission:</strong> To maintain high standard at all times. To always ensure that our services are not overpriced. To nurture our students in the way of the Lord. To mentor our students to occupy leadership positions.
               </p>
             </div>
             

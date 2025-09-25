@@ -29,7 +29,7 @@ const About = () => {
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold text-primary mb-4">Our Vision</h3>
                 <p className="text-card-foreground leading-relaxed">
-                  To provide qualitative and affordable education. To raise God fearing leaders who will impact their generation and beyond with excellence and integrity.
+                  To provide qualitative and affordable education. To raise God fearing leaders.
                 </p>
               </CardContent>
             </Card>
@@ -38,7 +38,7 @@ const About = () => {
               <CardContent className="p-8">
                 <h3 className="text-2xl font-bold text-secondary mb-4">Our Mission</h3>
                 <p className="text-card-foreground leading-relaxed">
-                  To maintain high standards at all times. To always ensure that our services are not overpriced. To nurture our students in the way of the Lord. To mentor our students to occupy leadership positions in society.
+                  To maintain high standard at all times. To always ensure that our services are not overpriced. To nurture our students in the way of the Lord. To mentor our students to occupy leadership positions.
                 </p>
               </CardContent>
             </Card>

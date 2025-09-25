@@ -161,27 +161,24 @@ const AboutSection = () => {
         {/* School Mission & Vision Highlight */}
         <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
           <div className="space-y-6">
-            <div className="bg-white/95 backdrop-blur-sm p-6 rounded-lg shadow-card border border-primary/10">
-              <h4 className="text-xl font-bold text-primary mb-3 flex items-center gap-2">
-                <Target className="h-5 w-5" />
-                Our Mission
-              </h4>
-              <p className="text-foreground leading-relaxed">
-                To provide quality education that develops the intellectual, spiritual, moral, and physical 
-                potential of every student, preparing them to be responsible citizens and leaders who will 
-                make positive contributions to society through Christian values and academic excellence.
-              </p>
-            </div>
-            
             <div className="bg-white/95 backdrop-blur-sm p-6 rounded-lg shadow-card border border-accent/20">
               <h4 className="text-xl font-bold text-primary mb-3 flex items-center gap-2">
                 <Globe className="h-5 w-5" />
                 Our Vision
               </h4>
               <p className="text-foreground leading-relaxed">
-                To be a leading educational institution that produces academically excellent, 
-                morally upright, and spiritually grounded students who serve as light to the world 
-                in their various endeavors, making lasting impact in their communities.
+                To provide qualitative and affordable education. To raise God fearing leaders.
+              </p>
+            </div>
+            
+            <div className="bg-white/95 backdrop-blur-sm p-6 rounded-lg shadow-card border border-primary/10">
+              <h4 className="text-xl font-bold text-primary mb-3 flex items-center gap-2">
+                <Target className="h-5 w-5" />
+                Our Mission
+              </h4>
+              <p className="text-foreground leading-relaxed">
+                To maintain high standard at all times. To always ensure that our services are not overpriced. 
+                To nurture our students in the way of the Lord. To mentor our students to occupy leadership positions.
               </p>
             </div>
           </div>
