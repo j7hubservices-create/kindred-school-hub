@@ -1,39 +1,57 @@
+import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import newsAdeyemoImage from "@/assets/news-adeyemo.jpg";
-import newsCulturalImage from "@/assets/news-cultural.jpg";
-import newsNecoImage from "@/assets/news-neco.jpg";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { supabase } from "@/integrations/supabase/client";
+import { formatDistance } from "date-fns";
+
+interface Post {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string | null;
+  content: string | null;
+  featured_image_url: string | null;
+  published_at: string;
+  categories: {
+    name: string;
+    slug: string;
+  } | null;
+  profiles: {
+    full_name: string;
+  } | null;
+}
 
 const Blog = () => {
-  const newsItems = [
-    {
-      id: 1,
-      image: newsAdeyemoImage,
-      category: "News",
-      date: "9/23/2025",
-      title: "Miss Adeyemo wins one Million naira prize",
-      excerpt: "Congratulations, Miss Adeyemo! You have truly made us all proud and have shown that with dedication, hard work, and quality education, our students can achieve greatness at the national level."
-    },
-    {
-      id: 2,
-      image: newsCulturalImage,
-      category: "News",
-      date: "9/23/2025",
-      title: "Our annual Cultural Heritage Celebration",
-      excerpt: "Our annual Cultural Heritage Celebration for the 2024/2025 academic session was a spectacular showcase of Nigerian culture and traditions. Students from all levels participated enthusiastically in various cultural activities."
-    },
-    {
-      id: 3,
-      image: newsNecoImage,
-      category: "News",
-      date: "9/23/2025",
-      title: "NECO EXCELLENCE AWARDS 2025",
-      excerpt: "Our God Reigns Crystal School was proudly represented at the Learn Africa Education Development Foundation NECO Excellence Awards 2025, where our students and school received national recognition for outstanding academic performance."
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('posts')
+        .select(`
+          *,
+          categories:category_id (name, slug),
+          profiles:author_id (full_name)
+        `)
+        .eq('status', 'published')
+        .order('published_at', { ascending: false });
+
+      if (error) throw error;
+      setPosts(data || []);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    } finally {
+      setLoading(false);
     }
-  ];
+  };
 
   return (
     <div className="min-h-screen">
@@ -44,37 +62,75 @@ const Blog = () => {
       <section className="py-16 bg-emerald-600 text-white">
         <div className="container mx-auto px-4 text-center">
           <Badge className="bg-yellow-500 text-yellow-900 mb-6 px-4 py-2">
-            Latest News
+            School News & Updates
           </Badge>
-          <h1 className="text-5xl font-bold mb-4">Latest News & Events</h1>
-          <p className="text-xl mb-8">Stay updated with our school community</p>
+          <h1 className="text-5xl font-bold mb-4">Our God Reigns Blog</h1>
+          <p className="text-xl mb-8">Stay updated with the latest news and events from our school</p>
         </div>
       </section>
 
-      {/* News Grid */}
+      {/* Posts Section */}
       <section className="py-16 bg-white">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {newsItems.map((item) => (
-              <Card key={item.id} className="border-emerald-200 shadow-lg hover:shadow-xl transition-shadow">
-                <div className="relative">
-                  <img 
-                    src={item.image} 
-                    alt={item.title}
-                    className="w-full h-48 object-cover rounded-t-lg"
-                  />
-                  <Badge className="absolute top-4 left-4 bg-emerald-600 text-white">
-                    {item.category}
-                  </Badge>
-                </div>
-                <CardContent className="p-6">
-                  <p className="text-sm text-gray-600 mb-2">{item.date}</p>
-                  <h3 className="text-xl font-bold text-emerald-600 mb-3">{item.title}</h3>
-                  <p className="text-gray-700 text-sm leading-relaxed">{item.excerpt}</p>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          {loading ? (
+            <div className="flex items-center justify-center h-64">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
+            </div>
+          ) : posts.length === 0 ? (
+            <div className="text-center py-16">
+              <h3 className="text-xl font-semibold text-gray-600 mb-4">No posts available yet</h3>
+              <p className="text-gray-500">Check back later for updates and news from our school.</p>
+            </div>
+          ) : (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {posts.map((post) => (
+                <Card key={post.id} className="border-emerald-200 shadow-lg hover:shadow-xl transition-shadow">
+                  {post.featured_image_url && (
+                    <div className="relative">
+                      <img 
+                        src={post.featured_image_url} 
+                        alt={post.title}
+                        className="w-full h-48 object-cover rounded-t-lg"
+                        onError={(e) => {
+                          e.currentTarget.src = '/placeholder.svg';
+                        }}
+                      />
+                    </div>
+                  )}
+                  <CardHeader>
+                    <div className="flex items-center justify-between mb-2">
+                      {post.categories && (
+                        <Badge variant="secondary" className="text-xs">
+                          {post.categories.name}
+                        </Badge>
+                      )}
+                      <span className="text-xs text-gray-500">
+                        {formatDistance(new Date(post.published_at), new Date(), { addSuffix: true })}
+                      </span>
+                    </div>
+                    <CardTitle className="text-emerald-600 hover:text-emerald-700 transition-colors">
+                      {post.title}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    {post.excerpt && (
+                      <p className="text-gray-600 text-sm line-clamp-3 mb-3">
+                        {post.excerpt}
+                      </p>
+                    )}
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs text-gray-500">
+                        By {post.profiles?.full_name || 'Admin'}
+                      </span>
+                      <button className="text-emerald-600 hover:text-emerald-700 text-sm font-medium">
+                        Read More →
+                      </button>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 

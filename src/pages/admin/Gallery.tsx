@@ -67,6 +67,7 @@ const Gallery = () => {
     tags: ''
   });
   const [errors, setErrors] = useState<any>({});
+  const [uploading, setUploading] = useState(false);
   const { profile } = useAuth();
 
   useEffect(() => {
@@ -116,6 +117,49 @@ const Gallery = () => {
   const openPreviewDialog = (image: GalleryImage) => {
     setPreviewImage(image);
     setPreviewDialogOpen(true);
+  };
+
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Validate file type
+    if (!file.type.startsWith('image/')) {
+      toast.error('Please select an image file');
+      return;
+    }
+
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('File size must be less than 5MB');
+      return;
+    }
+
+    setUploading(true);
+
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`;
+      const filePath = fileName;
+
+      const { error: uploadError } = await supabase.storage
+        .from('gallery')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('gallery')
+        .getPublicUrl(filePath);
+
+      setFormData({ ...formData, image_url: publicUrl });
+      toast.success('Image uploaded successfully');
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      toast.error('Failed to upload image');
+    } finally {
+      setUploading(false);
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -374,7 +418,16 @@ const Gallery = () => {
             
             <div className="grid gap-4 py-4">
               <div className="space-y-2">
-                <Label htmlFor="image_url">Image URL *</Label>
+                <Label htmlFor="image_file">Upload Image *</Label>
+                <Input
+                  id="image_file"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileUpload}
+                  className="cursor-pointer"
+                />
+                {uploading && <p className="text-blue-500 text-sm">Uploading...</p>}
+                <Label htmlFor="image_url" className="text-sm text-gray-500">Or enter image URL</Label>
                 <Input
                   id="image_url"
                   type="url"
