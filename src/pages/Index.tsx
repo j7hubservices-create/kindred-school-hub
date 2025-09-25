@@ -2,6 +2,8 @@ import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import BlogPreviewSection from "@/components/BlogPreviewSection";
+import HeroSection from "@/components/HeroSection";
+import ProprietressWelcomeSection from "@/components/ProprietressWelcomeSection";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -18,9 +20,6 @@ import {
   Calendar
 } from "lucide-react";
 import { Link } from "react-router-dom";
-import schoolLogo from "@/assets/school-logo-main.jpeg";
-import galleryImage from "@/assets/gallery-students-1.jpg";
-import ProprietressWelcomeSection from "@/components/ProprietressWelcomeSection";
 
 const Index = () => {
   return (
@@ -29,63 +28,18 @@ const Index = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-hero text-primary-foreground overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-diagonal opacity-30"></div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <div className="text-center lg:text-left">
-              <div className="flex items-center justify-center lg:justify-start mb-6">
-                <img 
-                  src={schoolLogo} 
-                  alt="Our God Reigns Crystal School" 
-                  className="h-20 w-20 rounded-full shadow-school"
-                />
-                <div className="ml-4">
-                  <h1 className="text-4xl lg:text-5xl font-bold mb-2">
-                    Our God Reigns Crystal School
-                  </h1>
-                  <p className="text-xl text-accent font-semibold">Light to the World</p>
-                </div>
-              </div>
-              
-              <p className="text-lg mb-8 opacity-90">
-                A place for academic and moral excellence where every child discovers their potential
-              </p>
-              
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground">
-                  <Link to="/admissions">Apply Now</Link>
-                </Button>
-                <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                  <Link to="/contact">Contact Us</Link>
-                </Button>
-                <Button asChild size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary">
-                  <Link to="/portals">Portal Login</Link>
-                </Button>
-              </div>
-            </div>
-            
-            <div className="flex justify-center">
-              <img 
-                src={galleryImage} 
-                alt="Students at Our God Reigns Crystal School" 
-                className="rounded-xl shadow-school max-w-md w-full"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+      <HeroSection />
 
       {/* About School - Short Intro */}
-      <section className="py-16 bg-muted/30">
+      <section className="py-12 md:py-16 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-foreground mb-6">About Our School</h2>
-            <p className="text-lg text-muted-foreground mb-6">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4 md:mb-6">About Our School</h2>
+            <p className="text-base md:text-lg text-muted-foreground mb-4 md:mb-6 leading-relaxed">
               Our God Reigns Crystal School is committed to providing quality education that combines 
               academic excellence with moral development, preparing students for a successful future.
             </p>
-            <Button asChild variant="outline">
+            <Button asChild variant="outline" className="touch-manipulation">
               <Link to="/about">Learn More About Us <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
           </div>
@@ -96,50 +50,50 @@ const Index = () => {
       <ProprietressWelcomeSection />
 
       {/* Announcements / News */}
-      <section className="py-16 bg-muted/30">
+      <section className="py-12 md:py-16 bg-muted/30">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-foreground mb-4">Latest News & Announcements</h2>
-            <p className="text-muted-foreground">Stay updated with school activities and important notices</p>
+          <div className="text-center mb-8 md:mb-12">
+            <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3 md:mb-4">Latest News & Announcements</h2>
+            <p className="text-sm md:text-base text-muted-foreground">Stay updated with school activities and important notices</p>
           </div>
           
-          <div className="grid md:grid-cols-3 gap-6">
-            <Card className="hover:shadow-school transition-shadow">
-              <CardContent className="p-6">
-                <Calendar className="h-8 w-8 text-primary mb-4" />
-                <h3 className="font-semibold text-foreground mb-2">Academic Session 2025/2026</h3>
-                <p className="text-muted-foreground text-sm mb-4">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            <Card className="hover:shadow-school transition-shadow touch-manipulation">
+              <CardContent className="p-4 md:p-6">
+                <Calendar className="h-6 w-6 md:h-8 md:w-8 text-primary mb-3 md:mb-4" />
+                <h3 className="font-semibold text-foreground mb-2 text-sm md:text-base">Academic Session 2025/2026</h3>
+                <p className="text-muted-foreground text-xs md:text-sm mb-3 md:mb-4">
                   First term begins with new opportunities for excellence
                 </p>
-                <Badge variant="outline">Latest</Badge>
+                <Badge variant="outline" className="text-xs">Latest</Badge>
               </CardContent>
             </Card>
             
-            <Card className="hover:shadow-school transition-shadow">
-              <CardContent className="p-6">
-                <Trophy className="h-8 w-8 text-accent mb-4" />
-                <h3 className="font-semibold text-foreground mb-2">Admission in Progress</h3>
-                <p className="text-muted-foreground text-sm mb-4">
+            <Card className="hover:shadow-school transition-shadow touch-manipulation">
+              <CardContent className="p-4 md:p-6">
+                <Trophy className="h-6 w-6 md:h-8 md:w-8 text-accent mb-3 md:mb-4" />
+                <h3 className="font-semibold text-foreground mb-2 text-sm md:text-base">Admission in Progress</h3>
+                <p className="text-muted-foreground text-xs md:text-sm mb-3 md:mb-4">
                   JSS & SSS classes accepting new students
                 </p>
-                <Badge variant="outline">Ongoing</Badge>
+                <Badge variant="outline" className="text-xs">Ongoing</Badge>
               </CardContent>
             </Card>
             
-            <Card className="hover:shadow-school transition-shadow">
-              <CardContent className="p-6">
-                <Star className="h-8 w-8 text-secondary mb-4" />
-                <h3 className="font-semibold text-foreground mb-2">Excellence Awards</h3>
-                <p className="text-muted-foreground text-sm mb-4">
+            <Card className="hover:shadow-school transition-shadow touch-manipulation sm:col-span-2 lg:col-span-1">
+              <CardContent className="p-4 md:p-6">
+                <Star className="h-6 w-6 md:h-8 md:w-8 text-secondary mb-3 md:mb-4" />
+                <h3 className="font-semibold text-foreground mb-2 text-sm md:text-base">Excellence Awards</h3>
+                <p className="text-muted-foreground text-xs md:text-sm mb-3 md:mb-4">
                   Celebrating outstanding student achievements
                 </p>
-                <Badge variant="outline">Achievement</Badge>
+                <Badge variant="outline" className="text-xs">Achievement</Badge>
               </CardContent>
             </Card>
           </div>
           
-          <div className="text-center mt-8">
-            <Button asChild variant="outline">
+          <div className="text-center mt-6 md:mt-8">
+            <Button asChild variant="outline" className="touch-manipulation">
               <Link to="/blog">View All News <ArrowRight className="ml-2 h-4 w-4" /></Link>
             </Button>
           </div>
@@ -147,60 +101,60 @@ const Index = () => {
       </section>
 
       {/* Academics & Admissions */}
-      <section className="py-16 bg-background">
+      <section className="py-12 md:py-16 bg-background">
         <div className="container mx-auto px-4">
-          <div className="grid lg:grid-cols-2 gap-12">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
             <Card className="shadow-card">
-              <CardContent className="p-8">
-                <BookOpen className="h-12 w-12 text-primary mb-6" />
-                <h3 className="text-2xl font-bold text-foreground mb-4">Academic Programs</h3>
-                <p className="text-muted-foreground mb-6">
+              <CardContent className="p-6 md:p-8">
+                <BookOpen className="h-8 w-8 md:h-12 md:w-12 text-primary mb-4 md:mb-6" />
+                <h3 className="text-xl md:text-2xl font-bold text-foreground mb-3 md:mb-4">Academic Programs</h3>
+                <p className="text-sm md:text-base text-muted-foreground mb-4 md:mb-6 leading-relaxed">
                   Comprehensive curriculum from JSS to SSS with focus on academic excellence 
                   and character development.
                 </p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center text-muted-foreground">
-                    <ArrowRight className="h-4 w-4 text-primary mr-2" />
+                <ul className="space-y-2 mb-4 md:mb-6">
+                  <li className="flex items-center text-sm md:text-base text-muted-foreground">
+                    <ArrowRight className="h-4 w-4 text-primary mr-2 flex-shrink-0" />
                     Junior Secondary School (JSS 1-3)
                   </li>
-                  <li className="flex items-center text-muted-foreground">
-                    <ArrowRight className="h-4 w-4 text-primary mr-2" />
+                  <li className="flex items-center text-sm md:text-base text-muted-foreground">
+                    <ArrowRight className="h-4 w-4 text-primary mr-2 flex-shrink-0" />
                     Senior Secondary School (SSS 1-3)
                   </li>
-                  <li className="flex items-center text-muted-foreground">
-                    <ArrowRight className="h-4 w-4 text-primary mr-2" />
+                  <li className="flex items-center text-sm md:text-base text-muted-foreground">
+                    <ArrowRight className="h-4 w-4 text-primary mr-2 flex-shrink-0" />
                     Quality Teaching & Computer Based Education
                   </li>
                 </ul>
-                <Button asChild>
+                <Button asChild className="touch-manipulation">
                   <Link to="/about">Learn More</Link>
                 </Button>
               </CardContent>
             </Card>
             
             <Card className="shadow-card bg-gradient-accent text-white">
-              <CardContent className="p-8">
-                <GraduationCap className="h-12 w-12 text-white mb-6" />
-                <h3 className="text-2xl font-bold mb-4">Admissions Open</h3>
-                <p className="mb-6 opacity-90">
+              <CardContent className="p-6 md:p-8">
+                <GraduationCap className="h-8 w-8 md:h-12 md:w-12 text-white mb-4 md:mb-6" />
+                <h3 className="text-xl md:text-2xl font-bold mb-3 md:mb-4">Admissions Open</h3>
+                <p className="mb-4 md:mb-6 opacity-90 text-sm md:text-base leading-relaxed">
                   Join our school family and experience quality education in a conducive 
                   learning environment.
                 </p>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center">
-                    <ArrowRight className="h-4 w-4 mr-2" />
+                <ul className="space-y-2 mb-4 md:mb-6">
+                  <li className="flex items-center text-sm md:text-base">
+                    <ArrowRight className="h-4 w-4 mr-2 flex-shrink-0" />
                     Affordable School Fees
                   </li>
-                  <li className="flex items-center">
-                    <ArrowRight className="h-4 w-4 mr-2" />
+                  <li className="flex items-center text-sm md:text-base">
+                    <ArrowRight className="h-4 w-4 mr-2 flex-shrink-0" />
                     Experienced Teachers
                   </li>
-                  <li className="flex items-center">
-                    <ArrowRight className="h-4 w-4 mr-2" />
+                  <li className="flex items-center text-sm md:text-base">
+                    <ArrowRight className="h-4 w-4 mr-2 flex-shrink-0" />
                     Conducive Learning Environment
                   </li>
                 </ul>
-                <Button asChild size="lg" className="bg-white text-secondary hover:bg-white/90">
+                <Button asChild size="lg" className="bg-white text-secondary hover:bg-white/90 touch-manipulation w-full sm:w-auto">
                   <Link to="/admissions">Apply Now</Link>
                 </Button>
               </CardContent>

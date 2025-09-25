@@ -37,18 +37,18 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="bg-primary-foreground shadow-card">
+    <nav className="bg-primary-foreground shadow-card sticky top-0 z-50">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          <Link to="/" className="flex items-center space-x-3">
+        <div className="flex items-center justify-between h-16 md:h-20">
+          <Link to="/" className="flex items-center space-x-2 md:space-x-3 min-w-0 flex-1 md:flex-none">
             <img 
               src={schoolLogo} 
               alt="Our God Reigns Crystal School Logo" 
-              className="h-10 w-10 rounded-full object-cover"
+              className="h-8 w-8 md:h-10 md:w-10 rounded-full object-cover flex-shrink-0"
             />
-            <div>
-              <h2 className="text-lg font-bold text-primary">Our God Reigns Crystal School</h2>
-              <p className="text-xs text-secondary font-medium">Light to the World</p>
+            <div className="min-w-0">
+              <h2 className="text-sm md:text-lg font-bold text-primary truncate">Our God Reigns Crystal School</h2>
+              <p className="text-xs text-secondary font-medium hidden sm:block">Light to the World</p>
             </div>
           </Link>
 
@@ -112,7 +112,8 @@ const Navigation = () => {
           {/* Mobile menu button */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden text-primary hover:text-secondary"
+            className="md:hidden text-primary hover:text-secondary p-2 -mr-2 touch-manipulation"
+            aria-label="Toggle mobile menu"
           >
             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
@@ -120,33 +121,33 @@ const Navigation = () => {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-border">
-            <div className="px-2 pt-2 pb-3 space-y-1">
+          <div className="md:hidden border-t border-border animate-fade-in">
+            <div className="px-2 pt-4 pb-6 space-y-2">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
                   to={item.path}
-                  className="block px-3 py-2 text-primary hover:text-secondary font-semibold"
+                  className="block px-4 py-3 text-primary hover:text-secondary hover:bg-muted/50 rounded-lg font-semibold text-base touch-manipulation"
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   {item.name}
                 </Link>
               ))}
-              <div className="border-t border-border pt-2 mt-2">
-                <p className="px-3 py-1 text-sm font-semibold text-muted-foreground">About</p>
+              <div className="border-t border-border pt-4 mt-4">
+                <p className="px-4 py-2 text-sm font-semibold text-muted-foreground uppercase tracking-wider">About</p>
                 {aboutItems.map((item) => (
                   <Link
                     key={item.name}
                     to={item.path}
-                    className="block px-3 py-2 text-primary hover:text-secondary"
+                    className="block px-4 py-3 text-primary hover:text-secondary hover:bg-muted/50 rounded-lg text-base touch-manipulation"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {item.name}
                   </Link>
                 ))}
               </div>
-              <div className="border-t border-border pt-2 mt-2">
-                <p className="px-3 py-1 text-sm font-semibold text-muted-foreground">Portals</p>
+              <div className="border-t border-border pt-4 mt-4">
+                <p className="px-4 py-2 text-sm font-semibold text-muted-foreground uppercase tracking-wider">Portals</p>
                 {portalItems.map((item) => (
                   item.path.startsWith('http') ? (
                     <a
@@ -154,7 +155,7 @@ const Navigation = () => {
                       href={item.path}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="block px-3 py-2 text-primary hover:text-secondary"
+                      className="block px-4 py-3 text-primary hover:text-secondary hover:bg-muted/50 rounded-lg text-base touch-manipulation"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {item.name}
@@ -163,13 +164,18 @@ const Navigation = () => {
                     <Link
                       key={item.name}
                       to={item.path}
-                      className="block px-3 py-2 text-primary hover:text-secondary"
+                      className="block px-4 py-3 text-primary hover:text-secondary hover:bg-muted/50 rounded-lg text-base touch-manipulation"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {item.name}
                     </Link>
                   )
                 ))}
+              </div>
+              <div className="pt-4 mt-4">
+                <Button asChild className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold text-lg py-4 touch-manipulation">
+                  <Link to="/admissions" onClick={() => setIsMobileMenuOpen(false)}>🚀 Apply Now</Link>
+                </Button>
               </div>
             </div>
           </div>

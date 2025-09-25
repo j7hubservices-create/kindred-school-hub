@@ -7,8 +7,12 @@ export default {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1rem",
       screens: {
+        sm: "640px",
+        md: "768px",
+        lg: "1024px",
+        xl: "1280px",
         "2xl": "1400px",
       },
     },
@@ -160,6 +164,11 @@ export default {
         },
         '.pulse': {
           '@apply animate-[pulse_2s_cubic-bezier(0.4,0,0.6,1)_infinite]': {},
+        },
+        '.touch-manipulation': {
+          'touch-action': 'manipulation',
+          'min-height': '44px',
+          'min-width': '44px',
         }
       }
       addUtilities(newUtilities)
