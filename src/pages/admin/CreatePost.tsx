@@ -36,6 +36,7 @@ const CreatePost = () => {
     slug: '',
     excerpt: '',
     content: '',
+    featured_image_url: '',
     category_id: '',
     status: 'draft' as const
   });

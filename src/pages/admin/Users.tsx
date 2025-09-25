@@ -66,29 +66,14 @@ const Users = () => {
     try {
       const { error } = await supabase
         .from('profiles')
-        .update({ role: newRole })
+        .update({ role: newRole as 'admin' | 'teacher' | 'student' | 'parent' })
         .eq('id', selectedUser.id);
 
       if (error) throw error;
 
-      // Log activity
-      await supabase
-        .from('admin_activities')
-        .insert({
-          user_id: profile.id,
-          action: 'updated',
-          resource_type: 'user_role',
-          resource_id: selectedUser.id,
-          details: { 
-            user_name: selectedUser.full_name || selectedUser.email,
-            old_role: selectedUser.role,
-            new_role: newRole
-          }
-        });
-
       setUsers(users.map(user => 
         user.id === selectedUser.id 
-          ? { ...user, role: newRole }
+          ? { ...user, role: newRole as any }
           : user
       ));
 

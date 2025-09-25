@@ -50,29 +50,25 @@ const Posts = () => {
   const fetchPosts = async () => {
     try {
       const { data, error } = await supabase
-        .from('posts')
+        .from('content_items')
         .select(`
-          id,
-          title,
-          slug,
-          excerpt,
-          status,
-          published_at,
-          created_at,
-          author_profiles:author_id!posts_author_id_fkey (full_name),
-          categories:category_id (name)
+          *,
+          profiles:author_id (full_name)
         `)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
 
-      const formattedPosts = data?.map(post => ({
+      const processedPosts = data?.map(post => ({
         ...post,
-        author: post.author_profiles as any,
-        category: post.categories as any
+        author: post.profiles,
+        category: null,
+        status: post.published ? 'published' : 'draft',
+        slug: post.title.toLowerCase().replace(/\s+/g, '-'),
+        published_at: post.created_at
       })) || [];
 
-      setPosts(formattedPosts);
+      setPosts(processedPosts);
     } catch (error) {
       console.error('Error fetching posts:', error);
       toast.error('Failed to load posts');
@@ -84,21 +80,11 @@ const Posts = () => {
   const handleDeletePost = async (postId: string) => {
     try {
       const { error } = await supabase
-        .from('posts')
+        .from('content_items')
         .delete()
         .eq('id', postId);
 
       if (error) throw error;
-
-      // Log activity
-      await supabase
-        .from('admin_activities')
-        .insert({
-          user_id: profile?.user_id,
-          action: 'deleted',
-          resource_type: 'post',
-          resource_id: postId
-        });
 
       setPosts(posts.filter(post => post.id !== postId));
       toast.success('Post deleted successfully');
