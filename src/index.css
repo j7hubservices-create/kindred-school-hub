@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Our God Reigns Crystal School Brand Colors */
+    /* Refined Color Palette - Our God Reigns Crystal School */
     --background: 0 0% 100%;
     --foreground: 0 0% 13%;
     
@@ -19,63 +19,65 @@ All colors MUST be HSL.
     --popover-foreground: 0 0% 13%;
     
     /* Primary - Dark Green #014421 */
-    --primary: 140 98% 14%;
+    --primary: 140 96% 14%;
     --primary-foreground: 0 0% 100%;
-    --primary-light: 140 80% 25%;
+    --primary-light: 140 60% 25%;
     --primary-dark: 140 100% 10%;
     
-    /* Secondary - Red #D32F2F */
-    --secondary: 0 66% 51%;
-    --secondary-foreground: 0 0% 100%;
+    /* Secondary - Yellow-Gold #FFD700 for CTAs and highlights */
+    --secondary: 51 100% 50%;
+    --secondary-foreground: 0 0% 13%;
     
-    /* Muted tones */
-    --muted: 0 0% 96%;
-    --muted-foreground: 0 0% 45%;
+    /* Muted tones using white and light greys */
+    --muted: 0 0% 98%;
+    --muted-foreground: 0 0% 40%;
     
     /* Accent - Yellow-Gold #FFD700 */
     --accent: 51 100% 50%;
     --accent-foreground: 0 0% 13%;
     
     /* Destructive */
-    --destructive: 0 66% 51%;
+    --destructive: 0 65% 51%;
     --destructive-foreground: 0 0% 100%;
     
-    /* Border and input */
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 140 98% 14%;
+    /* Border and input using subtle greys */
+    --border: 0 0% 92%;
+    --input: 0 0% 96%;
+    --ring: 140 96% 14%;
     
     --radius: 0.75rem;
     
-    /* Custom gradients using brand colors */
-    --gradient-hero: linear-gradient(135deg, hsl(140 98% 14%) 0%, hsl(51 100% 50%) 50%, hsl(0 66% 51%) 100%);
-    --gradient-accent: linear-gradient(135deg, hsl(51 100% 50%) 0%, hsl(140 98% 14%) 100%);
-    --gradient-diagonal: linear-gradient(45deg, transparent 40%, hsl(140 98% 14% / 0.1) 50%, transparent 60%);
+    /* Custom gradients using refined brand colors */
+    --gradient-hero: linear-gradient(135deg, hsl(140 96% 14%) 0%, hsl(51 100% 50%) 100%);
+    --gradient-accent: linear-gradient(135deg, hsl(51 100% 50%) 0%, hsl(140 96% 14%) 100%);
+    --gradient-subtle: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(0 0% 98%) 100%);
+    --gradient-diagonal: linear-gradient(45deg, transparent 40%, hsl(140 96% 14% / 0.05) 50%, transparent 60%);
     
-    /* Shadows using brand colors */
-    --shadow-card: 0 4px 6px -1px hsl(140 98% 14% / 0.1), 0 2px 4px -1px hsl(140 98% 14% / 0.06);
-    --shadow-school: 0 10px 25px -3px hsl(140 98% 14% / 0.25), 0 4px 6px -2px hsl(140 98% 14% / 0.15);
+    /* Shadows using refined brand colors */
+    --shadow-card: 0 2px 8px -2px hsl(140 96% 14% / 0.1), 0 1px 3px -1px hsl(140 96% 14% / 0.06);
+    --shadow-school: 0 8px 25px -5px hsl(140 96% 14% / 0.2), 0 3px 10px -3px hsl(140 96% 14% / 0.1);
+    --shadow-accent: 0 4px 15px -3px hsl(51 100% 50% / 0.3);
 
-    /* Chart colors using brand palette */
-    --chart-1: 140 98% 14%;
+    /* Chart colors using refined palette */
+    --chart-1: 140 96% 14%;
     --chart-2: 51 100% 50%;
-    --chart-3: 0 66% 51%;
-    --chart-4: 0 0% 13%;
-    --chart-5: 140 80% 25%;
+    --chart-3: 0 0% 13%;
+    --chart-4: 0 0% 60%;
+    --chart-5: 140 60% 25%;
 
-    /* Sidebar colors using brand palette */
+    /* Sidebar colors using refined palette */
     --sidebar-background: 0 0% 100%;
     --sidebar-foreground: 0 0% 13%;
-    --sidebar-primary: 140 98% 14%;
+    --sidebar-primary: 140 96% 14%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 96%;
+    --sidebar-accent: 0 0% 98%;
     --sidebar-accent-foreground: 0 0% 13%;
-    --sidebar-border: 0 0% 90%;
-    --sidebar-ring: 140 98% 14%;
+    --sidebar-border: 0 0% 92%;
+    --sidebar-ring: 140 96% 14%;
   }
 
   .dark {
-    /* Dark mode using brand colors */
+    /* Dark mode using refined brand colors */
     --background: 0 0% 13%;
     --foreground: 0 0% 100%;
     
@@ -85,49 +87,49 @@ All colors MUST be HSL.
     --popover: 0 0% 18%;
     --popover-foreground: 0 0% 100%;
     
-    /* Primary - Lighter Dark Green for dark mode */
-    --primary: 140 80% 25%;
-    --primary-foreground: 0 0% 13%;
-    --primary-light: 140 60% 35%;
-    --primary-dark: 140 98% 14%;
+    /* Primary - Adjusted Dark Green for dark mode */
+    --primary: 140 60% 25%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 140 40% 35%;
+    --primary-dark: 140 96% 14%;
     
-    /* Secondary - Red adapted for dark mode */
-    --secondary: 0 66% 51%;
-    --secondary-foreground: 0 0% 100%;
+    /* Secondary - Yellow-Gold for dark mode CTAs */
+    --secondary: 51 100% 50%;
+    --secondary-foreground: 0 0% 13%;
     
     /* Muted tones for dark mode */
     --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 70%;
+    --muted-foreground: 0 0% 65%;
     
     /* Accent - Yellow-Gold for dark mode */
     --accent: 51 100% 50%;
     --accent-foreground: 0 0% 13%;
     
     /* Destructive */
-    --destructive: 0 66% 51%;
+    --destructive: 0 65% 51%;
     --destructive-foreground: 0 0% 100%;
     
     /* Border and input for dark mode */
     --border: 0 0% 25%;
-    --input: 0 0% 25%;
-    --ring: 140 80% 25%;
+    --input: 0 0% 20%;
+    --ring: 140 60% 25%;
     
     /* Chart colors for dark mode */
-    --chart-1: 140 80% 25%;
+    --chart-1: 140 60% 25%;
     --chart-2: 51 100% 50%;
-    --chart-3: 0 66% 51%;
-    --chart-4: 0 0% 100%;
-    --chart-5: 140 60% 35%;
+    --chart-3: 0 0% 100%;
+    --chart-4: 0 0% 60%;
+    --chart-5: 140 40% 35%;
 
-    /* Sidebar colors using brand palette */
+    /* Sidebar colors for dark mode */
     --sidebar-background: 0 0% 13%;
     --sidebar-foreground: 0 0% 100%;
-    --sidebar-primary: 140 98% 14%;
+    --sidebar-primary: 140 96% 14%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 0 0% 18%;
     --sidebar-accent-foreground: 0 0% 100%;
     --sidebar-border: 0 0% 25%;
-    --sidebar-ring: 140 80% 25%;
+    --sidebar-ring: 140 60% 25%;
   }
 }
 
