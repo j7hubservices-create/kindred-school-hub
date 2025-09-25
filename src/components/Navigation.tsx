@@ -30,9 +30,9 @@ const Navigation = () => {
   ];
 
   const portalItems = [
-    { name: "Student Portal", path: "/e-learning" },
+    { name: "Student Portal", path: "https://ogrcs.edutams.net/" },
+    { name: "Staff Portal", path: "https://ogrcs.edutams.net/" },
     { name: "Library", path: "/library" },
-    { name: "Staff Portal", path: "/portals" },
     { name: "Admin Portal", path: "/admin-cms" },
   ];
 
@@ -90,9 +90,15 @@ const Navigation = () => {
               <DropdownMenuContent className="bg-card border-border shadow-school">
                 {portalItems.map((item) => (
                   <DropdownMenuItem key={item.name} asChild>
-                    <Link to={item.path} className="text-card-foreground hover:text-primary">
-                      {item.name}
-                    </Link>
+                    {item.path.startsWith('http') ? (
+                      <a href={item.path} target="_blank" rel="noopener noreferrer" className="text-card-foreground hover:text-primary">
+                        {item.name}
+                      </a>
+                    ) : (
+                      <Link to={item.path} className="text-card-foreground hover:text-primary">
+                        {item.name}
+                      </Link>
+                    )}
                   </DropdownMenuItem>
                 ))}
               </DropdownMenuContent>
@@ -142,14 +148,27 @@ const Navigation = () => {
               <div className="border-t border-border pt-2 mt-2">
                 <p className="px-3 py-1 text-sm font-semibold text-muted-foreground">Portals</p>
                 {portalItems.map((item) => (
-                  <Link
-                    key={item.name}
-                    to={item.path}
-                    className="block px-3 py-2 text-primary hover:text-secondary"
-                    onClick={() => setIsMobileMenuOpen(false)}
-                  >
-                    {item.name}
-                  </Link>
+                  item.path.startsWith('http') ? (
+                    <a
+                      key={item.name}
+                      href={item.path}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block px-3 py-2 text-primary hover:text-secondary"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {item.name}
+                    </a>
+                  ) : (
+                    <Link
+                      key={item.name}
+                      to={item.path}
+                      className="block px-3 py-2 text-primary hover:text-secondary"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {item.name}
+                    </Link>
+                  )
                 ))}
               </div>
             </div>

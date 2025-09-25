@@ -20,6 +20,7 @@ import {
 import { Link } from "react-router-dom";
 import schoolLogo from "@/assets/school-logo-main.jpeg";
 import galleryImage from "@/assets/gallery-students-1.jpg";
+import ProprietressWelcomeSection from "@/components/ProprietressWelcomeSection";
 
 const Index = () => {
   return (
@@ -92,45 +93,7 @@ const Index = () => {
       </section>
 
       {/* Proprietress Welcome Address */}
-      <section className="py-16 bg-background">
-        <div className="container mx-auto px-4">
-          <Card className="max-w-4xl mx-auto shadow-card">
-            <CardContent className="p-8">
-              <div className="text-center mb-8">
-                <Badge className="bg-primary text-primary-foreground mb-4">
-                  Welcome Address
-                </Badge>
-                <h2 className="text-2xl font-bold text-foreground mb-2">
-                  Proprietress' Welcome Address
-                </h2>
-                <p className="text-muted-foreground">First Term of 2025/2026 Academic Session</p>
-              </div>
-              
-              <div className="prose prose-green max-w-none">
-                <p className="text-foreground leading-relaxed mb-4">
-                  <strong>Distinguished Parents, Guardians, Staff, and Beloved Students,</strong>
-                </p>
-                <p className="text-muted-foreground leading-relaxed mb-4">
-                  It is with great joy and gratitude to God Almighty that I warmly and sincerely welcome 
-                  you all to the first term of the 2025/2026 academic session.
-                </p>
-                <p className="text-muted-foreground leading-relaxed mb-4">
-                  To our returning students, welcome back! We are delighted to see your bright faces again, 
-                  and we trust you had a refreshing holiday. To our new students and parents joining our 
-                  school family for the first time, we say a heartfelt welcome.
-                </p>
-                
-                <div className="text-center mt-6">
-                  <p className="text-foreground font-semibold">
-                    Pastor (Mrs) Kehinde Adetuberu
-                  </p>
-                  <p className="text-muted-foreground text-sm">Proprietress</p>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
+      <ProprietressWelcomeSection />
 
       {/* Announcements / News */}
       <section className="py-16 bg-muted/30">
