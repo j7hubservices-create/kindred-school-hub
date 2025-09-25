@@ -227,11 +227,14 @@ const Auth = () => {
           </CardContent>
         </Card>
         
-        <div className="text-center mt-6">
-          <Link to="/" className="text-white hover:underline">
-            ← Back to main site
-          </Link>
-        </div>
+      <div className="text-center mt-6">
+        <Link to="/" className="text-white hover:underline mr-6">
+          ← Back to main site
+        </Link>
+        <Link to="/admin-cms" className="text-yellow-300 hover:underline">
+          Go to Admin CMS →
+        </Link>
+      </div>
       </div>
     </div>
   );

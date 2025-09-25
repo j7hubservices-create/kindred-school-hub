@@ -19,6 +19,11 @@ import AdminCMS from "./pages/AdminCMS";
 import Dashboard from "./pages/admin/Dashboard";
 import Posts from "./pages/admin/Posts";
 import CreatePost from "./pages/admin/CreatePost";
+import Categories from "./pages/admin/Categories";
+import SiteSettings from "./pages/admin/SiteSettings";
+import AdminGallery from "./pages/admin/Gallery";
+import Users from "./pages/admin/Users";
+import Activity from "./pages/admin/Activity";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -46,6 +51,11 @@ const App = () => (
               <Route index element={<Dashboard />} />
               <Route path="posts" element={<Posts />} />
               <Route path="posts/create" element={<CreatePost />} />
+              <Route path="categories" element={<Categories />} />
+              <Route path="gallery" element={<AdminGallery />} />
+              <Route path="settings" element={<SiteSettings />} />
+              <Route path="users" element={<Users />} />
+              <Route path="activity" element={<Activity />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

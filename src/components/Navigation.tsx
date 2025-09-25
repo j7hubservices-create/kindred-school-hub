@@ -85,6 +85,17 @@ const Navigation = () => {
                 ))}
               </div>
             </div>
+            
+            {/* Admin Login Button */}
+            <Link to="/auth">
+              <Button
+                variant="outline"
+                size="sm"
+                className="border-emerald-600 text-emerald-600 hover:bg-emerald-50"
+              >
+                Admin Login
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
