@@ -3,51 +3,168 @@ import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { MapPin, Phone, Mail } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { MapPin, Phone, Mail, Clock, MessageSquare } from "lucide-react";
 
 const Contact = () => {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <Header />
       <Navigation />
       
       {/* Hero Section */}
-      <section className="py-16 bg-emerald-600 text-white">
+      <section className="py-20 bg-gradient-hero text-primary-foreground">
         <div className="container mx-auto px-4 text-center">
-          <Badge className="bg-yellow-500 text-yellow-900 mb-6 px-4 py-2">
+          <Badge className="bg-accent text-accent-foreground mb-6 px-4 py-2">
             Contact Us
           </Badge>
-          <h1 className="text-5xl font-bold mb-4">Get in Touch</h1>
-          <p className="text-xl mb-8">We're here to help and answer any questions you might have</p>
+          <h1 className="text-4xl md:text-6xl font-bold mb-6">Get in Touch</h1>
+          <p className="text-xl mb-8 opacity-90">
+            We're here to help and answer any questions you might have
+          </p>
         </div>
       </section>
 
       {/* Contact Information */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-background">
         <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8">
-            <Card className="text-center border-emerald-200 shadow-lg">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <Card className="text-center shadow-card hover:shadow-school transition-shadow">
               <CardContent className="p-8">
-                <Phone className="h-12 w-12 text-emerald-600 mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-emerald-600 mb-2">Phone</h3>
-                <p className="text-gray-700">+234 802 762 5129</p>
-                <p className="text-gray-700">+234 803 308 9735</p>
+                <Phone className="h-12 w-12 text-primary mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-foreground mb-4">Phone Numbers</h3>
+                <div className="space-y-2">
+                  <a href="tel:+2348027625129" className="block text-muted-foreground hover:text-primary transition-colors">
+                    +234 802 762 5129
+                  </a>
+                  <a href="tel:+2348033089735" className="block text-muted-foreground hover:text-primary transition-colors">
+                    +234 803 308 9735
+                  </a>
+                </div>
               </CardContent>
             </Card>
 
-            <Card className="text-center border-emerald-200 shadow-lg">
+            <Card className="text-center shadow-card hover:shadow-school transition-shadow">
               <CardContent className="p-8">
-                <Mail className="h-12 w-12 text-emerald-600 mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-emerald-600 mb-2">Email</h3>
-                <p className="text-gray-700">ogrcs@yahoo.com</p>
+                <Mail className="h-12 w-12 text-secondary mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-foreground mb-4">Email</h3>
+                <a href="mailto:ogrcs@yahoo.com" className="text-muted-foreground hover:text-secondary transition-colors">
+                  ogrcs@yahoo.com
+                </a>
               </CardContent>
             </Card>
 
-            <Card className="text-center border-emerald-200 shadow-lg">
+            <Card className="text-center shadow-card hover:shadow-school transition-shadow">
               <CardContent className="p-8">
-                <MapPin className="h-12 w-12 text-emerald-600 mx-auto mb-4" />
-                <h3 className="text-xl font-bold text-emerald-600 mb-2">Address</h3>
-                <p className="text-gray-700">23, Bolanle Awosika Street, off Ilogbo Road, Borehole, Ota, Ogun State</p>
+                <MapPin className="h-12 w-12 text-accent mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-foreground mb-4">Address</h3>
+                <p className="text-muted-foreground">
+                  23, Bolanle Awosika Street,<br />
+                  off Ilogbo Road, Borehole,<br />
+                  Ota, Ogun State
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center shadow-card hover:shadow-school transition-shadow">
+              <CardContent className="p-8">
+                <Clock className="h-12 w-12 text-primary mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-foreground mb-4">Office Hours</h3>
+                <div className="text-muted-foreground space-y-1">
+                  <p>Monday - Friday</p>
+                  <p>8:00 AM - 4:00 PM</p>
+                  <p className="text-sm">Term Time Only</p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Form Section */}
+      <section className="py-16 bg-muted/30">
+        <div className="container mx-auto px-4">
+          <div className="max-w-2xl mx-auto">
+            <Card className="shadow-card">
+              <CardContent className="p-8">
+                <div className="text-center mb-8">
+                  <MessageSquare className="h-12 w-12 text-primary mx-auto mb-4" />
+                  <h2 className="text-2xl font-bold text-foreground mb-2">Send us a Message</h2>
+                  <p className="text-muted-foreground">We'd love to hear from you</p>
+                </div>
+
+                <div className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        First Name
+                      </label>
+                      <input 
+                        type="text" 
+                        className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                        placeholder="Enter your first name"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-foreground mb-2">
+                        Last Name
+                      </label>
+                      <input 
+                        type="text" 
+                        className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                        placeholder="Enter your last name"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-2">
+                      Email
+                    </label>
+                    <input 
+                      type="email" 
+                      className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                      placeholder="Enter your email"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-2">
+                      Phone Number
+                    </label>
+                    <input 
+                      type="tel" 
+                      className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                      placeholder="Enter your phone number"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-2">
+                      Subject
+                    </label>
+                    <input 
+                      type="text" 
+                      className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                      placeholder="What is this about?"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium text-foreground mb-2">
+                      Message
+                    </label>
+                    <textarea 
+                      rows={5}
+                      className="w-full px-3 py-2 border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+                      placeholder="Tell us more about your inquiry..."
+                    ></textarea>
+                  </div>
+
+                  <Button size="lg" className="w-full">
+                    Send Message
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           </div>
