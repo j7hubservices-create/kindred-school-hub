@@ -11,6 +11,7 @@ import FacilitiesSection from "@/components/FacilitiesSection";
 import ContactSection from "@/components/ContactSection";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import admissionFlyer from "@/assets/admission-flyer-new.jpg";
 
 const Index = () => {
   return (
@@ -31,29 +32,38 @@ const Index = () => {
       <AcademicProgramsSection />
 
       {/* 5. Admissions Section */}
-      <section className="py-20 bg-gradient-accent text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6">Admissions Open</h2>
-          <p className="text-xl mb-8 max-w-3xl mx-auto opacity-90">
-            Join our school family and experience quality education in a conducive learning environment
-          </p>
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            <div className="bg-white/10 p-6 rounded-lg">
-              <h3 className="text-lg font-bold mb-2">JSS & SSS Classes</h3>
-              <p className="text-sm opacity-90">All levels available</p>
+      <section className="py-12 bg-gradient-accent relative overflow-hidden">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-8 items-center">
+            <div className="text-white">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4">🎓 Admissions Open</h2>
+              <p className="text-lg mb-6 opacity-90">2025/2026 Academic Session</p>
+              <div className="space-y-3 mb-6">
+                <div className="flex items-center gap-3">
+                  <span className="text-accent">✓</span>
+                  <span>JSS & SSS Classes Available</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-accent">✓</span>
+                  <span>Affordable Quality Education</span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <span className="text-accent">✓</span>
+                  <span>Easy Application Process</span>
+                </div>
+              </div>
+              <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 font-bold">
+                <Link to="/admissions">Apply Now</Link>
+              </Button>
             </div>
-            <div className="bg-white/10 p-6 rounded-lg">
-              <h3 className="text-lg font-bold mb-2">Affordable Fees</h3>
-              <p className="text-sm opacity-90">Quality education at reasonable cost</p>
-            </div>
-            <div className="bg-white/10 p-6 rounded-lg">
-              <h3 className="text-lg font-bold mb-2">Easy Application</h3>
-              <p className="text-sm opacity-90">Simple admission process</p>
+            <div className="flex justify-center">
+              <img 
+                src={admissionFlyer} 
+                alt="Admission Flyer" 
+                className="max-w-full h-auto rounded-lg shadow-2xl"
+              />
             </div>
           </div>
-          <Button asChild size="lg" className="bg-white text-primary hover:bg-white/90 font-bold">
-            <Link to="/admissions">Apply for Admission</Link>
-          </Button>
         </div>
       </section>
 

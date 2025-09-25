@@ -101,7 +101,7 @@ const AboutSection = () => {
 
   return (
     <section 
-      className="py-20 relative bg-cover bg-center bg-no-repeat"
+      className="py-12 relative bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: `url(${schoolStudentsBackground})`,
       }}
@@ -110,91 +110,87 @@ const AboutSection = () => {
       <div className="absolute inset-0 bg-white/95"></div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="text-center mb-16">
-          <Badge className="bg-accent text-accent-foreground mb-4 px-6 py-2 text-lg shadow-accent">
+        <div className="text-center mb-8">
+          <Badge className="bg-accent text-accent-foreground mb-3 px-4 py-2 text-lg shadow-accent">
             🏫 About Our School
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
             Excellence in Education Since 2014
           </h2>
-          <p className="text-xl text-foreground max-w-4xl mx-auto leading-relaxed">
+          <p className="text-lg text-foreground max-w-3xl mx-auto leading-relaxed">
             Our God Reigns Crystal School is a beacon of academic excellence and moral integrity, 
-            committed to nurturing young minds and shaping future leaders through quality education 
-            rooted in Christian values and community spirit.
+            committed to nurturing young minds and shaping future leaders.
           </p>
         </div>
 
         {/* Enhanced Statistics */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
           {stats.map((stat, index) => (
-            <Card key={index} className="text-center p-6 shadow-school hover-scale border-none bg-white/90 backdrop-blur-sm">
-              <stat.icon className="h-12 w-12 text-accent mx-auto mb-4" />
-              <div className="text-3xl font-bold text-primary mb-2">{stat.value}</div>
-              <div className="text-foreground font-semibold mb-1">{stat.label}</div>
-              <div className="text-sm text-muted-foreground">{stat.description}</div>
+            <Card key={index} className="text-center p-4 shadow-school hover-scale border-none bg-white/90 backdrop-blur-sm">
+              <stat.icon className="h-8 w-8 text-accent mx-auto mb-2" />
+              <div className="text-2xl font-bold text-primary mb-1">{stat.value}</div>
+              <div className="text-foreground font-semibold text-sm mb-1">{stat.label}</div>
+              <div className="text-xs text-muted-foreground">{stat.description}</div>
             </Card>
           ))}
         </div>
 
 
-        {/* Core Values */}
-        <div className="mb-20">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl font-bold text-primary mb-4">Our Core Values</h3>
-            <p className="text-lg text-foreground max-w-2xl mx-auto">
-              The principles that guide everything we do at Our God Reigns Crystal School
-            </p>
+        {/* Core Values - Simplified */}
+        <div className="mb-12">
+          <div className="text-center mb-8">
+            <h3 className="text-2xl font-bold text-primary mb-3">Our Core Values</h3>
           </div>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {coreValues.map((value, index) => (
-              <Card key={index} className="p-6 text-center shadow-card hover-scale border-none bg-white/90 backdrop-blur-sm">
-                <div className="bg-accent/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <value.icon className="h-8 w-8 text-accent" />
+              <Card key={index} className="p-4 text-center shadow-card hover-scale border-none bg-white/90 backdrop-blur-sm">
+                <div className="bg-accent/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
+                  <value.icon className="h-6 w-6 text-accent" />
                 </div>
-                <h4 className="text-lg font-bold text-primary mb-3">{value.title}</h4>
-                <p className="text-muted-foreground text-sm leading-relaxed">{value.description}</p>
+                <h4 className="text-base font-bold text-primary mb-2">{value.title}</h4>
+                <p className="text-muted-foreground text-xs leading-relaxed">{value.description}</p>
               </Card>
             ))}
           </div>
         </div>
 
-        {/* School Mission & Vision Highlight */}
-        <div className="grid lg:grid-cols-2 gap-12 items-center mb-20">
-          <div className="space-y-6">
-            <div className="bg-white/95 backdrop-blur-sm p-6 rounded-lg shadow-card border border-accent/20">
-              <h4 className="text-xl font-bold text-primary mb-3 flex items-center gap-2">
-                <Globe className="h-5 w-5" />
+        {/* School Mission & Vision - Simplified */}
+        <div className="grid lg:grid-cols-2 gap-8 items-center">
+          <div className="space-y-4">
+            <div className="bg-white/95 backdrop-blur-sm p-4 rounded-lg shadow-card border border-accent/20">
+              <h4 className="text-lg font-bold text-primary mb-2 flex items-center gap-2">
+                <Globe className="h-4 w-4" />
                 Our Vision
               </h4>
-              <p className="text-foreground leading-relaxed">
+              <p className="text-foreground text-sm leading-relaxed">
                 To provide qualitative and affordable education. To raise God fearing leaders.
               </p>
             </div>
             
-            <div className="bg-white/95 backdrop-blur-sm p-6 rounded-lg shadow-card border border-primary/10">
-              <h4 className="text-xl font-bold text-primary mb-3 flex items-center gap-2">
-                <Target className="h-5 w-5" />
+            <div className="bg-white/95 backdrop-blur-sm p-4 rounded-lg shadow-card border border-primary/10">
+              <h4 className="text-lg font-bold text-primary mb-2 flex items-center gap-2">
+                <Target className="h-4 w-4" />
                 Our Mission
               </h4>
-              <p className="text-foreground leading-relaxed">
+              <p className="text-foreground text-sm leading-relaxed">
                 To maintain high standard at all times. To always ensure that our services are not overpriced. 
                 To nurture our students in the way of the Lord. To mentor our students to occupy leadership positions.
               </p>
             </div>
           </div>
 
-          <div className="space-y-6">
-            <h3 className="text-3xl font-bold text-primary mb-6">
+          <div className="space-y-4">
+            <h3 className="text-2xl font-bold text-primary mb-4">
               What Makes Us Different?
             </h3>
             
-            <div className="space-y-4">
-              {keyHighlights.map((highlight, index) => (
-                <div key={index} className="flex items-start gap-3 p-4 bg-white/90 backdrop-blur-sm rounded-lg shadow-card">
-                  <ChevronRight className="h-5 w-5 text-accent mt-1 flex-shrink-0" />
+            <div className="space-y-3">
+              {keyHighlights.slice(0, 4).map((highlight, index) => (
+                <div key={index} className="flex items-start gap-3 p-3 bg-white/90 backdrop-blur-sm rounded-lg shadow-card">
+                  <ChevronRight className="h-4 w-4 text-accent mt-1 flex-shrink-0" />
                   <div>
-                    <h5 className="font-semibold text-primary mb-1">{highlight.title}</h5>
-                    <p className="text-sm text-foreground">{highlight.description}</p>
+                    <h5 className="font-semibold text-primary text-sm mb-1">{highlight.title}</h5>
+                    <p className="text-xs text-foreground">{highlight.description}</p>
                   </div>
                 </div>
               ))}
