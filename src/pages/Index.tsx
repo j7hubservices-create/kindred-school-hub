@@ -6,12 +6,8 @@ import HeroSection from "@/components/HeroSection";
 import ProprietressWelcomeSection from "@/components/ProprietressWelcomeSection";
 import AboutSection from "@/components/AboutSection";
 import AcademicProgramsSection from "@/components/AcademicProgramsSection";
-import NewsSection from "@/components/NewsSection";
-import UpcomingEventsSection from "@/components/UpcomingEventsSection";
 import GallerySliderSection from "@/components/GallerySliderSection";
-import TestimonialsSection from "@/components/TestimonialsSection";
 import FacilitiesSection from "@/components/FacilitiesSection";
-import CallToActionSection from "@/components/CallToActionSection";
 import ContactSection from "@/components/ContactSection";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -61,25 +57,13 @@ const Index = () => {
         </div>
       </section>
 
-      {/* 6. News & Announcements */}
-      <NewsSection />
-
-      {/* 7. Upcoming Events / Calendar */}
-      <UpcomingEventsSection />
-
-      {/* 8. Gallery / Media */}
+      {/* 6. Gallery / Media */}
       <GallerySliderSection />
 
-      {/* 9. Testimonials */}
-      <TestimonialsSection />
-
-      {/* 10. School Facilities */}
+      {/* 7. School Facilities */}
       <FacilitiesSection />
 
-      {/* 11. Call-to-Action Section */}
-      <CallToActionSection />
-
-      {/* 12. Contact Information */}
+      {/* 8. Contact Information */}
       <ContactSection />
 
       <Footer />
