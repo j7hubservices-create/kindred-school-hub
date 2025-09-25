@@ -143,7 +143,7 @@ const BlogPreviewSection = () => {
                   variant="outline" 
                   className="w-full border-primary/20 hover:bg-primary/5"
                 >
-                  <Link to={`/blog`} className="flex items-center gap-2">
+                  <Link to={`/post/${post.id}`} className="flex items-center gap-2">
                     Read Full Story
                     <ArrowRight className="h-4 w-4" />
                   </Link>

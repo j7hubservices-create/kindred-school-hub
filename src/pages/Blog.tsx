@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { supabase } from "@/integrations/supabase/client";
 import { formatDistance } from "date-fns";
@@ -114,9 +116,11 @@ const Blog = () => {
                       <span className="text-xs text-gray-500">
                         By {post.profiles?.full_name || 'Admin'}
                       </span>
-                      <button className="text-emerald-600 hover:text-emerald-700 text-sm font-medium">
-                        Read More →
-                      </button>
+                      <Button asChild size="sm" variant="outline">
+                        <Link to={`/post/${post.id}`}>
+                          Read More →
+                        </Link>
+                      </Button>
                     </div>
                   </CardContent>
                 </Card>

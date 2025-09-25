@@ -64,13 +64,10 @@ const GallerySliderSection = () => {
 
   const fetchGalleryImages = async () => {
     try {
-      // Fetch gallery images from content_items with content_type 'news' and specific tag
+      // Fetch gallery images from gallery table
       const { data, error } = await supabase
-        .from('content_items')
-        .select('id, title, image_url')
-        .eq('content_type', 'news')
-        .eq('published', true)
-        .not('image_url', 'is', null)
+        .from('gallery')
+        .select('id, title, image_url, alt_text')
         .order('created_at', { ascending: false })
         .limit(20);
 
@@ -79,7 +76,7 @@ const GallerySliderSection = () => {
           id: item.id,
           title: item.title,
           image_url: item.image_url || '/placeholder.svg',
-          alt_text: item.title
+          alt_text: item.alt_text || item.title
         }));
         setGalleryImages(formattedImages);
       }
@@ -87,6 +84,28 @@ const GallerySliderSection = () => {
       console.error('Error fetching gallery images:', error);
     }
   };
+
+  // Set up real-time updates for gallery
+  useEffect(() => {
+    const channel = supabase
+      .channel('gallery-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'gallery'
+        },
+        () => {
+          fetchGalleryImages();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
 
   const allImages = [...galleryImages, ...staticImages];
   const visibleImages = allImages.slice(currentSlide, currentSlide + 4);

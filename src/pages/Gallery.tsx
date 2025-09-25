@@ -57,14 +57,51 @@ const Gallery = () => {
 
   const fetchGalleryImages = async () => {
     try {
-      // Use static images for now since gallery_images table doesn't exist
-      setGalleryImages([]);
+      // Fetch gallery images from gallery table
+      const { data, error } = await supabase
+        .from('gallery')
+        .select('id, title, image_url, alt_text')
+        .order('created_at', { ascending: false });
+
+      if (data && !error) {
+        const formattedImages: GalleryImage[] = data.map(item => ({
+          id: item.id,
+          title: item.title,
+          image_url: item.image_url,
+          alt_text: item.alt_text,
+          caption: null,
+          tags: null
+        }));
+        setGalleryImages(formattedImages);
+      }
     } catch (error) {
       console.error('Error fetching gallery images:', error);
     } finally {
       setLoading(false);
     }
   };
+
+  // Set up real-time updates for gallery
+  useEffect(() => {
+    const channel = supabase
+      .channel('gallery-page-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'gallery'
+        },
+        () => {
+          fetchGalleryImages();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
 
   // Combine database images with static images
   const allGalleryItems = [...galleryImages, ...staticGalleryItems];

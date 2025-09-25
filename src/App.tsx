@@ -11,6 +11,7 @@ import Admissions from "./pages/Admissions";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
+import PostView from "./pages/PostView";
 import Library from "./pages/Library";
 import ELearning from "./pages/ELearning";
 import SchoolFees from "./pages/SchoolFees";
@@ -45,6 +46,7 @@ const App = () => (
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/post/:slug" element={<PostView />} />
             <Route path="/library" element={<Library />} />
             <Route path="/e-learning" element={<ELearning />} />
             <Route path="/school-fees" element={<SchoolFees />} />

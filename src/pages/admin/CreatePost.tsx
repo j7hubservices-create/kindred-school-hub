@@ -152,7 +152,7 @@ const CreatePost = () => {
       if (error) throw error;
 
       toast.success(`Post ${publishNow ? 'published' : 'saved as draft'} successfully`);
-      navigate('/admin-cms/posts');
+      navigate(`/post/${data.id}`);
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors: any = {};
