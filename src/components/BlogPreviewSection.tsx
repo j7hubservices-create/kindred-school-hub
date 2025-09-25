@@ -23,25 +23,8 @@ const BlogPreviewSection = () => {
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Static news as fallback
-  const staticNews = [
-    {
-      id: "1",
-      title: "Welcome Back to School - New Academic Session 2025/2026",
-      excerpt: "We are excited to welcome all students back for another year of academic excellence and character development.",
-      image_url: "/src/assets/news-cultural.jpg",
-      created_at: "2025-01-15",
-      profiles: { full_name: "Admin" }
-    },
-    {
-      id: "2", 
-      title: "Outstanding NECO Results - Congratulations to Our Students",
-      excerpt: "Our students have once again excelled in their NECO examinations, achieving remarkable results across all subjects.",
-      image_url: "/src/assets/news-neco.jpg",
-      created_at: "2025-01-10",
-      profiles: { full_name: "Academic Team" }
-    }
-  ];
+  // Static news as fallback - cleared as requested
+  const staticNews: Post[] = [];
 
   useEffect(() => {
     fetchPosts();
@@ -80,7 +63,7 @@ const BlogPreviewSection = () => {
     }
   };
 
-  const displayPosts = posts.length > 0 ? posts : staticNews.slice(0, 2);
+  const displayPosts = posts.length > 0 ? posts : staticNews;
 
   if (loading) {
     return (
@@ -112,8 +95,9 @@ const BlogPreviewSection = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {displayPosts.map((post) => (
+        {displayPosts.length > 0 ? (
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {displayPosts.map((post) => (
             <Card key={post.id} className="shadow-card hover-scale transition-all duration-300 border-primary/20 overflow-hidden">
               <div className="relative">
                 {post.image_url && (
@@ -166,8 +150,17 @@ const BlogPreviewSection = () => {
                 </Button>
               </CardContent>
             </Card>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12">
+            <div className="max-w-md mx-auto">
+              <Newspaper className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-foreground mb-2">No News Posts Yet</h3>
+              <p className="text-muted-foreground">New posts will appear here once they are published.</p>
+            </div>
+          </div>
+        )}
 
         <div className="text-center">
           <Button 
