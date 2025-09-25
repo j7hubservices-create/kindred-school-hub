@@ -10,6 +10,13 @@ import gallery3 from "@/assets/gallery-3.jpg";
 import gallery4 from "@/assets/gallery-4.jpg";
 import gallery5 from "@/assets/gallery-5.jpg";
 import gallery6 from "@/assets/gallery-6.jpg";
+import galleryGraduation1 from "@/assets/gallery-graduation-1.jpg";
+import galleryGraduation2 from "@/assets/gallery-graduation-2.jpg";
+import galleryGraduation3 from "@/assets/gallery-graduation-3.jpg";
+import galleryStudents1 from "@/assets/gallery-students-1.jpg";
+import galleryStudents2 from "@/assets/gallery-students-2.jpg";
+import galleryStudents3 from "@/assets/gallery-students-3.jpg";
+import galleryStaff from "@/assets/gallery-staff.jpg";
 
 const Gallery = () => {
   const galleryItems = [
@@ -20,7 +27,13 @@ const Gallery = () => {
     { id: 5, image: gallery4, title: "Cultural Activities" },
     { id: 6, image: gallery5, title: "Graduation Ceremony" },
     { id: 7, image: gallery6, title: "Award Ceremony" },
-    { id: 8, image: galleryImage, title: "Campus Life" }
+    { id: 8, image: galleryGraduation1, title: "Graduation Day Celebration" },
+    { id: 9, image: galleryGraduation2, title: "Award Presentation" },
+    { id: 10, image: galleryGraduation3, title: "Group Graduation Photo" },
+    { id: 11, image: galleryStudents1, title: "School Assembly" },
+    { id: 12, image: galleryStudents2, title: "Student Performance" },
+    { id: 13, image: galleryStudents3, title: "Choir Performance" },
+    { id: 14, image: galleryStaff, title: "School Leadership" }
   ];
 
   return (
