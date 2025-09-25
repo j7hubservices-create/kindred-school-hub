@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Users, BookOpen, Award } from "lucide-react";
 import heroFlyer from "@/assets/hero-flyer.jpg";
-import schoolLogo from "@/assets/school-logo-main.jpeg";
+import schoolLogo from "@/assets/school-logo-new.jpeg";
 
 const HeroSection = () => {
   return (

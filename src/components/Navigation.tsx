@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import schoolLogo from "@/assets/school-logo-main.jpeg";
+import schoolLogo from "@/assets/school-logo-new.jpeg";
 
 const Navigation = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -37,7 +37,7 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="bg-primary-foreground shadow-card sticky top-0 z-50">
+    <nav className="bg-primary-foreground shadow-card">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           <Link to="/" className="flex items-center space-x-3">

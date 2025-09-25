@@ -1,5 +1,5 @@
 import { Phone, Mail, MapPin } from "lucide-react";
-import schoolLogo from "@/assets/school-logo-main.jpeg";
+import schoolLogo from "@/assets/school-logo-new.jpeg";
 
 const Header = () => {
   return (
