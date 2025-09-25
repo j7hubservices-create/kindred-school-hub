@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
-import { Plus, Trash2 } from 'lucide-react';
+import { Plus, Trash2, Upload, X } from 'lucide-react';
 import { toast } from 'sonner';
 import {
   Dialog,
@@ -30,6 +30,8 @@ const Gallery = () => {
     image_url: ''
   });
   const [uploading, setUploading] = useState(false);
+  const [bulkUploading, setBulkUploading] = useState(false);
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const { profile } = useAuth();
 
   useEffect(() => {
@@ -86,6 +88,84 @@ const Gallery = () => {
     } finally {
       setUploading(false);
     }
+  };
+
+  const handleBulkFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+    const imageFiles = files.filter(file => file.type.startsWith('image/'));
+    
+    if (imageFiles.length !== files.length) {
+      toast.error('Some files were skipped as they are not images');
+    }
+    
+    setSelectedFiles(imageFiles);
+  };
+
+  const handleBulkUpload = async () => {
+    if (selectedFiles.length === 0) {
+      toast.error('Please select images to upload');
+      return;
+    }
+
+    setBulkUploading(true);
+    let successCount = 0;
+    let failCount = 0;
+
+    try {
+      for (const file of selectedFiles) {
+        try {
+          const fileExt = file.name.split('.').pop();
+          const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+
+          // Upload to storage
+          const { error: uploadError } = await supabase.storage
+            .from('gallery')
+            .upload(fileName, file);
+
+          if (uploadError) throw uploadError;
+
+          const { data } = supabase.storage
+            .from('gallery')
+            .getPublicUrl(fileName);
+
+          // Save to database
+          const { error: dbError } = await supabase
+            .from('gallery')
+            .insert([
+              {
+                title: file.name.split('.')[0].replace(/[_-]/g, ' '),
+                image_url: data.publicUrl,
+                uploaded_by: profile?.user_id
+              }
+            ]);
+
+          if (dbError) throw dbError;
+          successCount++;
+        } catch (error) {
+          console.error('Error uploading file:', file.name, error);
+          failCount++;
+        }
+      }
+
+      if (successCount > 0) {
+        toast.success(`Successfully uploaded ${successCount} image${successCount > 1 ? 's' : ''}`);
+        fetchImages();
+        setSelectedFiles([]);
+      }
+      
+      if (failCount > 0) {
+        toast.error(`Failed to upload ${failCount} image${failCount > 1 ? 's' : ''}`);
+      }
+    } catch (error) {
+      console.error('Bulk upload error:', error);
+      toast.error('Bulk upload failed');
+    } finally {
+      setBulkUploading(false);
+    }
+  };
+
+  const removeBulkFile = (index: number) => {
+    setSelectedFiles(prev => prev.filter((_, i) => i !== index));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -151,11 +231,67 @@ const Gallery = () => {
           <h2 className="text-3xl font-bold">Gallery</h2>
           <p className="text-muted-foreground">Manage your school gallery images</p>
         </div>
-        <Button onClick={() => setDialogOpen(true)}>
-          <Plus className="h-4 w-4 mr-2" />
-          Add Image
-        </Button>
+        <div className="flex gap-2">
+          <Button onClick={() => setDialogOpen(true)}>
+            <Plus className="h-4 w-4 mr-2" />
+            Add Image
+          </Button>
+          <Button 
+            variant="outline" 
+            onClick={() => document.getElementById('bulk-upload')?.click()}
+            disabled={bulkUploading}
+          >
+            <Upload className="h-4 w-4 mr-2" />
+            Bulk Upload
+          </Button>
+          <input
+            id="bulk-upload"
+            type="file"
+            multiple
+            accept="image/*"
+            onChange={handleBulkFileSelect}
+            className="hidden"
+          />
+        </div>
       </div>
+
+      {/* Bulk Upload Preview */}
+      {selectedFiles.length > 0 && (
+        <Card className="mb-6">
+          <CardContent className="p-4">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="font-semibold">Selected Images ({selectedFiles.length})</h3>
+              <Button 
+                onClick={handleBulkUpload} 
+                disabled={bulkUploading}
+                className="bg-primary"
+              >
+                {bulkUploading ? 'Uploading...' : 'Upload All'}
+              </Button>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {selectedFiles.map((file, index) => (
+                <div key={index} className="relative group">
+                  <img
+                    src={URL.createObjectURL(file)}
+                    alt={file.name}
+                    className="w-full h-20 object-cover rounded border"
+                  />
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    className="absolute -top-2 -right-2 h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                    onClick={() => removeBulkFile(index)}
+                  >
+                    <X className="h-3 w-3" />
+                  </Button>
+                  <p className="text-xs mt-1 truncate">{file.name}</p>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Images Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
