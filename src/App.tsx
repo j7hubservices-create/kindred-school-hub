@@ -25,6 +25,7 @@ import SiteSettings from "./pages/admin/SiteSettings";
 import AdminGallery from "./pages/admin/Gallery";
 import Users from "./pages/admin/Users";
 import Activity from "./pages/admin/Activity";
+import Achievements from "./pages/Achievements";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -48,6 +49,7 @@ const App = () => (
             <Route path="/e-learning" element={<ELearning />} />
             <Route path="/school-fees" element={<SchoolFees />} />
             <Route path="/portals" element={<Portals />} />
+            <Route path="/achievements" element={<Achievements />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/admin-cms" element={<AdminCMS />}>
               <Route index element={<Dashboard />} />

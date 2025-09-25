@@ -1,148 +1,129 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { BookOpen, Users, Award, Target, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { GraduationCap, BookOpen, Users, Award, ArrowRight } from "lucide-react";
 
 const AcademicProgramsSection = () => {
   const programs = [
     {
       level: "Junior Secondary School (JSS 1-3)",
-      description: "Foundation years building strong academic fundamentals and character development",
-      subjects: ["Mathematics", "English Language", "Basic Science", "Social Studies", "Christian Religious Studies", "Computer Studies"],
+      description: "Strong foundation in core subjects with emphasis on critical thinking and character development",
+      subjects: ["Mathematics", "English Language", "Sciences", "Social Studies", "Creative Arts"],
       icon: BookOpen,
-      color: "bg-primary",
-      features: ["E-Note & AI Integration", "Interactive Learning", "Character Building", "Skill Development"]
     },
     {
-      level: "Senior Secondary School (SSS 1-3)",
-      description: "Advanced studies preparing students for higher education and career success",
-      subjects: ["Core Subjects", "Science Track", "Arts Track", "Commercial Track", "Technical Studies"],
-      icon: Award,
-      color: "bg-secondary",
-      features: ["WAEC/NECO Preparation", "University Readiness", "Career Guidance", "Leadership Training"]
+      level: "Senior Secondary School (SSS 1-3)", 
+      description: "Comprehensive preparation for WAEC, NECO, and university entrance examinations",
+      subjects: ["Science Track", "Commercial Track", "Arts Track"],
+      icon: GraduationCap,
     }
   ];
 
-  const specialFeatures = [
+  const features = [
     {
       icon: Users,
       title: "Small Class Sizes",
-      description: "Personalized attention with optimal teacher-to-student ratios"
-    },
-    {
-      icon: Target,
-      title: "Exam Excellence",
-      description: "Proven track record in WAEC, NECO, and JAMB examinations"
-    },
-    {
-      icon: BookOpen,
-      title: "Modern Curriculum",
-      description: "Updated syllabus aligned with national education standards"
+      description: "Maximum 25 students per class for personalized attention"
     },
     {
       icon: Award,
-      title: "Holistic Development",
-      description: "Academic, moral, and social growth for well-rounded students"
+      title: "Qualified Teachers",
+      description: "Experienced educators committed to excellence"
     }
   ];
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-16 bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <Badge className="bg-primary text-primary-foreground mb-4 px-6 py-2 text-lg">
-            📚 Academic Excellence
-          </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6">
-            Our Academic Programs
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+            Academics & Admissions
           </h2>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Comprehensive educational programs designed to nurture academic excellence, 
-            character development, and prepare students for future success.
+          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+            Comprehensive curriculum designed to prepare students for success in academics and life
           </p>
         </div>
 
-        {/* Program Cards */}
-        <div className="grid lg:grid-cols-2 gap-8 mb-16">
-          {programs.map((program, index) => (
-            <Card key={index} className="shadow-school hover-scale transition-all duration-300 border-none overflow-hidden">
-              <CardHeader className={`${program.color} text-primary-foreground p-8`}>
-                <div className="flex items-center gap-4 mb-4">
-                  <div className="bg-primary-foreground/20 p-3 rounded-full">
-                    <program.icon className="h-8 w-8 text-primary-foreground" />
+        {/* Academic Programs */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+          {programs.map((program, index) => {
+            const Icon = program.icon;
+            return (
+              <Card key={index} className="hover:shadow-lg transition-shadow duration-300">
+                <CardHeader>
+                  <div className="flex items-center gap-4 mb-4">
+                    <div className="p-3 bg-primary/10 rounded-lg">
+                      <Icon className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                      <CardTitle className="text-xl">{program.level}</CardTitle>
+                    </div>
                   </div>
-                  <CardTitle className="text-2xl font-bold">{program.level}</CardTitle>
-                </div>
-                <p className="text-primary-foreground/90 text-lg">{program.description}</p>
-              </CardHeader>
-              
-              <CardContent className="p-8">
-                <div className="mb-6">
-                  <h4 className="font-bold text-primary mb-3 text-lg">Key Subject Areas:</h4>
-                  <div className="flex flex-wrap gap-2">
-                    {program.subjects.map((subject, idx) => (
-                      <Badge key={idx} variant="secondary" className="text-sm">
-                        {subject}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-                
-                <div className="mb-6">
-                  <h4 className="font-bold text-primary mb-3 text-lg">Special Features:</h4>
-                  <div className="space-y-2">
-                    {program.features.map((feature, idx) => (
-                      <div key={idx} className="flex items-center gap-2">
-                        <ChevronRight className="h-4 w-4 text-secondary" />
-                        <span className="text-card-foreground">{feature}</span>
+                  <p className="text-muted-foreground">{program.description}</p>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-4">
+                    <div>
+                      <h4 className="font-semibold mb-2 text-foreground">Key Areas:</h4>
+                      <div className="flex flex-wrap gap-2">
+                        {program.subjects.map((subject, idx) => (
+                          <Badge key={idx} variant="secondary" className="text-xs">
+                            {subject}
+                          </Badge>
+                        ))}
                       </div>
-                    ))}
+                    </div>
                   </div>
-                </div>
-                
-                <Button asChild className="w-full bg-accent hover:bg-accent/90 text-accent-foreground font-bold">
-                  <Link to="/admissions">Apply for {program.level.split('(')[0].trim()}</Link>
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
+                </CardContent>
+              </Card>
+            );
+          })}
         </div>
 
-        {/* Special Features Grid */}
-        <div className="mb-16">
-          <h3 className="text-3xl font-bold text-primary text-center mb-8">
-            What Makes Us Special
-          </h3>
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {specialFeatures.map((feature, index) => (
-              <Card key={index} className="text-center p-6 shadow-card hover-scale border-none bg-muted/30">
-                <div className="bg-primary text-primary-foreground p-3 rounded-full w-fit mx-auto mb-4">
-                  <feature.icon className="h-6 w-6" />
+        {/* Features */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+          {features.map((feature, index) => {
+            const Icon = feature.icon;
+            return (
+              <Card key={index} className="text-center p-6">
+                <div className="flex justify-center mb-4">
+                  <div className="p-3 bg-primary/10 rounded-full">
+                    <Icon className="h-6 w-6 text-primary" />
+                  </div>
                 </div>
-                <h4 className="font-bold text-primary mb-2">{feature.title}</h4>
+                <h3 className="text-lg font-semibold mb-2 text-foreground">{feature.title}</h3>
                 <p className="text-muted-foreground text-sm">{feature.description}</p>
               </Card>
-            ))}
-          </div>
+            );
+          })}
         </div>
 
-        {/* Call to Action */}
-        <Card className="bg-gradient-hero text-primary-foreground p-8 text-center shadow-school">
-          <h3 className="text-3xl font-bold mb-4">Ready to Begin Your Academic Journey?</h3>
-          <p className="text-lg mb-8 opacity-90 max-w-2xl mx-auto">
-            Join hundreds of successful students who have built their future at Our God Reigns Crystal School. 
-            Experience quality education with strong moral foundations.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold">
-              <Link to="/admissions">🎓 Apply Now</Link>
-            </Button>
-            <Button asChild size="lg" variant="outline" className="border-2 border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary font-bold">
-              <Link to="/school-fees">💰 View School Fees</Link>
-            </Button>
+        {/* Admission Highlight */}
+        <div className="text-center">
+          <div className="bg-primary/5 rounded-2xl p-8 max-w-2xl mx-auto">
+            <Badge variant="secondary" className="text-lg px-4 py-2 mb-4">
+              🚀 ADMISSION NOW OPEN
+            </Badge>
+            <h3 className="text-2xl font-bold text-foreground mb-4">Ready to Join Us?</h3>
+            <p className="text-muted-foreground mb-6">
+              Secure your child's future with quality education. Admission is now open for JSS & SSS classes.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <Button asChild size="lg" className="text-lg px-8">
+                <Link to="/admissions">
+                  🎓 Apply Now
+                </Link>
+              </Button>
+              <Button asChild size="lg" variant="outline">
+                <Link to="/about">
+                  Learn More
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
           </div>
-        </Card>
+        </div>
       </div>
     </section>
   );
