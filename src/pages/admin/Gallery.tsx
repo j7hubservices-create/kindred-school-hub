@@ -44,7 +44,7 @@ interface GalleryImage {
   caption: string | null;
   tags: string[] | null;
   created_at: string;
-  profiles: {
+  uploader_profiles: {
     full_name: string;
   } | null;
 }
@@ -79,13 +79,18 @@ const Gallery = () => {
       const { data, error } = await supabase
         .from('gallery_images')
         .select(`
-          *,
-          profiles:uploaded_by (full_name)
+          *
         `)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-      setImages(data || []);
+      
+      const mappedImages = data?.map(item => ({
+        ...item,
+        uploader_profiles: null
+      })) || [];
+      
+      setImages(mappedImages);
     } catch (error) {
       console.error('Error fetching images:', error);
       toast.error('Failed to load gallery images');
@@ -196,7 +201,7 @@ const Gallery = () => {
         await supabase
           .from('admin_activities')
           .insert({
-            user_id: profile.id,
+            user_id: profile?.user_id,
             action: 'updated',
             resource_type: 'gallery_image',
             resource_id: editingImage.id,
@@ -211,7 +216,7 @@ const Gallery = () => {
           .insert({
             ...submitData,
             tags: tagsArray.length > 0 ? tagsArray : null,
-            uploaded_by: profile.id
+            uploaded_by: profile?.user_id
           })
           .select()
           .single();
@@ -222,7 +227,7 @@ const Gallery = () => {
         await supabase
           .from('admin_activities')
           .insert({
-            user_id: profile.id,
+            user_id: profile?.user_id,
             action: 'created',
             resource_type: 'gallery_image',
             resource_id: data.id,
@@ -263,7 +268,7 @@ const Gallery = () => {
       await supabase
         .from('admin_activities')
         .insert({
-          user_id: profile.id,
+          user_id: profile?.user_id,
           action: 'deleted',
           resource_type: 'gallery_image',
           resource_id: imageId
@@ -378,7 +383,7 @@ const Gallery = () => {
                 
                 <div className="flex items-center justify-between">
                   <div className="text-xs text-gray-500">
-                    by {image.profiles?.full_name || 'Unknown'}
+                    by {image.uploader_profiles?.full_name || 'Unknown'}
                   </div>
                   <div className="flex gap-1">
                     <Button variant="outline" size="sm" onClick={() => openEditDialog(image)}>

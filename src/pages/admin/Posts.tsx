@@ -59,7 +59,7 @@ const Posts = () => {
           status,
           published_at,
           created_at,
-          profiles:author_id (full_name),
+          author_profiles:author_id!posts_author_id_fkey (full_name),
           categories:category_id (name)
         `)
         .order('created_at', { ascending: false });
@@ -68,7 +68,7 @@ const Posts = () => {
 
       const formattedPosts = data?.map(post => ({
         ...post,
-        author: post.profiles as any,
+        author: post.author_profiles as any,
         category: post.categories as any
       })) || [];
 
@@ -94,7 +94,7 @@ const Posts = () => {
       await supabase
         .from('admin_activities')
         .insert({
-          user_id: profile.id,
+          user_id: profile?.user_id,
           action: 'deleted',
           resource_type: 'post',
           resource_id: postId
