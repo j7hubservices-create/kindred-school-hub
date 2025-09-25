@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Users, BookOpen, Award } from "lucide-react";
-import schoolFlyer from "@/assets/school-flyer-main.jpg";
+import heroFlyer from "@/assets/hero-flyer.jpg";
 import schoolLogo from "@/assets/school-logo-main.jpeg";
 
 const HeroSection = () => {
@@ -76,7 +76,7 @@ const HeroSection = () => {
           <div className="flex-1 max-w-lg relative">
             <div className="relative">
               <img 
-                src={schoolFlyer} 
+                src={heroFlyer} 
                 alt="Our God Reigns Crystal School - Admission in Progress"
                 className="w-full h-auto rounded-2xl shadow-school hover-scale"
               />
