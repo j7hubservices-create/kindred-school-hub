@@ -20,7 +20,7 @@ const Portals = () => {
       title: "Admin Portal",
       description: "School administration and management access",
       icon: Shield,
-      link: "/admin-cms/dashboard",
+      link: "/admin-cms",
       isInternal: true
     },
     {

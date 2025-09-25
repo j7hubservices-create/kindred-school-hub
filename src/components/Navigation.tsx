@@ -33,7 +33,7 @@ const Navigation = () => {
     { name: "Student Portal", path: "/e-learning" },
     { name: "Library", path: "/library" },
     { name: "Staff Portal", path: "/portals" },
-    { name: "Admin Portal", path: "/admin-cms/dashboard" },
+    { name: "Admin Portal", path: "/admin-cms" },
   ];
 
   return (
