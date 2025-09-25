@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Shield } from 'lucide-react';
+import schoolLogo from '@/assets/school-logo-main.jpeg';
 
 const AdminLoginButton = () => {
   return (
@@ -8,9 +9,14 @@ const AdminLoginButton = () => {
       <Button 
         variant="outline"
         size="sm"
-        className="border-emerald-600 text-emerald-600 hover:bg-emerald-50"
+        className="border-primary text-primary hover:bg-primary/10 flex items-center gap-2"
       >
-        <Shield className="h-4 w-4 mr-2" />
+        <img 
+          src={schoolLogo} 
+          alt="School Logo" 
+          className="h-4 w-4 rounded-full object-cover"
+        />
+        <Shield className="h-4 w-4" />
         Admin Login
       </Button>
     </Link>
