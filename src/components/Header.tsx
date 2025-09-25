@@ -1,5 +1,5 @@
 import { Phone, Mail, MapPin } from "lucide-react";
-import schoolFlyer from "@/assets/school-flyer-header.jpg";
+import schoolLogo from "@/assets/school-logo-main.jpeg";
 
 const Header = () => {
   return (
@@ -8,9 +8,9 @@ const Header = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <img 
-              src={schoolFlyer} 
-              alt="Our God Reigns Crystal School Flyer" 
-              className="h-16 w-24 rounded object-cover shadow-card"
+              src={schoolLogo} 
+              alt="Our God Reigns Crystal School Logo" 
+              className="h-12 w-12 rounded-full object-cover shadow-card"
             />
             <div>
               <h1 className="text-xl font-bold">Our God Reigns Crystal School</h1>
