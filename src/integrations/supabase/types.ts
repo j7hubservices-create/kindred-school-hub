@@ -20,6 +20,8 @@ export type Database = {
           created_at: string
           details: Json | null
           id: string
+          resource_id: string | null
+          resource_type: string | null
           user_id: string | null
         }
         Insert: {
@@ -27,6 +29,8 @@ export type Database = {
           created_at?: string
           details?: Json | null
           id?: string
+          resource_id?: string | null
+          resource_type?: string | null
           user_id?: string | null
         }
         Update: {
@@ -34,6 +38,8 @@ export type Database = {
           created_at?: string
           details?: Json | null
           id?: string
+          resource_id?: string | null
+          resource_type?: string | null
           user_id?: string | null
         }
         Relationships: [
@@ -72,28 +78,40 @@ export type Database = {
       }
       gallery_images: {
         Row: {
+          alt_text: string | null
+          caption: string | null
           category: string | null
           created_at: string
           description: string | null
           id: string
           image_url: string
+          tags: string[] | null
           title: string | null
+          uploaded_by: string | null
         }
         Insert: {
+          alt_text?: string | null
+          caption?: string | null
           category?: string | null
           created_at?: string
           description?: string | null
           id?: string
           image_url: string
+          tags?: string[] | null
           title?: string | null
+          uploaded_by?: string | null
         }
         Update: {
+          alt_text?: string | null
+          caption?: string | null
           category?: string | null
           created_at?: string
           description?: string | null
           id?: string
           image_url?: string
+          tags?: string[] | null
           title?: string | null
+          uploaded_by?: string | null
         }
         Relationships: []
       }
@@ -107,6 +125,7 @@ export type Database = {
           featured_image_url: string | null
           id: string
           published_at: string | null
+          slug: string | null
           status: string | null
           title: string
           updated_at: string
@@ -120,6 +139,7 @@ export type Database = {
           featured_image_url?: string | null
           id?: string
           published_at?: string | null
+          slug?: string | null
           status?: string | null
           title: string
           updated_at?: string
@@ -133,6 +153,7 @@ export type Database = {
           featured_image_url?: string | null
           id?: string
           published_at?: string | null
+          slug?: string | null
           status?: string | null
           title?: string
           updated_at?: string
@@ -181,6 +202,36 @@ export type Database = {
           role?: string | null
           updated_at?: string
           user_id?: string
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          setting_key: string
+          setting_type: string | null
+          setting_value: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          setting_key: string
+          setting_type?: string | null
+          setting_value?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          setting_key?: string
+          setting_type?: string | null
+          setting_value?: string | null
+          updated_at?: string
         }
         Relationships: []
       }
