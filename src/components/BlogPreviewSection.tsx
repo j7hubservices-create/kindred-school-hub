@@ -14,9 +14,6 @@ interface Post {
   excerpt: string;
   image_url: string | null;
   created_at: string;
-  profiles: {
-    full_name: string;
-  } | null;
 }
 
 const BlogPreviewSection = () => {
@@ -40,12 +37,9 @@ const BlogPreviewSection = () => {
           content,
           excerpt,
           image_url,
-          created_at,
-          profiles:author_id (
-            full_name
-          )
+          created_at
         `)
-        .eq('published', true)
+        .eq('status', 'published')
         .order('created_at', { ascending: false })
         .limit(3);
 
@@ -117,18 +111,16 @@ const BlogPreviewSection = () => {
               </div>
               
               <CardContent className="p-6">
-                <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
-                  <div className="flex items-center gap-1">
-                    <Calendar className="h-4 w-4" />
-                    <span>{format(new Date(post.created_at), 'MMM dd, yyyy')}</span>
-                  </div>
-                  {post.profiles && (
+                  <div className="flex items-center gap-4 text-sm text-muted-foreground mb-3">
+                    <div className="flex items-center gap-1">
+                      <Calendar className="h-4 w-4" />
+                      <span>{format(new Date(post.created_at), 'MMM dd, yyyy')}</span>
+                    </div>
                     <div className="flex items-center gap-1">
                       <User className="h-4 w-4" />
-                      <span>{post.profiles.full_name}</span>
+                      <span>Admin</span>
                     </div>
-                  )}
-                </div>
+                  </div>
                 
                 <h3 className="text-xl font-bold text-primary mb-3 line-clamp-2">
                   {post.title}

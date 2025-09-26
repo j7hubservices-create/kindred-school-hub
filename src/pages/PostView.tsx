@@ -17,7 +17,6 @@ interface Post {
   excerpt: string | null;
   image_url: string | null;
   created_at: string;
-  profiles: { full_name: string } | null;
 }
 
 interface RelatedPost {
@@ -26,7 +25,6 @@ interface RelatedPost {
   excerpt: string | null;
   image_url: string | null;
   created_at: string;
-  profiles: { full_name: string } | null;
 }
 
 const PostView = () => {
@@ -52,11 +50,10 @@ const PostView = () => {
           content,
           excerpt,
           image_url,
-          created_at,
-          profiles:author_id(full_name)
+          created_at
         `)
         .eq('id', slug)
-        .eq('published', true)
+        .eq('status', 'published')
         .single();
 
       if (error) {
@@ -81,10 +78,9 @@ const PostView = () => {
           title,
           excerpt,
           image_url,
-          created_at,
-          profiles:author_id(full_name)
+          created_at
         `)
-        .eq('published', true)
+        .eq('status', 'published')
         .neq('id', slug)
         .order('created_at', { ascending: false })
         .limit(3);
@@ -158,7 +154,7 @@ const PostView = () => {
             <div className="flex items-center gap-6 text-muted-foreground mb-6">
               <div className="flex items-center gap-2">
                 <User className="h-4 w-4" />
-                <span>{post.profiles?.full_name || 'Admin'}</span>
+                <span>Admin</span>
               </div>
               <div className="flex items-center gap-2">
                 <Calendar className="h-4 w-4" />
@@ -225,7 +221,7 @@ const PostView = () => {
                         </p>
                       )}
                       <div className="flex items-center justify-between text-sm text-muted-foreground">
-                        <span>{relatedPost.profiles?.full_name || 'Admin'}</span>
+                        <span>Admin</span>
                         <span>{formatDistance(new Date(relatedPost.created_at), new Date(), { addSuffix: true })}</span>
                       </div>
                       <Button asChild className="w-full mt-4">

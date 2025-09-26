@@ -15,10 +15,6 @@ interface ActivityLog {
   details: any;
   created_at: string;
   user_id: string | null;
-  profiles: {
-    full_name: string | null;
-    email: string | null;
-  } | null;
 }
 
 const Activity = () => {
@@ -36,13 +32,7 @@ const Activity = () => {
     try {
       const { data, error } = await supabase
         .from('activity_logs')
-        .select(`
-          *,
-          profiles:user_id (
-            full_name,
-            email
-          )
-        `)
+        .select('*')
         .order('created_at', { ascending: false })
         .limit(100);
 
@@ -126,9 +116,7 @@ const Activity = () => {
   };
 
   const filteredActivities = activities.filter(activity => {
-    const matchesSearch = formatActivityDescription(activity).toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         activity.profiles?.full_name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         activity.profiles?.email?.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = formatActivityDescription(activity).toLowerCase().includes(searchTerm.toLowerCase());
     const matchesAction = actionFilter === 'all' || activity.action === actionFilter;
     const matchesResource = resourceFilter === 'all' || activity.resource_type === resourceFilter;
     return matchesSearch && matchesAction && matchesResource;
@@ -221,7 +209,7 @@ const Activity = () => {
                         </p>
                         <div className="flex items-center gap-2 text-xs text-gray-500">
                           <span>
-                            by {activity.profiles?.full_name || activity.profiles?.email || 'Unknown User'}
+                            by Unknown User
                           </span>
                           <span>•</span>
                           <span>

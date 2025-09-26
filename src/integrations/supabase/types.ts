@@ -71,6 +71,56 @@ export type Database = {
         }
         Relationships: []
       }
+      content_items: {
+        Row: {
+          author_id: string | null
+          category_id: string | null
+          content: string
+          created_at: string
+          excerpt: string | null
+          featured: boolean | null
+          id: string
+          image_url: string | null
+          status: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          author_id?: string | null
+          category_id?: string | null
+          content: string
+          created_at?: string
+          excerpt?: string | null
+          featured?: boolean | null
+          id?: string
+          image_url?: string | null
+          status?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          author_id?: string | null
+          category_id?: string | null
+          content?: string
+          created_at?: string
+          excerpt?: string | null
+          featured?: boolean | null
+          id?: string
+          image_url?: string | null
+          status?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_items_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       gallery: {
         Row: {
           alt_text: string | null
