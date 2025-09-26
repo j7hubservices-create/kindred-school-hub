@@ -65,8 +65,8 @@ const NewsSection = () => {
   const displayPosts = posts.length > 0 ? posts : staticNews;
 
   return (
-    <section className="py-12 bg-gradient-to-r from-primary/5 via-secondary/5 to-primary/10 relative">
-      <div className="absolute inset-0 bg-gradient-subtle opacity-20"></div>
+    <section className="py-12 bg-gradient-to-r from-primary/15 via-secondary/10 to-primary/25 relative">
+      <div className="absolute inset-0 bg-gradient-subtle opacity-30"></div>
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-8">
           <Badge className="bg-primary text-primary-foreground mb-3 px-4 py-2 shadow-sm">

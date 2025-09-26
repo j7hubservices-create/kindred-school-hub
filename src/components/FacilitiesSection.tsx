@@ -29,8 +29,8 @@ const FacilitiesSection = () => {
   ];
 
   return (
-    <section className="py-12 bg-gradient-to-bl from-secondary/5 via-background to-primary/5 relative">
-      <div className="absolute inset-0 bg-gradient-diagonal opacity-10"></div>
+    <section className="py-12 bg-gradient-to-bl from-secondary/15 via-primary/10 to-primary/20 relative">
+      <div className="absolute inset-0 bg-gradient-diagonal opacity-25"></div>
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-8">
           <Badge className="bg-primary text-primary-foreground mb-3 px-4 py-2 shadow-glow">
