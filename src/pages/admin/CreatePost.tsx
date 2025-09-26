@@ -188,7 +188,7 @@ const CreatePost = () => {
         data = result.data;
         error = result.error;
       } else {
-        // Create new post
+        // Create new post - temporarily without status to avoid schema cache issue
         const result = await supabase
           .from('content_items')
           .insert({
@@ -196,7 +196,6 @@ const CreatePost = () => {
             content: submitData.content,
             excerpt: submitData.excerpt,
             image_url: submitData.featured_image_url || null,
-            status: submitData.status,
             author_id: profile?.user_id || null
           })
           .select()
@@ -204,6 +203,14 @@ const CreatePost = () => {
         
         data = result.data;
         error = result.error;
+        
+        // Update with status if creation succeeded and status is not draft
+        if (!error && data && submitData.status !== 'draft') {
+          await supabase
+            .from('content_items')
+            .update({ status: submitData.status })
+            .eq('id', data.id);
+        }
       }
 
       if (error) throw error;
