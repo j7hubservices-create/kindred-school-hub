@@ -31,14 +31,7 @@ const BlogPreviewSection = () => {
     try {
       const { data, error } = await supabase
         .from('content_items')
-        .select(`
-          id,
-          title,
-          content,
-          excerpt,
-          image_url,
-          created_at
-        `)
+        .select('id, title, content, excerpt, image_url, created_at')
         .eq('status', 'published')
         .order('created_at', { ascending: false })
         .limit(3);
