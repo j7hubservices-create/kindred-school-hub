@@ -36,18 +36,19 @@ Pastor (Mrs) Kehinde Adetuberu
 Proprietress`;
 
   return (
-    <section className="py-10 bg-muted/30">
-      <div className="container mx-auto px-4">
+    <section className="py-10 bg-gradient-to-br from-primary/20 via-primary/5 to-primary/30 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-elegant opacity-20"></div>
+      <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-8">
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-3">
+          <h2 className="text-2xl md:text-3xl font-bold text-primary mb-3">
             Proprietress' Welcome Address
           </h2>
-          <Badge variant="secondary" className="text-sm px-3 py-1">
+          <Badge className="bg-primary text-primary-foreground text-sm px-3 py-1">
             First Term 2025/2026 Academic Session
           </Badge>
         </div>
         
-        <Card className="max-w-4xl mx-auto shadow-lg">
+        <Card className="max-w-4xl mx-auto shadow-elegant border-primary/10">
           <CardContent className="p-6">
             <div className="grid md:grid-cols-3 gap-6">
               <div className="md:col-span-1 flex justify-center">

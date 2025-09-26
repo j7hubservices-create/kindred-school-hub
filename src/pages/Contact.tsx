@@ -1,10 +1,12 @@
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import PageHero from "@/components/PageHero";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, Phone, Mail, Clock, MessageSquare } from "lucide-react";
+import contactHero from "@/assets/contact-hero.jpg";
 
 const Contact = () => {
   return (
@@ -12,18 +14,13 @@ const Contact = () => {
       <Header />
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="py-20 bg-gradient-hero text-primary-foreground">
-        <div className="container mx-auto px-4 text-center">
-          <Badge className="bg-accent text-accent-foreground mb-6 px-4 py-2">
-            Contact Us
-          </Badge>
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">Get in Touch</h1>
-          <p className="text-xl mb-8 opacity-90">
-            We're here to help and answer any questions you might have
-          </p>
-        </div>
-      </section>
+      <PageHero
+        title="Get in Touch"
+        subtitle="We're here to help and answer any questions you might have"
+        description="Connect with our friendly team for admissions, information, or any support you need"
+        badge="📞 Contact Us"
+        backgroundImage={contactHero}
+      />
 
       {/* Contact Information */}
       <section className="py-16 bg-background">

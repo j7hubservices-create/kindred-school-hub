@@ -3,7 +3,7 @@ import schoolLogo from "@/assets/school-logo-new.jpeg";
 
 const Header = () => {
   return (
-    <header className="bg-primary text-primary-foreground py-2 md:py-3">
+    <header className="bg-primary text-primary-foreground py-2 md:py-3 sticky top-0 z-50 shadow-sm backdrop-blur-sm">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2 md:space-x-3 min-w-0 flex-1">
@@ -22,13 +22,13 @@ const Header = () => {
             <div className="flex items-center space-x-2">
               <Phone className="h-4 w-4 text-accent flex-shrink-0" />
               <div className="space-y-1">
-                <a href="tel:+2348027625129" className="block hover:text-accent transition-colors">08027625129</a>
-                <a href="tel:+2348033089735" className="block hover:text-accent transition-colors">08033089735</a>
+                <a href="tel:+2348027625129" className="block hover:text-accent/80 transition-colors">08027625129</a>
+                <a href="tel:+2348033089735" className="block hover:text-accent/80 transition-colors">08033089735</a>
               </div>
             </div>
             <div className="flex items-center space-x-2">
               <Mail className="h-4 w-4 text-accent flex-shrink-0" />
-              <a href="mailto:ogrcs@yahoo.com" className="hover:text-accent transition-colors">ogrcs@yahoo.com</a>
+              <a href="mailto:ogrcs@yahoo.com" className="hover:text-accent/80 transition-colors">ogrcs@yahoo.com</a>
             </div>
             <div className="flex items-center space-x-2">
               <MapPin className="h-4 w-4 text-accent flex-shrink-0" />
@@ -45,7 +45,7 @@ const Header = () => {
           <div className="lg:hidden xl:hidden">
             <div className="text-right">
               <div className="text-accent font-bold text-xs">2025/2026</div>
-              <a href="tel:+2348027625129" className="text-xs opacity-90 hover:text-accent">08027625129</a>
+              <a href="tel:+2348027625129" className="text-xs opacity-90 hover:text-accent/80">08027625129</a>
             </div>
           </div>
         </div>

@@ -13,7 +13,7 @@ import NewsSection from "@/components/NewsSection";
 
 const Index = () => {
   return (
-    <div className="min-h-screen bg-gradient-cream">
+    <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-secondary/15">
       <Header />
       <Navigation />
       

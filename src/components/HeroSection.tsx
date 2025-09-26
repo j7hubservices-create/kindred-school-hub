@@ -4,12 +4,20 @@ import { Badge } from "@/components/ui/badge";
 import { GraduationCap, Users, BookOpen, Award } from "lucide-react";
 import schoolFlyer from "@/assets/school-flyer-main.jpg";
 import schoolLogo from "@/assets/school-logo-new.jpeg";
+import studentsBackground from "@/assets/students-background.jpg";
 
 const HeroSection = () => {
   return (
-    <section className="bg-primary text-primary-foreground py-8 md:py-12 relative overflow-hidden">
+    <section className="relative py-8 md:py-12 overflow-hidden">
+      {/* Background Image */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{ backgroundImage: `url(${studentsBackground})` }}
+      ></div>
+      {/* Green Transparent Overlay */}
+      <div className="absolute inset-0 bg-primary/60"></div>
       <div className="absolute inset-0 bg-gradient-diagonal opacity-10"></div>
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container mx-auto px-4 relative z-10 text-primary-foreground">
         <div className="grid lg:grid-cols-5 gap-6 lg:gap-8 items-center">
           {/* Left Content - More Compact */}
           <div className="lg:col-span-3 space-y-4 md:space-y-6 text-center lg:text-left">

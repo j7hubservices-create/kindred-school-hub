@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import PageHero from "@/components/PageHero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -19,6 +20,7 @@ import {
 } from "lucide-react";
 import admissionFlyerImage from "@/assets/admission-flyer-new.jpg";
 import schoolLogoMain from "@/assets/school-logo-main.jpeg";
+import admissionsHero from "@/assets/admissions-hero.jpg";
 
 const Admissions = () => {
   const admissionRequirements = [
@@ -58,18 +60,18 @@ const Admissions = () => {
       <Header />
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-hero text-white overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-diagonal opacity-10"></div>
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <Badge className="bg-secondary text-secondary-foreground mb-6 px-6 py-3 text-lg font-semibold animate-fade-in">
-            🎓 Admission Open for 2025/2026 Session
-          </Badge>
-          <h1 className="text-6xl font-bold mb-6 animate-fade-in">Join Our Excellence</h1>
-          <p className="text-xl mb-8 max-w-3xl mx-auto animate-fade-in">
-            Enroll at Our God Reigns Crystal School - Where Academic Excellence Meets Character Development
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in">
+      <PageHero
+        title="Join Our Excellence"
+        subtitle="Enroll at Our God Reigns Crystal School - Where Academic Excellence Meets Character Development"
+        description="Join our community of learners and experience quality education that shapes character and builds future leaders"
+        badge="🎓 Admission Open for 2025/2026 Session"
+        backgroundImage={admissionsHero}
+      />
+      
+      {/* Call to Action Buttons */}
+      <section className="py-8 bg-background">
+        <div className="container mx-auto px-4 text-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg" 
               className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-4 text-lg font-semibold"
@@ -80,7 +82,7 @@ const Admissions = () => {
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg"
+              className="border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-4 text-lg"
             >
               <FileText className="mr-2 h-5 w-5" />
               Download Prospectus

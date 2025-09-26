@@ -1,10 +1,12 @@
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import PageHero from "@/components/PageHero";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Shield, Users, GraduationCap, User } from "lucide-react";
+import portalsHero from "@/assets/portals-hero.jpg";
 
 interface Portal {
   title: string;
@@ -51,16 +53,13 @@ const Portals = () => {
       <Header />
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="py-16 bg-emerald-600 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <Badge className="bg-yellow-500 text-yellow-900 mb-6 px-4 py-2">
-            School Portals
-          </Badge>
-          <h1 className="text-5xl font-bold mb-4">Access School Portals</h1>
-          <p className="text-xl mb-8">Quick access to our digital learning and management systems</p>
-        </div>
-      </section>
+      <PageHero
+        title="Access School Portals"
+        subtitle="Quick access to our digital learning and management systems"
+        description="Secure portals for administrators, staff, parents, and students"
+        badge="🔐 School Portals"
+        backgroundImage={portalsHero}
+      />
 
       {/* Portals Grid */}
       <section className="py-16 bg-white">
