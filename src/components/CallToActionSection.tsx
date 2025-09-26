@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 import { 
   GraduationCap, 
   Phone, 
@@ -7,121 +8,161 @@ import {
   ArrowRight,
   Star,
   Users,
-  Trophy
+  Trophy,
+  BookOpen
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import schoolFlyer from "@/assets/school-flyer-main.jpg";
 
 const CallToActionSection = () => {
-  const benefits = [
-    { icon: Star, text: "Quality Education" },
-    { icon: Users, text: "Experienced Teachers" },
-    { icon: Trophy, text: "Proven Results" },
-    { icon: GraduationCap, text: "Holistic Development" }
+  const features = [
+    { 
+      icon: BookOpen, 
+      title: "JSS & SSS", 
+      subtitle: "Available Classes",
+      color: "bg-white/20"
+    },
+    { 
+      icon: Trophy, 
+      title: "Excellence", 
+      subtitle: "Academic Record",
+      color: "bg-emerald-500/20"
+    }
   ];
 
   return (
-    <section className="py-5 bg-gradient-to-br from-emerald-600/90 to-green-700/90 text-white relative overflow-hidden">
-      {/* Background Image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center opacity-20"
-        style={{ backgroundImage: `url(${schoolFlyer})` }}
-      />
+    <section className="relative py-12 md:py-16 bg-gradient-to-br from-emerald-600 via-emerald-700 to-green-800 text-white overflow-hidden">
+      {/* Geometric Background Pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute top-0 left-0 w-full h-full">
+          <svg viewBox="0 0 100 100" className="w-full h-full">
+            <defs>
+              <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" strokeWidth="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="100" height="100" fill="url(#grid)" />
+          </svg>
+        </div>
+        {/* Floating geometric shapes */}
+        <div className="absolute top-10 left-10 w-20 h-20 border border-white/20 rotate-45 animate-pulse"></div>
+        <div className="absolute bottom-20 right-20 w-16 h-16 border border-white/20 rotate-12 animate-pulse delay-75"></div>
+        <div className="absolute top-1/2 left-1/4 w-12 h-12 border border-white/20 rotate-45 animate-pulse delay-150"></div>
+      </div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-3 items-center">
-          {/* Left - Flyer Image */}
-          <div className="relative order-last lg:order-first">
-            <div className="relative max-w-xs mx-auto">
-              <img 
-                src={schoolFlyer} 
-                alt="Our God Reigns Crystal School - Green Flyer"
-                className="w-full h-auto rounded-lg shadow-xl transform hover:scale-105 transition-transform duration-300"
-              />
-              
-              {/* Floating admission badge */}
-              <div className="absolute -top-1 -right-1 bg-emerald-500 text-white px-2 py-1 rounded-full text-xs font-bold shadow-lg">
-                2025/2026
-              </div>
+        <div className="grid lg:grid-cols-2 gap-8 items-center">
+          {/* Left Content */}
+          <div className="space-y-6">
+            {/* Admission Badge */}
+            <Badge className="bg-amber-500 hover:bg-amber-600 text-amber-900 px-6 py-2 text-sm font-bold inline-flex items-center gap-2 animate-fade-in">
+              <GraduationCap className="h-4 w-4" />
+              Admission Open for 2025/2026 Session
+            </Badge>
+            
+            {/* Main Heading */}
+            <div className="space-y-2">
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight animate-fade-in">
+                Our God Reigns<br />
+                <span className="text-amber-400">Crystal School</span>
+              </h2>
+              <p className="text-lg md:text-xl font-semibold text-emerald-200 animate-fade-in">
+                Light to the World
+              </p>
             </div>
-          </div>
-
-          {/* Right - Content */}
-          <div className="text-center lg:text-left space-y-2">
-            <GraduationCap className="h-8 w-8 mx-auto lg:mx-0 mb-2 text-emerald-300" />
-            <h2 className="text-xl md:text-2xl font-bold mb-2">
-              Enroll Your Child Today!
-            </h2>
-            <p className="text-sm mb-3 opacity-90 leading-relaxed">
-              Give your child the foundation for success with quality education at Our God Reigns Crystal School
+            
+            {/* Description */}
+            <p className="text-base md:text-lg text-white/90 leading-relaxed max-w-xl animate-fade-in">
+              Where academic excellence meets Christian values. Nurturing tomorrow's leaders with integrity, knowledge, and divine purpose.
             </p>
-
-            <div className="grid grid-cols-2 gap-2 mb-3">
-              {benefits.map((benefit, index) => (
-                <Card key={index} className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover-scale transition-all duration-200">
-                  <CardContent className="p-2 text-center">
-                    <benefit.icon className="h-4 w-4 mx-auto mb-1 text-emerald-300" />
-                    <p className="font-semibold text-xs">{benefit.text}</p>
+            
+            {/* Feature Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 animate-fade-in">
+              {features.map((feature, index) => (
+                <Card key={index} className={`${feature.color} backdrop-blur-sm border-white/20 text-white hover-scale transition-all duration-300`}>
+                  <CardContent className="p-4">
+                    <div className="flex items-center gap-3">
+                      <feature.icon className="h-8 w-8 text-amber-400 flex-shrink-0" />
+                      <div>
+                        <h3 className="font-bold text-sm md:text-base">{feature.title}</h3>
+                        <p className="text-xs md:text-sm text-white/80">{feature.subtitle}</p>
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
               ))}
             </div>
-
-            <div className="flex flex-col sm:flex-row gap-1 justify-center lg:justify-start">
-              <Button asChild size="sm" className="bg-emerald-500 hover:bg-emerald-600 text-white font-bold px-4 py-2 h-auto text-sm">
+            
+            {/* CTA Buttons */}
+            <div className="flex flex-col sm:flex-row gap-3 pt-2 animate-fade-in">
+              <Button asChild size="lg" className="bg-amber-500 hover:bg-amber-600 text-amber-900 font-bold px-6 py-3 shadow-lg hover:shadow-xl transition-all duration-300">
                 <Link to="/admissions" className="flex items-center gap-2">
-                  <GraduationCap className="h-4 w-4" />
-                  Apply Now
-                  <ArrowRight className="h-3 w-3" />
+                  Apply for Admission
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
               
-              <Button asChild size="sm" variant="outline" className="border-white text-white hover:bg-white hover:text-emerald-700 font-bold px-4 py-2 h-auto text-sm">
+              <Button asChild size="lg" variant="outline" className="border-2 border-white text-white hover:bg-white hover:text-emerald-700 font-bold px-6 py-3">
                 <Link to="/contact" className="flex items-center gap-2">
                   <Calendar className="h-4 w-4" />
-                  School Tour
-                  <ArrowRight className="h-3 w-3" />
+                  Schedule Visit
                 </Link>
               </Button>
             </div>
           </div>
+          
+          {/* Right Flyer Image */}
+          <div className="relative order-first lg:order-last">
+            <div className="relative max-w-md mx-auto lg:max-w-full">
+              {/* Floating elements */}
+              <div className="absolute -top-4 -left-4 w-8 h-8 bg-amber-400/30 rounded-full animate-pulse"></div>
+              <div className="absolute -bottom-4 -right-4 w-6 h-6 bg-white/30 rounded-full animate-pulse delay-75"></div>
+              
+              <div className="relative group">
+                <img 
+                  src={schoolFlyer} 
+                  alt="Our God Reigns Crystal School - Admission Flyer 2025/2026"
+                  className="w-full h-auto rounded-xl shadow-2xl transform group-hover:scale-105 transition-transform duration-500 animate-fade-in"
+                />
+                
+                {/* Floating badge */}
+                <div className="absolute -top-3 -right-3 bg-amber-500 text-amber-900 px-3 py-1 rounded-full text-xs font-bold shadow-lg animate-fade-in">
+                  2025/2026
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-
-        <div className="grid md:grid-cols-3 gap-2 mt-3 max-w-3xl mx-auto">
-          <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
-            <CardContent className="p-2 text-center">
-              <Phone className="h-4 w-4 mx-auto mb-1 text-emerald-300" />
-              <h3 className="font-bold mb-1 text-xs">Call Us</h3>
-              <div className="text-xs space-y-0.5">
-                <a href="tel:08027625129" className="block hover:text-emerald-300 transition-colors">08027625129</a>
-                <a href="tel:08033089735" className="block hover:text-emerald-300 transition-colors">08033089735</a>
+        
+        {/* Bottom Contact Cards - Compact */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 animate-fade-in">
+          <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover-scale transition-all duration-300">
+            <CardContent className="p-4 text-center">
+              <Phone className="h-5 w-5 mx-auto mb-2 text-amber-400" />
+              <h3 className="font-bold mb-1 text-sm">Call Us</h3>
+              <div className="space-y-0.5 text-xs">
+                <a href="tel:08027625129" className="block hover:text-amber-300 transition-colors">08027625129</a>
+                <a href="tel:08033089735" className="block hover:text-amber-300 transition-colors">08033089735</a>
               </div>
             </CardContent>
           </Card>
 
-          <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
-            <CardContent className="p-2 text-center">
-              <Calendar className="h-4 w-4 mx-auto mb-1 text-emerald-300" />
-              <h3 className="font-bold mb-1 text-xs">Visit Campus</h3>
+          <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover-scale transition-all duration-300">
+            <CardContent className="p-4 text-center">
+              <Calendar className="h-5 w-5 mx-auto mb-2 text-amber-400" />
+              <h3 className="font-bold mb-1 text-sm">Visit Campus</h3>
               <p className="text-xs">23, Bolanle Awosika Street<br />Ojuore Ota</p>
             </CardContent>
           </Card>
 
-          <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
-            <CardContent className="p-2 text-center">
-              <GraduationCap className="h-4 w-4 mx-auto mb-1 text-emerald-300" />
-              <h3 className="font-bold mb-1 text-xs">Online Application</h3>
-              <Button asChild size="sm" className="bg-emerald-500 hover:bg-emerald-600 text-white text-xs px-2 py-1">
-                <Link to="/admissions">Apply</Link>
+          <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white hover-scale transition-all duration-300">
+            <CardContent className="p-4 text-center">
+              <GraduationCap className="h-5 w-5 mx-auto mb-2 text-amber-400" />
+              <h3 className="font-bold mb-1 text-sm">Quick Apply</h3>
+              <Button asChild size="sm" className="bg-amber-500 hover:bg-amber-600 text-amber-900 text-xs px-3 py-1 mt-1">
+                <Link to="/admissions">Apply Now</Link>
               </Button>
             </CardContent>
-          </Card>
-        </div>
-
-        <div className="text-center mt-3">
-          <Card className="bg-emerald-500 text-white p-2 inline-block">
-            <p className="font-bold text-sm">🎓 Admission in Progress!</p>
-            <p className="text-xs">Limited spaces available for 2025/2026 session.</p>
           </Card>
         </div>
       </div>
