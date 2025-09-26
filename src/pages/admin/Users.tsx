@@ -37,7 +37,7 @@ const Users = () => {
   const [roleDialogOpen, setRoleDialogOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<UserProfile | null>(null);
   const [newRole, setNewRole] = useState('');
-  const { profile } = useAuth();
+  const { profile, isSuperAdmin } = useAuth();
 
   useEffect(() => {
     fetchUsers();
@@ -95,12 +95,16 @@ const Users = () => {
 
   const getRoleBadgeColor = (role: string) => {
     switch (role) {
+      case 'superadmin':
+        return 'bg-purple-100 text-purple-800 border-purple-200';
       case 'admin':
         return 'bg-red-100 text-red-800 border-red-200';
-      case 'editor':
+      case 'teacher':
         return 'bg-blue-100 text-blue-800 border-blue-200';
-      case 'user':
+      case 'student':
         return 'bg-green-100 text-green-800 border-green-200';
+      case 'parent':
+        return 'bg-orange-100 text-orange-800 border-orange-200';
       default:
         return 'bg-gray-100 text-gray-800 border-gray-200';
     }
@@ -108,9 +112,11 @@ const Users = () => {
 
   const getRoleIcon = (role: string) => {
     switch (role) {
+      case 'superadmin':
+        return <Shield className="h-4 w-4 text-purple-600" />;
       case 'admin':
         return <Shield className="h-4 w-4" />;
-      case 'editor':
+      case 'teacher':
         return <Edit className="h-4 w-4" />;
       default:
         return <User className="h-4 w-4" />;
@@ -159,9 +165,11 @@ const Users = () => {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Roles</SelectItem>
+            <SelectItem value="superadmin">Super Admins</SelectItem>
             <SelectItem value="admin">Admins</SelectItem>
-            <SelectItem value="editor">Editors</SelectItem>
-            <SelectItem value="user">Users</SelectItem>
+            <SelectItem value="teacher">Teachers</SelectItem>
+            <SelectItem value="student">Students</SelectItem>
+            <SelectItem value="parent">Parents</SelectItem>
           </SelectContent>
         </Select>
         
@@ -209,7 +217,7 @@ const Users = () => {
                   </div>
                   
                   <div className="flex items-center gap-2">
-                    {user.id !== profile.id && (
+                    {user.id !== profile.id && isSuperAdmin && (
                       <Button
                         variant="outline"
                         size="sm"
@@ -251,9 +259,13 @@ const Users = () => {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="user">User - Basic access</SelectItem>
-                      <SelectItem value="editor">Editor - Can manage content</SelectItem>
+                      <SelectItem value="student">Student - Basic access</SelectItem>
+                      <SelectItem value="parent">Parent - View child data</SelectItem>
+                      <SelectItem value="teacher">Teacher - Manage classes</SelectItem>
                       <SelectItem value="admin">Admin - Full access</SelectItem>
+                      {isSuperAdmin && (
+                        <SelectItem value="superadmin">Super Admin - Manage admins</SelectItem>
+                      )}
                     </SelectContent>
                   </Select>
                 </div>
@@ -261,9 +273,13 @@ const Users = () => {
                 <div className="text-sm text-gray-600">
                   <p className="font-medium mb-2">Role Permissions:</p>
                   <ul className="space-y-1 text-xs">
-                    <li>• <strong>User:</strong> Basic website access</li>
-                    <li>• <strong>Editor:</strong> Can manage posts, gallery, and categories</li>
-                    <li>• <strong>Admin:</strong> Full access to all CMS features</li>
+                    <li>• <strong>Student:</strong> Basic portal access</li>
+                    <li>• <strong>Parent:</strong> View child's data and fees</li>
+                    <li>• <strong>Teacher:</strong> Manage classes and student data</li>
+                    <li>• <strong>Admin:</strong> Full portal access</li>
+                    {isSuperAdmin && (
+                      <li>• <strong>Super Admin:</strong> Can manage admin users</li>
+                    )}
                   </ul>
                 </div>
               </div>

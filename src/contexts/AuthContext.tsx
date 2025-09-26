@@ -13,6 +13,7 @@ interface AuthContextType {
   signOut: () => Promise<void>;
   resetPassword: (email: string) => Promise<{ error: any }>;
   isAdmin: boolean;
+  isSuperAdmin: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -55,12 +56,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         .maybeSingle();
 
       if (!existingProfile) {
-        // Check how many profiles exist to decide first admin
-        const { count } = await supabase
-          .from('profiles')
-          .select('id', { count: 'exact', head: true });
-
-        const role = (count ?? 0) === 0 ? 'admin' : 'student';
+        // Determine role based on email and existing profiles
+        const superAdminEmails = ['jerryemeka22@gmail.com', 'ogrcs@yahoo.com'];
+        let role = 'student';
+        
+        if (superAdminEmails.includes(email || '')) {
+          role = 'superadmin';
+        } else {
+          // Check how many profiles exist to decide first admin
+          const { count } = await supabase
+            .from('profiles')
+            .select('id', { count: 'exact', head: true });
+          role = (count ?? 0) === 0 ? 'admin' : 'student';
+        }
 
         const { data: inserted } = await supabase
           .from('profiles')
@@ -68,7 +76,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
             user_id: userId,
             full_name: fullName || email || 'User',
             email: email || null,
-            role
+            role: role as any
           })
           .select()
           .single();
@@ -100,7 +108,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const isAdmin = profile?.role === 'admin';
+  const isAdmin = profile?.role === 'admin' || profile?.role === 'superadmin';
+  const isSuperAdmin = profile?.role === 'superadmin';
   useEffect(() => {
     // Set up auth state listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
@@ -216,7 +225,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     signUp,
     signOut,
     resetPassword,
-    isAdmin
+    isAdmin,
+    isSuperAdmin
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
