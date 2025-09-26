@@ -17,6 +17,9 @@ interface Post {
   content: string | null;
   image_url: string | null;
   created_at: string;
+  profiles: {
+    full_name: string;
+  } | null;
 }
 
 const Blog = () => {
@@ -31,8 +34,8 @@ const Blog = () => {
     try {
       const { data, error } = await supabase
         .from('content_items')
-        .select('id, title, excerpt, content, image_url, created_at')
-        .eq('status', 'published')
+        .select(`*, profiles:author_id (full_name)`)
+        .eq('published', true)
         .order('created_at', { ascending: false });
       
       if (error) throw error;
@@ -103,7 +106,7 @@ const Blog = () => {
                     )}
                     <div className="flex items-center justify-between">
                       <span className="text-xs text-muted-foreground">
-                        By Admin
+                        By {post.profiles?.full_name || 'Admin'}
                       </span>
                       <Button asChild size="sm" variant="outline">
                         <Link to={`/post/${post.id}`}>

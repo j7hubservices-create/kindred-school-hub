@@ -70,6 +70,7 @@ const Categories = () => {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
+
       setCategories(data || []);
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -122,7 +123,6 @@ const Categories = () => {
       categorySchema.parse(formData);
 
       if (editingCategory) {
-        // Update existing category
         const { error } = await supabase
           .from('categories')
           .update({
@@ -133,19 +133,40 @@ const Categories = () => {
           .eq('id', editingCategory.id);
 
         if (error) throw error;
+
         toast.success('Category updated successfully');
+        
+        // Log activity
+        await supabase.from('activity_logs').insert({
+          action: 'updated',
+          resource_type: 'category',
+          resource_id: editingCategory.id,
+          details: { name: formData.name, updated_keys: ['name', 'slug', 'description'] },
+          user_id: profile?.user_id
+        });
       } else {
-        // Create new category
-        const { error } = await supabase
+        const { data, error } = await supabase
           .from('categories')
           .insert({
             name: formData.name,
             slug: formData.slug,
             description: formData.description || null
-          });
+          })
+          .select()
+          .single();
 
         if (error) throw error;
+
         toast.success('Category created successfully');
+        
+        // Log activity
+        await supabase.from('activity_logs').insert({
+          action: 'created',
+          resource_type: 'category',
+          resource_id: data.id,
+          details: { name: formData.name },
+          user_id: profile?.user_id
+        });
       }
 
       setDialogOpen(false);
@@ -169,13 +190,26 @@ const Categories = () => {
 
   const handleDeleteCategory = async (categoryId: string) => {
     try {
+      const categoryToDeleteItem = categories.find(c => c.id === categoryId);
+      
       const { error } = await supabase
         .from('categories')
         .delete()
         .eq('id', categoryId);
 
       if (error) throw error;
+
       toast.success('Category deleted successfully');
+      
+      // Log activity
+      await supabase.from('activity_logs').insert({
+        action: 'deleted',
+        resource_type: 'category',
+        resource_id: categoryId,
+        details: { name: categoryToDeleteItem?.name },
+        user_id: profile?.user_id
+      });
+
       fetchCategories();
     } catch (error) {
       console.error('Error deleting category:', error);
