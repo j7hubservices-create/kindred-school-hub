@@ -9,7 +9,6 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 import { Save, School, MapPin, Phone, Mail, Globe } from 'lucide-react';
-import SitemapGenerator from '@/components/admin/SitemapGenerator';
 
 interface SiteSetting {
   id: string;
@@ -112,7 +111,7 @@ const SiteSettings = () => {
       </div>
 
       <Tabs defaultValue="school" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="school" className="flex items-center gap-2">
             <School className="h-4 w-4" />
             School Information
@@ -120,10 +119,6 @@ const SiteSettings = () => {
           <TabsTrigger value="contact" className="flex items-center gap-2">
             <MapPin className="h-4 w-4" />
             Contact Information
-          </TabsTrigger>
-          <TabsTrigger value="seo" className="flex items-center gap-2">
-            <Globe className="h-4 w-4" />
-            SEO & Sitemap
           </TabsTrigger>
         </TabsList>
 
@@ -288,10 +283,6 @@ const SiteSettings = () => {
               </Button>
             </CardContent>
           </Card>
-        </TabsContent>
-
-        <TabsContent value="seo" className="space-y-6">
-          <SitemapGenerator />
         </TabsContent>
       </Tabs>
     </div>

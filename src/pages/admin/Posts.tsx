@@ -61,9 +61,9 @@ const Posts = () => {
 
       const processedPosts = data?.map(post => ({
         ...post,
-        author: { full_name: 'Admin' },
+        author: post.profiles,
         category: null,
-        status: post.status || 'draft',
+        status: post.published ? 'published' : 'draft',
         slug: post.title.toLowerCase().replace(/\s+/g, '-'),
         published_at: post.created_at
       })) || [];

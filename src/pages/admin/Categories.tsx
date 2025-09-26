@@ -64,13 +64,8 @@ const Categories = () => {
 
   const fetchCategories = async () => {
     try {
-      const { data, error } = await supabase
-        .from('categories')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      setCategories(data || []);
+      // Categories table doesn't exist yet, using empty array
+      setCategories([]);
     } catch (error) {
       console.error('Error fetching categories:', error);
       toast.error('Failed to load categories');
@@ -121,35 +116,9 @@ const Categories = () => {
     try {
       categorySchema.parse(formData);
 
-      if (editingCategory) {
-        // Update existing category
-        const { error } = await supabase
-          .from('categories')
-          .update({
-            name: formData.name,
-            slug: formData.slug,
-            description: formData.description || null
-          })
-          .eq('id', editingCategory.id);
-
-        if (error) throw error;
-        toast.success('Category updated successfully');
-      } else {
-        // Create new category
-        const { error } = await supabase
-          .from('categories')
-          .insert({
-            name: formData.name,
-            slug: formData.slug,
-            description: formData.description || null
-          });
-
-        if (error) throw error;
-        toast.success('Category created successfully');
-      }
-
-      setDialogOpen(false);
-      fetchCategories();
+      // Categories functionality is disabled - table doesn't exist
+      toast.error('Categories functionality is not available yet');
+      return;
 
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -169,14 +138,8 @@ const Categories = () => {
 
   const handleDeleteCategory = async (categoryId: string) => {
     try {
-      const { error } = await supabase
-        .from('categories')
-        .delete()
-        .eq('id', categoryId);
-
-      if (error) throw error;
-      toast.success('Category deleted successfully');
-      fetchCategories();
+      // Categories functionality is disabled - table doesn't exist
+      toast.error('Categories functionality is not available yet');
     } catch (error) {
       console.error('Error deleting category:', error);
       toast.error('Failed to delete category');
