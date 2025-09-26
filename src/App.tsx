@@ -27,8 +27,6 @@ import AdminGallery from "./pages/admin/Gallery";
 import Users from "./pages/admin/Users";
 import Activity from "./pages/admin/Activity";
 import Achievements from "./pages/Achievements";
-import Results from "./pages/Results";
-import AdminResults from "./pages/admin/Results";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -54,18 +52,14 @@ const App = () => (
             <Route path="/school-fees" element={<SchoolFees />} />
             <Route path="/portals" element={<Portals />} />
             <Route path="/achievements" element={<Achievements />} />
-            <Route path="/results" element={<Results />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/admin-cms" element={<AdminCMS />}>
               <Route index element={<Dashboard />} />
               <Route path="posts" element={<Posts />} />
               <Route path="posts/create" element={<CreatePost />} />
-              <Route path="posts/:id/edit" element={<CreatePost />} />
-              <Route path="posts/:id/view" element={<PostView />} />
               <Route path="categories" element={<Categories />} />
               <Route path="gallery" element={<AdminGallery />} />
               <Route path="settings" element={<SiteSettings />} />
-              <Route path="results" element={<AdminResults />} />
               <Route path="users" element={<Users />} />
               <Route path="activity" element={<Activity />} />
             </Route>

@@ -25,7 +25,6 @@ const Navigation = () => {
   const aboutItems = [
     { name: "About School", path: "/about" },
     { name: "Leadership Team", path: "/leadership" },
-    { name: "Our Results", path: "/results" },
     { name: "E-Learning", path: "/e-learning" },
     { name: "Library", path: "/library" },
   ];
