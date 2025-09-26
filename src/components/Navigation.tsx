@@ -37,20 +37,12 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="bg-primary-foreground shadow-card sticky top-0 z-50">
+    <nav className="bg-primary-foreground shadow-card">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <Link to="/" className="flex items-center space-x-2 md:space-x-3 min-w-0 flex-1 md:flex-none">
-            <img 
-              src={schoolLogo} 
-              alt="Our God Reigns Crystal School Logo" 
-              className="h-8 w-8 md:h-10 md:w-10 rounded-full object-cover flex-shrink-0"
-            />
-            <div className="min-w-0">
-              <h2 className="text-sm md:text-lg font-bold text-primary truncate">Our God Reigns Crystal School</h2>
-              <p className="text-xs text-secondary font-medium hidden sm:block">Light to the World</p>
-            </div>
-          </Link>
+          {/* Empty space where logo was - now just for layout */}
+          <div className="flex-1 md:flex-none">
+          </div>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-6">
