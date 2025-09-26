@@ -196,6 +196,7 @@ const CreatePost = () => {
             content: submitData.content,
             excerpt: submitData.excerpt,
             image_url: submitData.featured_image_url || null,
+            status: submitData.status,
             author_id: profile?.user_id || null
           })
           .select()
