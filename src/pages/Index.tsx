@@ -9,6 +9,7 @@ import AcademicProgramsSection from "@/components/AcademicProgramsSection";
 import GallerySliderSection from "@/components/GallerySliderSection";
 import FacilitiesSection from "@/components/FacilitiesSection";
 import ContactSection from "@/components/ContactSection";
+import NewsSection from "@/components/NewsSection";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import admissionFlyer from "@/assets/admission-flyer-new.jpg";
@@ -70,10 +71,13 @@ const Index = () => {
       {/* 6. Gallery / Media */}
       <GallerySliderSection />
 
-      {/* 7. School Facilities */}
+      {/* 7. Latest News & Announcements */}
+      <NewsSection />
+
+      {/* 8. School Facilities */}
       <FacilitiesSection />
 
-      {/* 8. Contact Information */}
+      {/* 9. Contact Information */}
       <ContactSection />
 
       <Footer />

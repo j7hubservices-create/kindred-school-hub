@@ -7,17 +7,17 @@ const ContactSection = () => {
     {
       icon: Phone,
       title: "Phone Numbers",
-      details: ["+234 803 XXX XXXX", "+234 806 XXX XXXX"]
+      details: ["08027625129", "08033089735"]
     },
     {
       icon: Mail,
       title: "Email Address",
-      details: ["info@ogrcrystalschool.edu.ng", "admin@ogrcrystalschool.edu.ng"]
+      details: ["ogrcs@yahoo.com"]
     },
     {
       icon: MapPin,
       title: "School Address",
-      details: ["Behind NEPA Office, Ado-Ekiti", "Ekiti State, Nigeria"]
+      details: ["23, Bolanle Awosika Street", "Ojuore Ota, Ogun State, Nigeria"]
     },
     {
       icon: Clock,
@@ -67,13 +67,17 @@ const ContactSection = () => {
             </div>
             
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" className="flex-1">
-                <Phone className="mr-2 h-5 w-5" />
-                Call Us Now
+              <Button asChild size="lg" className="flex-1">
+                <a href="tel:08027625129">
+                  <Phone className="mr-2 h-5 w-5" />
+                  Call Us Now
+                </a>
               </Button>
-              <Button size="lg" variant="outline" className="flex-1">
-                <Mail className="mr-2 h-5 w-5" />
-                Send Email
+              <Button asChild size="lg" variant="outline" className="flex-1">
+                <a href="mailto:ogrcs@yahoo.com">
+                  <Mail className="mr-2 h-5 w-5" />
+                  Send Email
+                </a>
               </Button>
             </div>
           </div>
@@ -92,7 +96,7 @@ const ContactSection = () => {
                   <MapPin className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
                   <p className="text-muted-foreground">Interactive Map</p>
                   <p className="text-sm text-muted-foreground">
-                    Behind NEPA Office, Ado-Ekiti, Ekiti State
+                    23, Bolanle Awosika Street, Ojuore Ota, Ogun State
                   </p>
                 </div>
               </div>

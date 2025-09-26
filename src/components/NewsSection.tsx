@@ -65,58 +65,56 @@ const NewsSection = () => {
   const displayPosts = posts.length > 0 ? posts : staticNews;
 
   return (
-    <section className="py-20 bg-muted/20">
+    <section className="py-12 bg-muted/20">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <Badge className="bg-secondary text-secondary-foreground mb-4 px-6 py-2 text-lg">
+        <div className="text-center mb-8">
+          <Badge className="bg-secondary text-secondary-foreground mb-3 px-4 py-2">
             📰 Latest News
           </Badge>
-          <h2 className="text-4xl md:text-5xl font-bold text-primary mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
             School News & Updates
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Stay informed about the latest happenings, achievements, and events at Our God Reigns Crystal School
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            Stay informed about the latest happenings and achievements
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
           {displayPosts.map((post) => (
             <Card key={post.id} className="shadow-school hover-scale transition-all duration-300 border-none overflow-hidden group">
               <div className="relative">
                 <img 
                   src={post.image_url || "/placeholder.svg"} 
                   alt={post.title}
-                  className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-40 object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <div className="absolute top-4 left-4">
-                  <Badge className="bg-primary text-primary-foreground">
+                <div className="absolute top-3 left-3">
+                  <Badge className="bg-primary text-primary-foreground text-xs">
                     News
                   </Badge>
                 </div>
               </div>
               
-              <CardHeader className="pb-3">
-                <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
-                  <CalendarDays className="h-4 w-4" />
+              <CardHeader className="pb-2">
+                <div className="flex items-center gap-2 text-xs text-muted-foreground mb-2">
+                  <CalendarDays className="h-3 w-3" />
                   <span>{formatDistance(new Date(post.created_at), new Date(), { addSuffix: true })}</span>
-                  <User className="h-4 w-4 ml-2" />
-                  <span>{post.profiles?.full_name || 'Admin'}</span>
                 </div>
                 
-                <CardTitle className="text-xl text-primary group-hover:text-secondary transition-colors line-clamp-2">
+                <CardTitle className="text-lg text-primary group-hover:text-secondary transition-colors line-clamp-2">
                   {post.title}
                 </CardTitle>
               </CardHeader>
               
               <CardContent className="pt-0">
-                <p className="text-muted-foreground text-sm line-clamp-3 mb-4">
+                <p className="text-muted-foreground text-sm line-clamp-2 mb-3">
                   {post.excerpt}
                 </p>
                 
-                <Button asChild variant="ghost" className="text-primary hover:text-secondary p-0 h-auto font-semibold">
+                <Button asChild variant="ghost" className="text-primary hover:text-secondary p-0 h-auto font-semibold text-sm">
                   <Link to="/blog" className="flex items-center gap-2">
-                    Read Full Story
-                    <ChevronRight className="h-4 w-4" />
+                    Read More
+                    <ChevronRight className="h-3 w-3" />
                   </Link>
                 </Button>
               </CardContent>
@@ -125,10 +123,10 @@ const NewsSection = () => {
         </div>
 
         <div className="text-center">
-          <Button asChild size="lg" className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold">
+          <Button asChild className="bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold">
             <Link to="/blog">
-              <ExternalLink className="mr-2 h-5 w-5" />
-              View All News & Updates
+              <ExternalLink className="mr-2 h-4 w-4" />
+              View All News
             </Link>
           </Button>
         </div>
