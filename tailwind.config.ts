@@ -68,10 +68,12 @@ export default {
         'gradient-hero': 'var(--gradient-hero)',
         'gradient-diagonal': 'var(--gradient-diagonal)',
         'gradient-accent': 'var(--gradient-accent)',
+        'gradient-cream': 'var(--gradient-cream)',
       },
       boxShadow: {
         'school': 'var(--shadow-school)',
         'card': 'var(--shadow-card)',
+        'gold': 'var(--shadow-gold)',
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -42,7 +42,7 @@ const AcademicProgramsSection = () => {
   ];
 
   return (
-    <section className="py-20 bg-background">
+    <section className="py-20 bg-gradient-cream">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <Badge className="bg-primary text-primary-foreground mb-4 px-6 py-2 text-lg">
@@ -58,7 +58,7 @@ const AcademicProgramsSection = () => {
 
         <div className="grid lg:grid-cols-2 gap-8 mb-16">
           {programs.map((program, index) => (
-            <Card key={index} className="shadow-school hover-scale transition-all duration-300 border-none">
+            <Card key={index} className="shadow-gold hover-scale transition-all duration-300 border-none bg-card/95 backdrop-blur-sm">
               <CardContent className="p-8">
                 <div className="flex items-center gap-4 mb-6">
                   <div className="bg-primary/10 p-3 rounded-full">

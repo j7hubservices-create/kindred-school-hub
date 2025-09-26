@@ -81,11 +81,9 @@ const AboutSection = () => {
     title: "Administrative Leadership",
     description: "Operations & student affairs"
   }];
-  return <section className="py-12 relative bg-cover bg-center bg-no-repeat" style={{
-    backgroundImage: `url(${schoolStudentsBackground})`
-  }}>
-      {/* Background overlay for better text readability */}
-      <div className="absolute inset-0 bg-white/95"></div>
+  return <section className="py-12 relative bg-gradient-cream">
+      {/* Elegant background overlay with cream tones */}
+      <div className="absolute inset-0 bg-gradient-subtle opacity-80"></div>
       
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-8">
@@ -109,7 +107,7 @@ const AboutSection = () => {
             <h3 className="text-2xl font-bold text-primary mb-3">Our Core Values</h3>
           </div>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-            {coreValues.map((value, index) => <Card key={index} className="p-4 text-center shadow-card hover-scale border-none bg-white/90 backdrop-blur-sm">
+            {coreValues.map((value, index) => <Card key={index} className="p-4 text-center shadow-gold hover-scale border-none bg-card/95 backdrop-blur-sm">
                 <div className="bg-accent/10 w-12 h-12 rounded-full flex items-center justify-center mx-auto mb-3">
                   <value.icon className="h-6 w-6 text-accent" />
                 </div>
@@ -122,7 +120,7 @@ const AboutSection = () => {
         {/* School Mission & Vision - Simplified */}
         <div className="grid lg:grid-cols-2 gap-8 items-center">
           <div className="space-y-4">
-            <div className="bg-white/95 backdrop-blur-sm p-4 rounded-lg shadow-card border border-accent/20">
+            <div className="bg-card/95 backdrop-blur-sm p-4 rounded-lg shadow-gold border border-accent/20">
               <h4 className="text-lg font-bold text-primary mb-2 flex items-center gap-2">
                 <Globe className="h-4 w-4" />
                 Our Vision
@@ -132,7 +130,7 @@ const AboutSection = () => {
               </p>
             </div>
             
-            <div className="bg-white/95 backdrop-blur-sm p-4 rounded-lg shadow-card border border-primary/10">
+            <div className="bg-card/95 backdrop-blur-sm p-4 rounded-lg shadow-gold border border-primary/10">
               <h4 className="text-lg font-bold text-primary mb-2 flex items-center gap-2">
                 <Target className="h-4 w-4" />
                 Our Mission
@@ -150,7 +148,7 @@ const AboutSection = () => {
             </h3>
             
             <div className="space-y-3">
-              {keyHighlights.slice(0, 4).map((highlight, index) => <div key={index} className="flex items-start gap-3 p-3 bg-white/90 backdrop-blur-sm rounded-lg shadow-card">
+              {keyHighlights.slice(0, 4).map((highlight, index) => <div key={index} className="flex items-start gap-3 p-3 bg-card/90 backdrop-blur-sm rounded-lg shadow-gold">
                   <ChevronRight className="h-4 w-4 text-accent mt-1 flex-shrink-0" />
                   <div>
                     <h5 className="font-semibold text-primary text-sm mb-1">{highlight.title}</h5>
