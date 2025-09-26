@@ -41,27 +41,14 @@ const Dashboard = () => {
 
   const fetchDashboardData = async () => {
     try {
-      // Use content_items instead of posts
-      const { data: posts } = await supabase
-        .from('content_items')
-        .select('published');
-      
-      const totalPosts = posts?.length || 0;
-      const publishedPosts = posts?.filter(p => p.published === true).length || 0;
-      const draftPosts = posts?.filter(p => p.published === false).length || 0;
-
-      // Fetch users count
-      const { count: usersCount } = await supabase
-        .from('profiles')
-        .select('*', { count: 'exact', head: true });
-
+      // Using static data since database is not set up yet
       setStats({
-        totalPosts,
-        publishedPosts,
-        draftPosts,
-        totalCategories: 0, // Categories table doesn't exist
-        totalImages: 0, // Gallery images table doesn't exist
-        totalUsers: usersCount || 0
+        totalPosts: 0,
+        publishedPosts: 0,
+        draftPosts: 0,
+        totalCategories: 0,
+        totalImages: 0,
+        totalUsers: 0
       });
 
       setRecentActivities([]);

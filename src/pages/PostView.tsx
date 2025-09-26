@@ -44,27 +44,8 @@ const PostView = () => {
 
   const fetchPost = async () => {
     try {
-      const { data, error } = await supabase
-        .from('content_items')
-        .select(`
-          id,
-          title,
-          content,
-          excerpt,
-          image_url,
-          created_at,
-          profiles:author_id(full_name)
-        `)
-        .eq('id', slug)
-        .eq('published', true)
-        .single();
-
-      if (error) {
-        console.error('Error fetching post:', error);
-        return;
-      }
-
-      setPost(data);
+      // Using static data since database is not set up yet
+      setPost(null);
     } catch (error) {
       console.error('Error fetching post:', error);
     } finally {
@@ -74,24 +55,8 @@ const PostView = () => {
 
   const fetchRelatedPosts = async () => {
     try {
-      const { data, error } = await supabase
-        .from('content_items')
-        .select(`
-          id,
-          title,
-          excerpt,
-          image_url,
-          created_at,
-          profiles:author_id(full_name)
-        `)
-        .eq('published', true)
-        .neq('id', slug)
-        .order('created_at', { ascending: false })
-        .limit(3);
-
-      if (data && !error) {
-        setRelatedPosts(data);
-      }
+      // Using static data since database is not set up yet
+      setRelatedPosts([]);
     } catch (error) {
       console.error('Error fetching related posts:', error);
     }

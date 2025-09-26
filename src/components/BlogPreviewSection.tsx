@@ -31,36 +31,8 @@ const BlogPreviewSection = () => {
   }, []);
 
   const fetchPosts = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('content_items')
-        .select(`
-          id,
-          title,
-          content,
-          excerpt,
-          image_url,
-          created_at,
-          profiles:author_id (
-            full_name
-          )
-        `)
-        .eq('published', true)
-        .order('created_at', { ascending: false })
-        .limit(3);
-
-      if (error) {
-        console.error('Error fetching posts:', error);
-        setPosts([]);
-      } else {
-        setPosts(data || []);
-      }
-    } catch (error) {
-      console.error('Error fetching posts:', error);
-      setPosts([]);
-    } finally {
-      setLoading(false);
-    }
+    // Using static data since database is not set up yet
+    setLoading(false);
   };
 
   const displayPosts = posts.length > 0 ? posts : staticNews;

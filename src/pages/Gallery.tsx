@@ -26,15 +26,8 @@ const Gallery = () => {
 
   const fetchGalleryImages = async () => {
     try {
-      // Fetch gallery images from gallery table only
-      const { data, error } = await supabase
-        .from('gallery')
-        .select('id, title, image_url, alt_text')
-        .order('created_at', { ascending: false });
-
-      if (data && !error) {
-        setGalleryImages(data);
-      }
+      // Using static data since database is not set up yet
+      setGalleryImages([]);
     } catch (error) {
       console.error('Error fetching gallery images:', error);
     } finally {
@@ -42,26 +35,9 @@ const Gallery = () => {
     }
   };
 
-  // Set up real-time updates for gallery
+  // Real-time updates disabled since database is not set up
   useEffect(() => {
-    const channel = supabase
-      .channel('gallery-page-changes')
-      .on(
-        'postgres_changes',
-        {
-          event: '*',
-          schema: 'public',
-          table: 'gallery'
-        },
-        () => {
-          fetchGalleryImages();
-        }
-      )
-      .subscribe();
-
-    return () => {
-      supabase.removeChannel(channel);
-    };
+    // Placeholder for future real-time updates
   }, []);
 
   const nextSlide = () => {

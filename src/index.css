@@ -48,7 +48,7 @@ All colors MUST be HSL.
     --radius: 0.75rem;
     
     /* Custom gradients using elegant cream, milk, deep green & gold */
-    --gradient-hero: linear-gradient(135deg, hsl(160 100% 8%) 0%, hsl(45 100% 60%) 30%, hsl(45 100% 70%) 50%, hsl(45 100% 60%) 70%, hsl(160 100% 8%) 100%);
+    --gradient-hero: linear-gradient(135deg, hsl(160 100% 8%) 0%, hsl(160 80% 15%) 20%, hsl(45 100% 60%) 40%, hsl(45 100% 70%) 50%, hsl(45 100% 60%) 60%, hsl(160 80% 15%) 80%, hsl(160 100% 8%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(45 95% 50%) 0%, hsl(160 100% 8%) 100%);
     --gradient-subtle: linear-gradient(180deg, hsl(42 100% 97%) 0%, hsl(60 100% 96%) 100%);
     --gradient-cream: linear-gradient(135deg, hsl(42 100% 97%) 0%, hsl(60 100% 96%) 50%, hsl(42 80% 94%) 100%);
