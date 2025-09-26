@@ -140,7 +140,7 @@ const Footer = () => {
               © 2025 Our God Reigns Crystal School. All rights reserved.
             </div>
             <div className="text-sm text-white/80">
-              Developed by: <span className="text-yellow-300">Jerry Emeka <a href="tel:08134813380" className="hover:underline">08134813380</a></span> | <a href="https://jthub.com/contact-us" target="_blank" rel="noopener noreferrer" className="text-yellow-300 hover:underline">jThub.com/contact-us</a>
+              Developed by: <span className="text-yellow-300">Jerry Emeka <a href="tel:08134813380" className="hover:underline">08134813380</a></span> | <a href="https://j7hub.com/contact-us" target="_blank" rel="noopener noreferrer" className="text-yellow-300 hover:underline">j7hub.com/contact-us</a>
             </div>
           </div>
         </div>
