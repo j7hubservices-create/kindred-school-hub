@@ -10,7 +10,6 @@ import GallerySliderSection from "@/components/GallerySliderSection";
 import FacilitiesSection from "@/components/FacilitiesSection";
 import ContactSection from "@/components/ContactSection";
 import NewsSection from "@/components/NewsSection";
-import CampusLifeSection from "@/components/CampusLifeSection";
 
 const Index = () => {
   return (
@@ -33,17 +32,10 @@ const Index = () => {
       {/* 5. Gallery / Media */}
       <GallerySliderSection />
 
-      {/* 6. Campus Life */}
-      <div className="-mb-8">
-        <CampusLifeSection />
-      </div>
+      {/* 6. Latest News & Announcements */}
+      <NewsSection />
 
-      {/* 7. Latest News & Announcements */}
-      <div className="pt-8">
-        <NewsSection />
-      </div>
-
-      {/* 8. School Facilities */}
+      {/* 7. School Facilities */}
       <FacilitiesSection />
 
       {/* 8. Contact Information */}
