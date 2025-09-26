@@ -5,67 +5,42 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
-import { Upload, X } from 'lucide-react';
+import { X } from 'lucide-react';
 
-interface PostFormProps {
+interface SimplePostFormProps {
   initialData?: {
     id?: string;
     title?: string;
     content?: string;
     excerpt?: string;
     image_url?: string;
-    status?: 'draft' | 'published' | 'archived';
   };
   isEditing?: boolean;
 }
 
-interface Category {
-  id: string;
-  name: string;
-}
-
-const PostForm = ({ initialData, isEditing = false }: PostFormProps) => {
+const SimplePostForm = ({ initialData, isEditing = false }: SimplePostFormProps) => {
   const navigate = useNavigate();
   const { profile } = useAuth();
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
-  const [categories, setCategories] = useState<Category[]>([]);
   
   const [formData, setFormData] = useState({
     title: initialData?.title || '',
     content: initialData?.content || '',
     excerpt: initialData?.excerpt || '',
-    featured_image_url: initialData?.image_url || '',
-    status: initialData?.status || 'draft' as 'draft' | 'published' | 'archived'
+    featured_image_url: initialData?.image_url || ''
   });
   
   const [errors, setErrors] = useState<Record<string, string>>({});
-
-  const generateSlug = (title: string) => {
-    return title
-      .toLowerCase()
-      .replace(/[^a-z0-9 -]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .trim()
-      .substring(0, 100);
-  };
 
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
     
     if (!formData.title.trim()) {
       newErrors.title = 'Title is required';
-    } else if (formData.title.length > 200) {
-      newErrors.title = 'Title must be less than 200 characters';
-    }
-    
-    if (formData.excerpt && formData.excerpt.length > 500) {
-      newErrors.excerpt = 'Excerpt must be less than 500 characters';
     }
     
     setErrors(newErrors);
@@ -111,38 +86,38 @@ const PostForm = ({ initialData, isEditing = false }: PostFormProps) => {
     setFormData({ ...formData, featured_image_url: '' });
   };
 
-  const handleSubmit = async (publishNow: boolean = false) => {
+  const handleSubmit = async () => {
     if (!validateForm()) return;
     
     setLoading(true);
     setErrors({});
 
     try {
-      // Use only core columns that definitely exist
+      // Use only the core columns that exist
       const postData = {
         title: formData.title.trim(),
         content: formData.content.trim(),
-        excerpt: formData.excerpt?.trim() || null,
+        excerpt: formData.excerpt?.trim() || '',
         image_url: formData.featured_image_url || null,
         author_id: profile?.user_id || null
       };
 
-      let result;
-      
       if (isEditing && initialData?.id) {
-        // Update existing post - use only basic columns
-        result = await supabase
+        // Update existing post using only basic columns
+        const { error } = await supabase
           .from('content_items')
           .update(postData)
           .eq('id', initialData.id);
-      } else {
-        // Create new post - use only basic columns
-        result = await supabase
-          .from('content_items')
-          .insert(postData);
-      }
 
-      if (result.error) throw result.error;
+        if (error) throw error;
+      } else {
+        // Create new post using only basic columns  
+        const { error } = await supabase
+          .from('content_items')
+          .insert([postData]);
+
+        if (error) throw error;
+      }
 
       toast.success(`Post ${isEditing ? 'updated' : 'created'} successfully`);
       navigate('/admin-cms/posts');
@@ -178,14 +153,9 @@ const PostForm = ({ initialData, isEditing = false }: PostFormProps) => {
             id="excerpt"
             value={formData.excerpt}
             onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-            className={errors.excerpt ? 'border-red-500' : ''}
             placeholder="Write a compelling excerpt..."
             rows={3}
           />
-          {errors.excerpt && <p className="text-red-500 text-sm">{errors.excerpt}</p>}
-          <p className="text-xs text-gray-500">
-            {formData.excerpt.length}/500 characters
-          </p>
         </div>
 
         <div className="space-y-2">
@@ -248,20 +218,6 @@ const PostForm = ({ initialData, isEditing = false }: PostFormProps) => {
           />
         </div>
 
-        <div className="space-y-2">
-          <Label htmlFor="status">Status</Label>
-          <Select value={formData.status} onValueChange={(value: any) => setFormData({ ...formData, status: value })}>
-            <SelectTrigger>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent className="bg-background border shadow-lg z-[100]">
-              <SelectItem value="draft">Draft</SelectItem>
-              <SelectItem value="published">Published</SelectItem>
-              <SelectItem value="archived">Archived</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
         <div className="flex items-center justify-end gap-4">
           <Button
             type="button"
@@ -272,19 +228,11 @@ const PostForm = ({ initialData, isEditing = false }: PostFormProps) => {
           </Button>
           <Button
             type="button"
-            variant="outline"
-            onClick={() => handleSubmit(false)}
-            disabled={loading}
-          >
-            {loading ? 'Saving...' : 'Save as Draft'}
-          </Button>
-          <Button
-            type="button"
-            onClick={() => handleSubmit(true)}
+            onClick={handleSubmit}
             disabled={loading}
             className="bg-emerald-600 hover:bg-emerald-700"
           >
-            {loading ? 'Publishing...' : 'Publish Now'}
+            {loading ? (isEditing ? 'Updating...' : 'Creating...') : (isEditing ? 'Update Post' : 'Create Post')}
           </Button>
         </div>
       </CardContent>
@@ -292,4 +240,4 @@ const PostForm = ({ initialData, isEditing = false }: PostFormProps) => {
   );
 };
 
-export default PostForm;
+export default SimplePostForm;

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { ArrowLeft } from 'lucide-react';
-import PostForm from '@/components/admin/PostForm';
+import SimplePostForm from '@/components/admin/SimplePostForm';
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -77,7 +77,7 @@ const CreatePost = () => {
         </div>
       </div>
 
-      <PostForm 
+      <SimplePostForm 
         initialData={initialData} 
         isEditing={isEditing}
       />
