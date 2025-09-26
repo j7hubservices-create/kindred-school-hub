@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Homepage -->
+  <url>
+    <loc>https://66fb9d16-e8cc-4fcc-b4a8-9431480e54db.lovableproject.com/</loc>
+    <lastmod>2025-09-26T04:00:00Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Main Pages -->
+  <url>
+    <loc>https://66fb9d16-e8cc-4fcc-b4a8-9431480e54db.lovableproject.com/about</loc>
+    <lastmod>2025-09-26T04:00:00Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://66fb9d16-e8cc-4fcc-b4a8-9431480e54db.lovableproject.com/admissions</loc>
+    <lastmod>2025-09-26T04:00:00Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://66fb9d16-e8cc-4fcc-b4a8-9431480e54db.lovableproject.com/achievements</loc>
+    <lastmod>2025-09-26T04:00:00Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://66fb9d16-e8cc-4fcc-b4a8-9431480e54db.lovableproject.com/gallery</loc>
+    <lastmod>2025-09-26T04:00:00Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://66fb9d16-e8cc-4fcc-b4a8-9431480e54db.lovableproject.com/blog</loc>
+    <lastmod>2025-09-26T04:00:00Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://66fb9d16-e8cc-4fcc-b4a8-9431480e54db.lovableproject.com/contact</loc>
+    <lastmod>2025-09-26T04:00:00Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://66fb9d16-e8cc-4fcc-b4a8-9431480e54db.lovableproject.com/leadership</loc>
+    <lastmod>2025-09-26T04:00:00Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://66fb9d16-e8cc-4fcc-b4a8-9431480e54db.lovableproject.com/library</loc>
+    <lastmod>2025-09-26T04:00:00Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://66fb9d16-e8cc-4fcc-b4a8-9431480e54db.lovableproject.com/elearning</loc>
+    <lastmod>2025-09-26T04:00:00Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://66fb9d16-e8cc-4fcc-b4a8-9431480e54db.lovableproject.com/portals</loc>
+    <lastmod>2025-09-26T04:00:00Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://66fb9d16-e8cc-4fcc-b4a8-9431480e54db.lovableproject.com/results</loc>
+    <lastmod>2025-09-26T04:00:00Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://66fb9d16-e8cc-4fcc-b4a8-9431480e54db.lovableproject.com/school-fees</loc>
+    <lastmod>2025-09-26T04:00:00Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Blog Posts - Dynamic content will be added via API -->
+  <!-- Miss Adeyemo NECO Award -->
+  <url>
+    <loc>https://66fb9d16-e8cc-4fcc-b4a8-9431480e54db.lovableproject.com/blog/miss-adeyemo-emmanuella-adedamola-wins-national-neco-award</loc>
+    <lastmod>2025-09-26T02:29:21Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Cultural Dance Celebration -->
+  <url>
+    <loc>https://66fb9d16-e8cc-4fcc-b4a8-9431480e54db.lovableproject.com/blog/cultural-dance-in-the-recently-concluded-end-of-the-year-celebration</loc>
+    <lastmod>2025-09-25T18:47:19Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- NECO Excellence Awards -->
+  <url>
+    <loc>https://66fb9d16-e8cc-4fcc-b4a8-9431480e54db.lovableproject.com/blog/our-god-reigns-crystal-school-shines-at-the-neco-excellence-awards-2025</loc>
+    <lastmod>2025-09-25T18:47:19Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>

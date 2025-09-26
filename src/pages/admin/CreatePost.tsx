@@ -188,7 +188,7 @@ const CreatePost = () => {
         data = result.data;
         error = result.error;
       } else {
-        // Create new post - temporarily without status to avoid schema cache issue
+        // Create new post - use minimal required fields only
         const result = await supabase
           .from('content_items')
           .insert({
@@ -196,7 +196,8 @@ const CreatePost = () => {
             content: submitData.content,
             excerpt: submitData.excerpt,
             image_url: submitData.featured_image_url || null,
-            author_id: profile?.user_id || null
+            author_id: profile?.user_id || null,
+            content_type: 'news'
           })
           .select()
           .single();
