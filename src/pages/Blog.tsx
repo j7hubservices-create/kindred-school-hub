@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatDistance } from "date-fns";
+import { supabase } from "@/integrations/supabase/client";
 
 interface Post {
   id: string;
@@ -22,29 +23,29 @@ interface Post {
 }
 
 const Blog = () => {
-  // Static posts for demo
-  const posts = [
-    {
-      id: '1',
-      title: 'Welcome to the New Academic Session 2025/2026',
-      excerpt: 'We are excited to welcome all students back for another amazing year of learning and growth.',
-      content: null,
-      image_url: '/src/assets/school-students-background.jpg',
-      created_at: new Date().toISOString(),
-      profiles: { full_name: 'Admin' }
-    },
-    {
-      id: '2', 
-      title: 'Outstanding Academic Results',
-      excerpt: 'Our students have achieved remarkable results in their recent examinations.',
-      content: null,
-      image_url: '/src/assets/graduands.jpg',
-      created_at: new Date(Date.now() - 86400000).toISOString(),
-      profiles: { full_name: 'Admin' }
-    }
-  ];
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  const fetchPosts = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('content_items')
+        .select(`*, profiles:author_id (full_name)`)
+        .eq('published', true)
+        .order('created_at', { ascending: false });
+      
+      if (error) throw error;
+      setPosts(data || []);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-background">
