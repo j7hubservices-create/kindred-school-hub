@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PageHero from "@/components/PageHero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -21,7 +20,6 @@ import {
   MapPin,
   Phone
 } from "lucide-react";
-import libraryHero from "@/assets/library-hero.jpg";
 
 const Library = () => {
   const libraryServices = [
@@ -68,13 +66,36 @@ const Library = () => {
       <Header />
       <Navigation />
       
-      <PageHero
-        title="School Library"
-        subtitle="Your gateway to knowledge, research, and academic excellence"
-        description="Where learning comes alive - access thousands of books, digital resources, and study facilities"
-        badge="📚 Learning Resource Center"
-        backgroundImage={libraryHero}
-      />
+      {/* Hero Section */}
+      <section className="relative py-20 bg-gradient-hero text-white overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-diagonal opacity-10"></div>
+        <div className="container mx-auto px-4 text-center relative z-10">
+          <Badge className="bg-secondary text-secondary-foreground mb-6 px-6 py-3 text-lg font-semibold animate-fade-in">
+            📚 Learning Resource Center
+          </Badge>
+          <h1 className="text-6xl font-bold mb-6 animate-fade-in">School Library</h1>
+          <p className="text-xl mb-8 max-w-3xl mx-auto animate-fade-in">
+            Your gateway to knowledge, research, and academic excellence - where learning comes alive
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in">
+            <Button 
+              size="lg" 
+              className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-4 text-lg font-semibold"
+            >
+              <Search className="mr-2 h-5 w-5" />
+              Search Catalog
+            </Button>
+            <Button 
+              size="lg" 
+              variant="outline" 
+              className="border-white text-white hover:bg-white hover:text-primary px-8 py-4 text-lg"
+            >
+              <Download className="mr-2 h-5 w-5" />
+              Library Guide
+            </Button>
+          </div>
+        </div>
+      </section>
 
       {/* Library Statistics */}
       <section className="py-16 bg-muted">

@@ -27,11 +27,10 @@ const ContactSection = () => {
   ];
 
   return (
-    <section className="py-16 bg-gradient-to-tr from-primary/20 via-primary/5 to-secondary/20 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-primary opacity-15"></div>
-      <div className="container mx-auto px-4 relative z-10">
+    <section className="py-16 bg-muted/30">
+      <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
             Get In Touch With Us
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">

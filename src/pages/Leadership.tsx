@@ -1,7 +1,6 @@
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PageHero from "@/components/PageHero";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Mail, Phone, Award } from "lucide-react";
@@ -49,15 +48,20 @@ const Leadership = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Header />
       <Navigation />
       
-      <PageHero
-        title="Meet Our Leaders"
-        subtitle="Dedicated professionals committed to excellence in education"
-        badge="👥 Leadership Team"
-      />
+      {/* Hero Section */}
+      <section className="py-16 bg-gradient-hero text-primary-foreground">
+        <div className="container mx-auto px-4 text-center">
+          <Badge className="bg-secondary text-secondary-foreground mb-6 px-6 py-3 text-lg font-bold">
+            👥 Leadership Team
+          </Badge>
+          <h1 className="text-5xl font-bold mb-4">Meet Our Leaders</h1>
+          <p className="text-xl mb-4">Dedicated professionals committed to excellence in education</p>
+        </div>
+      </section>
 
       {/* Leadership Team */}
       <section className="py-16 bg-background">

@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PageHero from "@/components/PageHero";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChevronLeft, ChevronRight, Camera } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 interface GalleryImage {
   id: string;
@@ -16,30 +16,53 @@ interface GalleryImage {
 }
 
 const Gallery = () => {
-  // Static gallery images for demo
-  const galleryImages = [
-    {
-      id: '1',
-      title: 'School Students in Green Uniforms',
-      alt_text: 'Students performing at school event',
-      image_url: '/src/assets/students-background.jpg'
-    },
-    {
-      id: '2', 
-      title: 'School Building',
-      alt_text: 'Main school building',
-      image_url: '/src/assets/school-facilities.jpg'
-    },
-    {
-      id: '3',
-      title: 'Graduation Ceremony',
-      alt_text: 'Students during graduation',
-      image_url: '/src/assets/graduands.jpg'
-    }
-  ];
-
-  const [loading, setLoading] = useState(false);
+  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
+  const [loading, setLoading] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    fetchGalleryImages();
+  }, []);
+
+  const fetchGalleryImages = async () => {
+    try {
+      // Fetch gallery images from gallery table only
+      const { data, error } = await supabase
+        .from('gallery')
+        .select('id, title, image_url, alt_text')
+        .order('created_at', { ascending: false });
+
+      if (data && !error) {
+        setGalleryImages(data);
+      }
+    } catch (error) {
+      console.error('Error fetching gallery images:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Set up real-time updates for gallery
+  useEffect(() => {
+    const channel = supabase
+      .channel('gallery-page-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'gallery'
+        },
+        () => {
+          fetchGalleryImages();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % Math.max(galleryImages.length, 1));
@@ -67,15 +90,21 @@ const Gallery = () => {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Header />
       <Navigation />
       
-      <PageHero
-        title="Campus Life & Gallery"
-        subtitle="Discover life at Our God Reigns Crystal School"
-        badge="📸 School Gallery"
-      />
+      {/* Hero Section */}
+      <section className="py-16 bg-primary text-primary-foreground">
+        <div className="container mx-auto px-4 text-center">
+          <Badge className="bg-secondary text-secondary-foreground mb-6 px-4 py-2">
+            <Camera className="w-4 h-4 mr-2" />
+            School Gallery
+          </Badge>
+          <h1 className="text-5xl font-bold mb-4">Campus Life & Gallery</h1>
+          <p className="text-xl mb-8">Discover life at Our God Reigns Crystal School</p>
+        </div>
+      </section>
 
       {/* Gallery Slider */}
       <section className="py-16 bg-background">

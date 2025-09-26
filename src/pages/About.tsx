@@ -1,22 +1,25 @@
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PageHero from "@/components/PageHero";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Header />
       <Navigation />
       
-      <PageHero
-        title="About Our God Reigns Crystal School"
-        subtitle="Light to the World"
-        description="A place for academic and moral excellence"
-        badge="🏫 About Our School"
-      />
+      {/* Hero Section */}
+      <section className="py-16 bg-gradient-hero text-primary-foreground">
+        <div className="container mx-auto px-4 text-center">
+          <Badge className="bg-accent text-accent-foreground mb-6 px-6 py-3 text-lg font-bold">
+            🏫 About Our School
+          </Badge>
+          <h1 className="text-5xl font-bold mb-4">About Our God Reigns Crystal School</h1>
+          <p className="text-xl mb-8">A place for academic and moral excellence - Light to the World</p>
+        </div>
+      </section>
 
       {/* Vision and Mission */}
       <section className="py-16 bg-muted/30">

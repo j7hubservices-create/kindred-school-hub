@@ -1,12 +1,10 @@
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
-import PageHero from "@/components/PageHero";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Monitor, BookOpen, Video, Users } from "lucide-react";
-import elearningHero from "@/assets/elearning-hero.jpg";
 
 const ELearning = () => {
   const features = [
@@ -37,13 +35,20 @@ const ELearning = () => {
       <Header />
       <Navigation />
       
-      <PageHero
-        title="Digital Learning Experience"
-        subtitle="Modern education for the digital age"
-        description="Interactive online classes, digital resources, and collaborative learning opportunities"
-        badge="💻 E-Learning Platform"
-        backgroundImage={elearningHero}
-      />
+      {/* Hero Section */}
+      <section className="py-16 bg-emerald-600 text-white">
+        <div className="container mx-auto px-4 text-center">
+          <Badge className="bg-yellow-500 text-yellow-900 mb-6 px-4 py-2">
+            E-Learning Platform
+          </Badge>
+          <h1 className="text-5xl font-bold mb-4">Digital Learning Experience</h1>
+          <p className="text-xl mb-8">Modern education for the digital age</p>
+          
+          <Button className="bg-white text-emerald-600 hover:bg-gray-100 font-semibold px-8 py-3">
+            Access Platform
+          </Button>
+        </div>
+      </section>
 
       {/* Features */}
       <section className="py-16 bg-white">
