@@ -77,36 +77,69 @@ const ELearning = () => {
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-emerald-600 text-center mb-12">Available Subjects</h2>
           
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <Card className="border-emerald-200 shadow-lg">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-emerald-600 mb-2">Mathematics</h3>
-                <p className="text-gray-600 mb-4">Comprehensive math curriculum from basic to advanced topics</p>
-                <Button className="bg-emerald-600 hover:bg-emerald-700 text-white w-full">
-                  Access Course
-                </Button>
-              </CardContent>
-            </Card>
+          {/* JSS Subjects */}
+          <div className="mb-12">
+            <h3 className="text-2xl font-bold text-emerald-700 mb-6">Junior Secondary School (JSS)</h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {[
+                "English",
+                "Mathematics", 
+                "Basic Science and Technology",
+                "National Value Education",
+                "Pre-Vocational Studies",
+                "Business Studies",
+                "Cultural And Creative Arts",
+                "Yoruba",
+                "Christian Religious Studies",
+                "Computer Studies",
+                "History"
+              ].map((subject, index) => (
+                <Card key={index} className="border-emerald-200 shadow-lg hover:shadow-xl transition-shadow">
+                  <CardContent className="p-4">
+                    <h4 className="text-lg font-semibold text-emerald-600 mb-2">{subject}</h4>
+                    <Button className="bg-emerald-600 hover:bg-emerald-700 text-white w-full text-sm">
+                      Access Course
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </div>
 
-            <Card className="border-emerald-200 shadow-lg">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-emerald-600 mb-2">English Language</h3>
-                <p className="text-gray-600 mb-4">Language arts, literature, and communication skills</p>
-                <Button className="bg-emerald-600 hover:bg-emerald-700 text-white w-full">
-                  Access Course
-                </Button>
-              </CardContent>
-            </Card>
-
-            <Card className="border-emerald-200 shadow-lg">
-              <CardContent className="p-6">
-                <h3 className="text-xl font-bold text-emerald-600 mb-2">Sciences</h3>
-                <p className="text-gray-600 mb-4">Physics, Chemistry, Biology with practical sessions</p>
-                <Button className="bg-emerald-600 hover:bg-emerald-700 text-white w-full">
-                  Access Course
-                </Button>
-              </CardContent>
-            </Card>
+          {/* SSS Subjects */}
+          <div>
+            <h3 className="text-2xl font-bold text-emerald-700 mb-6">Senior Secondary School (SSS)</h3>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {[
+                "English Language",
+                "Mathematics",
+                "Civic Education", 
+                "Trade Subject (Bookkeeping)",
+                "Physics",
+                "Chemistry",
+                "Biology",
+                "Agric Science",
+                "Further Mathematics",
+                "Economics",
+                "Government",
+                "CRS",
+                "Literature in English",
+                "Yoruba", 
+                "Commerce",
+                "Office Practice",
+                "Computer",
+                "Financial Accounting"
+              ].map((subject, index) => (
+                <Card key={index} className="border-emerald-200 shadow-lg hover:shadow-xl transition-shadow">
+                  <CardContent className="p-4">
+                    <h4 className="text-lg font-semibold text-emerald-600 mb-2">{subject}</h4>
+                    <Button className="bg-emerald-600 hover:bg-emerald-700 text-white w-full text-sm">
+                      Access Course
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
       </section>
