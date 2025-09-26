@@ -5,6 +5,8 @@ import PageHero from "@/components/PageHero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useNavigate } from "react-router-dom";
+import { toast } from "@/hooks/use-toast";
 import { 
   GraduationCap, 
   Users, 
@@ -16,13 +18,48 @@ import {
   Mail,
   Clock,
   CheckCircle,
-  Star
+  Star,
+  Download
 } from "lucide-react";
 import admissionFlyerImage from "@/assets/admission-flyer-new.jpg";
 import schoolLogoMain from "@/assets/school-logo-main.jpeg";
 import admissionsHero from "@/assets/admissions-hero.jpg";
 
 const Admissions = () => {
+  const navigate = useNavigate();
+
+  const handleApplyNow = () => {
+    toast({
+      title: "Application Started",
+      description: "Redirecting to application form...",
+    });
+    // In a real application, this would redirect to an application form
+    window.open("mailto:ogrcs@yahoo.com?subject=Admission Application&body=Dear Sir/Madam,%0D%0A%0D%0AI would like to apply for admission to Our God Reigns Crystal School. Please send me the application form and admission requirements.%0D%0A%0D%0AThank you.", "_blank");
+  };
+
+  const handleDownloadProspectus = () => {
+    toast({
+      title: "Downloading School Fees",
+      description: "Opening school fees information...",
+    });
+    navigate("/school-fees");
+  };
+
+  const handleContactAdmissions = () => {
+    toast({
+      title: "Contacting Admissions",
+      description: "Opening phone dialer...",
+    });
+    window.open("tel:08027625129");
+  };
+
+  const handleScheduleTour = () => {
+    toast({
+      title: "Scheduling Tour",
+      description: "Contacting school for tour arrangement...",
+    });
+    window.open("mailto:ogrcs@yahoo.com?subject=School Tour Request&body=Dear Sir/Madam,%0D%0A%0D%0AI would like to schedule a tour of Our God Reigns Crystal School. Please let me know available dates and times.%0D%0A%0D%0AThank you.", "_blank");
+  };
   const admissionRequirements = [
     "Birth Certificate or Age Declaration",
     "Previous School Report Card/Results",
@@ -74,6 +111,7 @@ const Admissions = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button 
               size="lg" 
+              onClick={handleApplyNow}
               className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-4 text-lg font-semibold"
             >
               <GraduationCap className="mr-2 h-5 w-5" />
@@ -82,10 +120,11 @@ const Admissions = () => {
             <Button 
               size="lg" 
               variant="outline" 
+              onClick={handleDownloadProspectus}
               className="border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-4 text-lg"
             >
-              <FileText className="mr-2 h-5 w-5" />
-              Download Prospectus
+              <Download className="mr-2 h-5 w-5" />
+              Download School Fees
             </Button>
           </div>
         </div>
@@ -176,7 +215,8 @@ const Admissions = () => {
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
                   size="lg" 
-                  className="bg-primary hover:bg-primary-dark text-primary-foreground"
+                  onClick={handleApplyNow}
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
                 >
                   <GraduationCap className="mr-2 h-5 w-5" />
                   Start Application
@@ -184,6 +224,7 @@ const Admissions = () => {
                 <Button 
                   size="lg" 
                   variant="outline" 
+                  onClick={handleContactAdmissions}
                   className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
                 >
                   <Phone className="mr-2 h-5 w-5" />
@@ -333,6 +374,7 @@ const Admissions = () => {
           
           <Button 
             size="lg" 
+            onClick={handleScheduleTour}
             className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-4"
           >
             <Clock className="mr-2 h-5 w-5" />
