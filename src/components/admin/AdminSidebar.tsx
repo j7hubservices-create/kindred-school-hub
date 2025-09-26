@@ -18,6 +18,7 @@ import {
   Settings, 
   Users, 
   Activity,
+  Trophy,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/AuthContext";
@@ -27,6 +28,7 @@ const adminMenuItems = [
   { title: "Posts", url: "/admin-cms/posts", icon: FileText },
   { title: "Categories", url: "/admin-cms/categories", icon: FolderOpen },
   { title: "Gallery", url: "/admin-cms/gallery", icon: Image },
+  { title: "Results & Awards", url: "/admin-cms/results", icon: Trophy },
   { title: "Site Settings", url: "/admin-cms/settings", icon: Settings },
   { title: "Users", url: "/admin-cms/users", icon: Users },
   { title: "Activity Log", url: "/admin-cms/activity", icon: Activity },
