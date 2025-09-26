@@ -7,7 +7,7 @@ import schoolLogo from "@/assets/school-logo-new.jpeg";
 
 const HeroSection = () => {
   return (
-    <section className="bg-primary text-primary-foreground py-8 md:py-12 relative overflow-hidden">
+    <section className="bg-primary-light text-foreground py-8 md:py-12 relative overflow-hidden">
       <div className="absolute inset-0 bg-gradient-diagonal opacity-10"></div>
       <div className="container mx-auto px-4 relative z-10">
         <div className="grid lg:grid-cols-5 gap-6 lg:gap-8 items-center">
