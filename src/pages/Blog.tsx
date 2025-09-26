@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import PageHero from "@/components/PageHero";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { supabase } from "@/integrations/supabase/client";
 import { formatDistance } from "date-fns";
 
 interface Post {
@@ -22,65 +22,56 @@ interface Post {
 }
 
 const Blog = () => {
-  const [posts, setPosts] = useState<Post[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
-
-  const fetchPosts = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('content_items')
-        .select(`
-          *,
-          profiles:author_id (full_name)
-        `)
-        .eq('published', true)
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-      setPosts(data || []);
-    } catch (error) {
-      console.error('Error fetching posts:', error);
-    } finally {
-      setLoading(false);
+  // Static posts for demo
+  const posts = [
+    {
+      id: '1',
+      title: 'Welcome to the New Academic Session 2025/2026',
+      excerpt: 'We are excited to welcome all students back for another amazing year of learning and growth.',
+      content: null,
+      image_url: '/src/assets/school-students-background.jpg',
+      created_at: new Date().toISOString(),
+      profiles: { full_name: 'Admin' }
+    },
+    {
+      id: '2', 
+      title: 'Outstanding Academic Results',
+      excerpt: 'Our students have achieved remarkable results in their recent examinations.',
+      content: null,
+      image_url: '/src/assets/graduands.jpg',
+      created_at: new Date(Date.now() - 86400000).toISOString(),
+      profiles: { full_name: 'Admin' }
     }
-  };
+  ];
+
+  const [loading, setLoading] = useState(false);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       <Header />
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="py-16 bg-emerald-600 text-white">
-        <div className="container mx-auto px-4 text-center">
-          <Badge className="bg-yellow-500 text-yellow-900 mb-6 px-4 py-2">
-            School News & Updates
-          </Badge>
-          <h1 className="text-5xl font-bold mb-4">Our God Reigns Blog</h1>
-          <p className="text-xl mb-8">Stay updated with the latest news and events from our school</p>
-        </div>
-      </section>
+      <PageHero
+        title="Our God Reigns Blog"
+        subtitle="Stay updated with the latest news and events from our school"
+        badge="📰 School News & Updates"
+      />
 
-      {/* Posts Section */}
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-gradient-subtle">
         <div className="container mx-auto px-4">
           {loading ? (
             <div className="flex items-center justify-center h-64">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600"></div>
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
             </div>
           ) : posts.length === 0 ? (
             <div className="text-center py-16">
-              <h3 className="text-xl font-semibold text-gray-600 mb-4">No posts available yet</h3>
-              <p className="text-gray-500">Check back later for updates and news from our school.</p>
+              <h3 className="text-xl font-semibold text-muted-foreground mb-4">No posts available yet</h3>
+              <p className="text-muted-foreground">Check back later for updates and news from our school.</p>
             </div>
           ) : (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {posts.map((post) => (
-                <Card key={post.id} className="border-emerald-200 shadow-lg hover:shadow-xl transition-shadow">
+                <Card key={post.id} className="shadow-card hover:shadow-school transition-shadow border-primary/20">
                   {post.image_url && (
                     <div className="relative">
                       <img 
@@ -98,22 +89,22 @@ const Blog = () => {
                       <Badge variant="secondary" className="text-xs">
                         News
                       </Badge>
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-muted-foreground">
                         {formatDistance(new Date(post.created_at), new Date(), { addSuffix: true })}
                       </span>
                     </div>
-                    <CardTitle className="text-emerald-600 hover:text-emerald-700 transition-colors">
+                    <CardTitle className="text-primary hover:text-primary/80 transition-colors">
                       {post.title}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
                     {post.excerpt && (
-                      <p className="text-gray-600 text-sm line-clamp-3 mb-3">
+                      <p className="text-muted-foreground text-sm line-clamp-3 mb-3">
                         {post.excerpt}
                       </p>
                     )}
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-muted-foreground">
                         By {post.profiles?.full_name || 'Admin'}
                       </span>
                       <Button asChild size="sm" variant="outline">
