@@ -13,7 +13,7 @@ const Footer = () => {
   ];
 
   const portals = [
-    { name: "Admin Portal", url: "https://ogrcs.edutams.net/" },
+    { name: "Admin Portal", path: "/admin", internal: true },
     { name: "Staff Portal", url: "https://ogrcs.edutams.net/" },
     { name: "Parent Portal", url: "https://ogrcs.edutams.net/" },
     { name: "Student Portal", url: "https://ogrcs.edutams.net/" }
@@ -64,16 +64,25 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4 text-yellow-300">Portals</h4>
             <ul className="space-y-2">
-              {portals.map((portal, index) => (
+               {portals.map((portal, index) => (
                 <li key={index}>
-                  <a 
-                    href={portal.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white/90 hover:text-yellow-300 transition-colors cursor-pointer"
-                  >
-                    {portal.name}
-                  </a>
+                  {portal.internal ? (
+                    <Link 
+                      to={portal.path}
+                      className="text-white/90 hover:text-yellow-300 transition-colors cursor-pointer"
+                    >
+                      {portal.name}
+                    </Link>
+                  ) : (
+                    <a 
+                      href={portal.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-white/90 hover:text-yellow-300 transition-colors cursor-pointer"
+                    >
+                      {portal.name}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
