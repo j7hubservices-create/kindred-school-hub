@@ -1,9 +1,11 @@
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import PageHero from "@/components/PageHero";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Trophy, Medal, Award, Star, GraduationCap, Users } from "lucide-react";
+import achievementsHero from "@/assets/achievements-hero.jpg";
 
 const Achievements = () => {
   const achievements = [
@@ -69,19 +71,13 @@ const Achievements = () => {
       <Header />
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="py-16 bg-gradient-to-r from-primary/10 to-secondary/10">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
-              Our Achievements & Results
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8">
-              A proven track record of excellence in academics, sports, and character development
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        title="Our Achievements & Results"
+        subtitle="A proven track record of excellence in academics, sports, and character development"
+        description="Celebrating our students' outstanding performance and recognitions in various fields"
+        badge="🏆 Excellence Awards"
+        backgroundImage={achievementsHero}
+      />
 
       {/* Statistics Section */}
       <section className="py-12 bg-background">

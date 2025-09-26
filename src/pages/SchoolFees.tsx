@@ -1,11 +1,13 @@
 import Header from "@/components/Header";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import PageHero from "@/components/PageHero";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { GraduationCap, CreditCard, Building2, Wallet } from "lucide-react";
+import schoolFeesHero from "@/assets/school-fees-hero.jpg";
 
 const SchoolFees = () => {
   const feeStructure = [
@@ -77,16 +79,13 @@ const SchoolFees = () => {
       <Header />
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="py-16 bg-gradient-hero text-primary-foreground">
-        <div className="container mx-auto px-4 text-center">
-          <Badge className="bg-secondary text-secondary-foreground mb-6 px-6 py-3 text-lg font-bold">
-            💰 School Fees Information
-          </Badge>
-          <h1 className="text-5xl font-bold mb-4">Consolidated School Bill</h1>
-          <p className="text-xl mb-4">For the 1st Term 2025/2026 Session</p>
-        </div>
-      </section>
+      <PageHero
+        title="Consolidated School Bill"
+        subtitle="For the 1st Term 2025/2026 Session"
+        description="Comprehensive fee structure and payment information for all levels"
+        badge="💰 School Fees Information"
+        backgroundImage={schoolFeesHero}
+      />
 
       {/* Fee Structure */}
       <section className="py-16 bg-background">

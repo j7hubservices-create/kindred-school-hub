@@ -20,6 +20,7 @@ import {
 } from "lucide-react";
 import admissionFlyerImage from "@/assets/admission-flyer-new.jpg";
 import schoolLogoMain from "@/assets/school-logo-main.jpeg";
+import admissionsHero from "@/assets/admissions-hero.jpg";
 
 const Admissions = () => {
   const admissionRequirements = [
@@ -62,7 +63,9 @@ const Admissions = () => {
       <PageHero
         title="Join Our Excellence"
         subtitle="Enroll at Our God Reigns Crystal School - Where Academic Excellence Meets Character Development"
+        description="Join our community of learners and experience quality education that shapes character and builds future leaders"
         badge="🎓 Admission Open for 2025/2026 Session"
+        backgroundImage={admissionsHero}
       />
       
       {/* Call to Action Buttons */}

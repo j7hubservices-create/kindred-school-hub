@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { MapPin, Phone, Mail, Clock, MessageSquare } from "lucide-react";
+import contactHero from "@/assets/contact-hero.jpg";
 
 const Contact = () => {
   return (
@@ -16,7 +17,9 @@ const Contact = () => {
       <PageHero
         title="Get in Touch"
         subtitle="We're here to help and answer any questions you might have"
+        description="Connect with our friendly team for admissions, information, or any support you need"
         badge="📞 Contact Us"
+        backgroundImage={contactHero}
       />
 
       {/* Contact Information */}
