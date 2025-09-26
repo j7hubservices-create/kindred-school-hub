@@ -31,39 +31,36 @@ const BlogPreviewSection = () => {
   }, []);
 
   const fetchPosts = async () => {
-    // Mock data for now
-    const mockPosts = [
-      {
-        id: "1",
-        title: "Welcome to Our God Reigns Crystal School",
-        content: "We are delighted to welcome you to Our God Reigns Crystal School, where academic excellence meets Christian values.",
-        excerpt: "Welcome to Our God Reigns Crystal School - where academic excellence meets Christian values.",
-        image_url: "/src/assets/news-adeyemo.jpg",
-        created_at: new Date().toISOString(),
-        profiles: { full_name: "Admin" }
-      },
-      {
-        id: "2", 
-        title: "NECO Results Excellence",
-        content: "Our students have achieved outstanding results in the recent NECO examinations.",
-        excerpt: "Outstanding NECO results with 95% pass rate achieved by our students.",
-        image_url: "/src/assets/news-neco.jpg",
-        created_at: new Date().toISOString(),
-        profiles: { full_name: "Admin" }
-      },
-      {
-        id: "3",
-        title: "Cultural Day Celebration", 
-        content: "Our annual cultural day was a celebration of Nigerian heritage and diversity.",
-        excerpt: "Annual cultural day celebrates Nigerian heritage with student performances.",
-        image_url: "/src/assets/news-cultural.jpg",
-        created_at: new Date().toISOString(),
-        profiles: { full_name: "Admin" }
+    try {
+      const { data, error } = await supabase
+        .from('content_items')
+        .select(`
+          id,
+          title,
+          content,
+          excerpt,
+          image_url,
+          created_at,
+          profiles:author_id (
+            full_name
+          )
+        `)
+        .eq('published', true)
+        .order('created_at', { ascending: false })
+        .limit(3);
+
+      if (error) {
+        console.error('Error fetching posts:', error);
+        setPosts([]);
+      } else {
+        setPosts(data || []);
       }
-    ];
-    
-    setPosts(mockPosts);
-    setLoading(false);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+      setPosts([]);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const displayPosts = posts.length > 0 ? posts : staticNews;

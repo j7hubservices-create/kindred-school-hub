@@ -33,21 +33,8 @@ const Activity = () => {
 
   const fetchActivities = async () => {
     try {
-      const { data, error } = await supabase
-        .from('activity_logs')
-        .select(`
-          *,
-          profiles:user_id (
-            full_name,
-            email
-          )
-        `)
-        .order('created_at', { ascending: false })
-        .limit(100);
-
-      if (error) throw error;
-
-      setActivities(data || []);
+      // Activities table doesn't exist yet, using empty array
+      setActivities([]);
     } catch (error) {
       console.error('Error fetching activities:', error);
       toast.error('Failed to load activity log');

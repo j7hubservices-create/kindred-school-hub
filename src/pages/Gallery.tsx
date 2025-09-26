@@ -7,8 +7,6 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChevronLeft, ChevronRight, Camera } from "lucide-react";
-import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
 
 interface GalleryImage {
   id: string;
@@ -18,56 +16,30 @@ interface GalleryImage {
 }
 
 const Gallery = () => {
-  const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [currentSlide, setCurrentSlide] = useState(0);
-
-  useEffect(() => {
-    fetchGalleryImages();
-  }, []);
-
-  const fetchGalleryImages = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('gallery')
-        .select('*')
-        .order('created_at', { ascending: false });
-
-      if (error) throw error;
-
-      // If no images in database, use static fallback images
-      if (!data || data.length === 0) {
-        const fallbackImages = [
-          {
-            id: '1',
-            title: 'School Students in Green Uniforms',
-            alt_text: 'Students performing at school event',
-            image_url: '/src/assets/students-background.jpg'
-          },
-          {
-            id: '2', 
-            title: 'School Building',
-            alt_text: 'Main school building',
-            image_url: '/src/assets/school-facilities.jpg'
-          },
-          {
-            id: '3',
-            title: 'Graduation Ceremony',
-            alt_text: 'Students during graduation',
-            image_url: '/src/assets/graduands.jpg'
-          }
-        ];
-        setGalleryImages(fallbackImages);
-      } else {
-        setGalleryImages(data);
-      }
-    } catch (error) {
-      console.error('Error fetching gallery images:', error);
-      toast.error('Failed to load gallery images');
-    } finally {
-      setLoading(false);
+  // Static gallery images for demo
+  const galleryImages = [
+    {
+      id: '1',
+      title: 'School Students in Green Uniforms',
+      alt_text: 'Students performing at school event',
+      image_url: '/src/assets/students-background.jpg'
+    },
+    {
+      id: '2', 
+      title: 'School Building',
+      alt_text: 'Main school building',
+      image_url: '/src/assets/school-facilities.jpg'
+    },
+    {
+      id: '3',
+      title: 'Graduation Ceremony',
+      alt_text: 'Students during graduation',
+      image_url: '/src/assets/graduands.jpg'
     }
-  };
+  ];
+
+  const [loading, setLoading] = useState(false);
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % Math.max(galleryImages.length, 1));

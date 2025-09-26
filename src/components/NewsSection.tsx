@@ -10,7 +10,7 @@ import newsAdeyemo from "@/assets/news-adeyemo.jpg";
 import newsCultural from "@/assets/news-cultural.jpg";
 import newsNeco from "@/assets/news-neco.jpg";
 
-const NewsSection = ({ id }: { id?: string }) => {
+const NewsSection = () => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -46,15 +46,26 @@ const NewsSection = ({ id }: { id?: string }) => {
   }, []);
 
   const fetchPosts = async () => {
-    // Using static news data for now
-    setPosts(staticNews);
-    setLoading(false);
+    try {
+      const { data, error } = await supabase
+        .from('content_items')
+        .select(`*, profiles:author_id (full_name)`)
+        .eq('published', true)
+        .order('created_at', { ascending: false })
+        .limit(3);
+      if (error) throw error;
+      setPosts(data || []);
+    } catch (error) {
+      console.error('Error fetching posts:', error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const displayPosts = posts.length > 0 ? posts : staticNews;
 
   return (
-    <section id={id} className="py-12 bg-gradient-to-r from-primary/15 via-secondary/10 to-primary/25 relative">
+    <section className="py-12 bg-gradient-to-r from-primary/15 via-secondary/10 to-primary/25 relative">
       <div className="absolute inset-0 bg-gradient-subtle opacity-30"></div>
       <div className="container mx-auto px-4 relative z-10">
         <div className="text-center mb-8">
