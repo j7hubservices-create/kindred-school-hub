@@ -181,45 +181,6 @@ export type Database = {
         }
         Relationships: []
       }
-      results: {
-        Row: {
-          category: string
-          created_at: string
-          description: string | null
-          featured: boolean | null
-          id: string
-          image_url: string | null
-          title: string
-          updated_at: string
-          uploaded_by: string | null
-          year: number
-        }
-        Insert: {
-          category?: string
-          created_at?: string
-          description?: string | null
-          featured?: boolean | null
-          id?: string
-          image_url?: string | null
-          title: string
-          updated_at?: string
-          uploaded_by?: string | null
-          year: number
-        }
-        Update: {
-          category?: string
-          created_at?: string
-          description?: string | null
-          featured?: boolean | null
-          id?: string
-          image_url?: string | null
-          title?: string
-          updated_at?: string
-          uploaded_by?: string | null
-          year?: number
-        }
-        Relationships: []
-      }
     }
     Views: {
       [_ in never]: never

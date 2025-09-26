@@ -44,7 +44,7 @@ const PostView = () => {
     try {
       const { data, error } = await supabase
         .from('content_items')
-        .select('id, title, content, excerpt, image_url, created_at, status')
+        .select('id, title, content, excerpt, image_url, created_at')
         .eq('id', slug)
         .eq('status', 'published')
         .single();
@@ -66,7 +66,7 @@ const PostView = () => {
     try {
       const { data, error } = await supabase
         .from('content_items')
-        .select('id, title, excerpt, image_url, created_at, status')
+        .select('id, title, excerpt, image_url, created_at')
         .eq('status', 'published')
         .neq('id', slug)
         .order('created_at', { ascending: false })

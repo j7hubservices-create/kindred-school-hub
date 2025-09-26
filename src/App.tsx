@@ -21,15 +21,12 @@ import AdminCMS from "./pages/AdminCMS";
 import Dashboard from "./pages/admin/Dashboard";
 import Posts from "./pages/admin/Posts";
 import CreatePost from "./pages/admin/CreatePost";
-import AdminPostView from "./pages/admin/PostView";
 import Categories from "./pages/admin/Categories";
 import SiteSettings from "./pages/admin/SiteSettings";
 import AdminGallery from "./pages/admin/Gallery";
 import Users from "./pages/admin/Users";
 import Activity from "./pages/admin/Activity";
 import Achievements from "./pages/Achievements";
-import Results from "./pages/Results";
-import AdminResults from "./pages/admin/Results";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -55,18 +52,14 @@ const App = () => (
             <Route path="/school-fees" element={<SchoolFees />} />
             <Route path="/portals" element={<Portals />} />
             <Route path="/achievements" element={<Achievements />} />
-            <Route path="/results" element={<Results />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/admin-cms" element={<AdminCMS />}>
               <Route index element={<Dashboard />} />
               <Route path="posts" element={<Posts />} />
               <Route path="posts/create" element={<CreatePost />} />
-              <Route path="posts/:id/edit" element={<CreatePost />} />
-              <Route path="posts/:id/view" element={<AdminPostView />} />
               <Route path="categories" element={<Categories />} />
               <Route path="gallery" element={<AdminGallery />} />
               <Route path="settings" element={<SiteSettings />} />
-              <Route path="results" element={<AdminResults />} />
               <Route path="users" element={<Users />} />
               <Route path="activity" element={<Activity />} />
             </Route>
