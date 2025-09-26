@@ -51,21 +51,21 @@ const Posts = () => {
     try {
       const { data, error } = await supabase
         .from('content_items')
-        .select(`
-          *,
-          profiles:author_id (full_name)
-        `)
+        .select('*')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
 
       const processedPosts = data?.map(post => ({
-        ...post,
-        author: { full_name: 'Admin' },
-        category: null,
+        id: post.id,
+        title: post.title || 'Untitled',
+        slug: (post.title || 'untitled').toLowerCase().replace(/\s+/g, '-'),
+        excerpt: post.excerpt || '',
         status: post.status || 'draft',
-        slug: post.title.toLowerCase().replace(/\s+/g, '-'),
-        published_at: post.created_at
+        published_at: post.created_at,
+        created_at: post.created_at,
+        author: { full_name: 'Admin' },
+        category: null
       })) || [];
 
       setPosts(processedPosts);
