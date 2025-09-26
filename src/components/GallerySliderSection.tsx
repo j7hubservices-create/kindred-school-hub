@@ -64,13 +64,48 @@ const GallerySliderSection = () => {
   }, [galleryImages.length, staticImages.length]);
 
   const fetchGalleryImages = async () => {
-    // Using static data since database is not set up yet
-    setGalleryImages([]);
+    try {
+      // Fetch gallery images from gallery table
+      const { data, error } = await supabase
+        .from('gallery')
+        .select('id, title, image_url, alt_text')
+        .order('created_at', { ascending: false })
+        .limit(20);
+
+      if (data && !error) {
+        const formattedImages: GalleryImage[] = data.map(item => ({
+          id: item.id,
+          title: item.title,
+          image_url: item.image_url || '/placeholder.svg',
+          alt_text: item.alt_text || item.title
+        }));
+        setGalleryImages(formattedImages);
+      }
+    } catch (error) {
+      console.error('Error fetching gallery images:', error);
+    }
   };
 
-  // Real-time updates disabled since database is not set up
+  // Set up real-time updates for gallery
   useEffect(() => {
-    // Placeholder for future real-time updates
+    const channel = supabase
+      .channel('gallery-changes')
+      .on(
+        'postgres_changes',
+        {
+          event: '*',
+          schema: 'public',
+          table: 'gallery'
+        },
+        () => {
+          fetchGalleryImages();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
   }, []);
 
   const allImages = galleryImages.length > 0 ? galleryImages : staticImages;

@@ -49,8 +49,26 @@ const Posts = () => {
 
   const fetchPosts = async () => {
     try {
-      // Using static data since database is not set up yet
-      setPosts([]);
+      const { data, error } = await supabase
+        .from('content_items')
+        .select(`
+          *,
+          profiles:author_id (full_name)
+        `)
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      const processedPosts = data?.map(post => ({
+        ...post,
+        author: post.profiles,
+        category: null,
+        status: post.published ? 'published' : 'draft',
+        slug: post.title.toLowerCase().replace(/\s+/g, '-'),
+        published_at: post.created_at
+      })) || [];
+
+      setPosts(processedPosts);
     } catch (error) {
       console.error('Error fetching posts:', error);
       toast.error('Failed to load posts');
@@ -61,7 +79,13 @@ const Posts = () => {
 
   const handleDeletePost = async (postId: string) => {
     try {
-      // Using placeholder since database is not set up yet
+      const { error } = await supabase
+        .from('content_items')
+        .delete()
+        .eq('id', postId);
+
+      if (error) throw error;
+
       setPosts(posts.filter(post => post.id !== postId));
       toast.success('Post deleted successfully');
     } catch (error) {

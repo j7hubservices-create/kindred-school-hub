@@ -45,17 +45,65 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [session, loading]);
 
-  // Profile management disabled since database is not set up
+  // Ensure a profile exists for the current user and seed an admin if none exists
   const ensureProfileAndAdmin = async (userId: string, email?: string, fullName?: string) => {
     try {
-      // Using fallback profile data since database is not set up
-      setProfile({
-        user_id: userId,
-        full_name: fullName || email || 'User',
-        email: email || null,
-        role: email === 'jerryemeka22@gmail.com' || email === 'ogrcs@yahoo.com' ? 'superadmin' : 'student'
-      });
+      // Try to get existing profile
+      const { data: existingProfile } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('user_id', userId)
+        .maybeSingle();
+
+      if (!existingProfile) {
+        // Determine role based on email and existing profiles
+        const superAdminEmails = ['jerryemeka22@gmail.com', 'ogrcs@yahoo.com'];
+        let role = 'student';
+        
+        if (superAdminEmails.includes(email || '')) {
+          role = 'superadmin';
+        } else {
+          // Check how many profiles exist to decide first admin
+          const { count } = await supabase
+            .from('profiles')
+            .select('id', { count: 'exact', head: true });
+          role = (count ?? 0) === 0 ? 'admin' : 'student';
+        }
+
+        const { data: inserted } = await supabase
+          .from('profiles')
+          .insert({
+            user_id: userId,
+            full_name: fullName || email || 'User',
+            email: email || null,
+            role: role as any
+          })
+          .select()
+          .single();
+
+        if (inserted) setProfile(inserted);
+      } else {
+        // Ensure at least one admin exists. If none, promote this profile
+        const { count: adminCount } = await supabase
+          .from('profiles')
+          .select('id', { count: 'exact', head: true })
+          .eq('role', 'admin');
+
+        if ((adminCount ?? 0) === 0 && existingProfile.role !== 'admin') {
+          const { data: updated } = await supabase
+            .from('profiles')
+            .update({ role: 'admin' })
+            .eq('user_id', userId)
+            .select()
+            .single();
+          if (updated) setProfile(updated);
+          else setProfile(existingProfile);
+        } else {
+          setProfile(existingProfile);
+        }
+      }
     } catch (err) {
+      // Fallback – keep loading minimal and avoid blocking UI
       console.error('ensureProfileAndAdmin error', err);
     }
   };
