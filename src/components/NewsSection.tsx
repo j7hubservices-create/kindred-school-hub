@@ -49,8 +49,8 @@ const NewsSection = ({ id }: { id?: string }) => {
     try {
       const { data, error } = await supabase
         .from('content_items')
-        .select(`*, profiles:author_id (full_name)`)
-        .eq('published', true)
+        .select('id, title, excerpt, content, image_url, created_at')
+        .eq('status', 'published')
         .order('created_at', { ascending: false })
         .limit(3);
       if (error) throw error;

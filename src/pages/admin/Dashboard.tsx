@@ -44,11 +44,11 @@ const Dashboard = () => {
       // Use content_items instead of posts
       const { data: posts } = await supabase
         .from('content_items')
-        .select('published');
+        .select('status');
       
       const totalPosts = posts?.length || 0;
-      const publishedPosts = posts?.filter(p => p.published === true).length || 0;
-      const draftPosts = posts?.filter(p => p.published === false).length || 0;
+      const publishedPosts = posts?.filter(p => p.status === 'published').length || 0;
+      const draftPosts = posts?.filter(p => p.status === 'draft').length || 0;
 
       // Fetch users count
       const { count: usersCount } = await supabase
