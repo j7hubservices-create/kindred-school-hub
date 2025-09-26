@@ -60,6 +60,8 @@ const App = () => (
               <Route index element={<Dashboard />} />
               <Route path="posts" element={<Posts />} />
               <Route path="posts/create" element={<CreatePost />} />
+              <Route path="posts/:id/edit" element={<CreatePost />} />
+              <Route path="posts/:id/view" element={<PostView />} />
               <Route path="categories" element={<Categories />} />
               <Route path="gallery" element={<AdminGallery />} />
               <Route path="settings" element={<SiteSettings />} />

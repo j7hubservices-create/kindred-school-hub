@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -28,6 +28,7 @@ interface Category {
 
 const CreatePost = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const { profile } = useAuth();
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -39,13 +40,17 @@ const CreatePost = () => {
     content: '',
     featured_image_url: '',
     category_id: '',
-    status: 'draft' as const
+    status: 'draft' as 'draft' | 'published' | 'archived'
   });
   const [errors, setErrors] = useState<any>({});
+  const isEditing = Boolean(id);
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+    if (id) {
+      fetchPost(id);
+    }
+  }, [id]);
 
   const fetchCategories = async () => {
     try {
@@ -59,6 +64,36 @@ const CreatePost = () => {
     } catch (error) {
       console.error('Error fetching categories:', error);
       setCategories([]);
+    }
+  };
+
+  const fetchPost = async (postId: string) => {
+    try {
+      setLoading(true);
+      const { data, error } = await supabase
+        .from('content_items')
+        .select('*')
+        .eq('id', postId)
+        .single();
+
+      if (error) throw error;
+
+      if (data) {
+        setFormData({
+          title: data.title || '',
+          slug: generateSlug(data.title || ''),
+          excerpt: data.excerpt || '',
+          content: data.content || '',
+          featured_image_url: data.image_url || '',
+          category_id: data.category_id || '',
+          status: (data.status as 'draft' | 'published' | 'archived') || 'draft'
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching post:', error);
+      toast.error('Failed to load post');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -133,26 +168,47 @@ const CreatePost = () => {
 
       postSchema.parse(submitData);
 
-      // Use content_items table instead of posts
-      const { data, error } = await supabase
-        .from('content_items')
-        .insert({
-          title: submitData.title,
-          content: submitData.content,
-          excerpt: submitData.excerpt,
-          image_url: submitData.featured_image_url || null,
-          content_type: 'news',
-          published: publishNow,
-          featured: false,
-          author_id: profile?.id || null
-        })
-        .select()
-        .single();
+      let data, error;
+
+      if (isEditing && id) {
+        // Update existing post
+        const result = await supabase
+          .from('content_items')
+          .update({
+            title: submitData.title,
+            content: submitData.content,
+            excerpt: submitData.excerpt,
+            image_url: submitData.featured_image_url || null,
+            status: submitData.status
+          })
+          .eq('id', id)
+          .select()
+          .single();
+        
+        data = result.data;
+        error = result.error;
+      } else {
+        // Create new post
+        const result = await supabase
+          .from('content_items')
+          .insert({
+            title: submitData.title,
+            content: submitData.content,
+            excerpt: submitData.excerpt,
+            image_url: submitData.featured_image_url || null,
+            author_id: profile?.user_id || null
+          })
+          .select()
+          .single();
+        
+        data = result.data;
+        error = result.error;
+      }
 
       if (error) throw error;
 
-      toast.success(`Post ${publishNow ? 'published' : 'saved as draft'} successfully`);
-      navigate(`/post/${data.id}`);
+      toast.success(`Post ${isEditing ? 'updated' : 'created'} successfully`);
+      navigate('/admin-cms/posts');
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors: any = {};
@@ -179,8 +235,12 @@ const CreatePost = () => {
           Back to Posts
         </Button>
         <div>
-          <h2 className="text-3xl font-bold text-gray-800">Create New Post</h2>
-          <p className="text-gray-600">Add a new blog post or article</p>
+          <h2 className="text-3xl font-bold text-gray-800">
+            {isEditing ? 'Edit Post' : 'Create New Post'}
+          </h2>
+          <p className="text-gray-600">
+            {isEditing ? 'Update an existing blog post or article' : 'Add a new blog post or article'}
+          </p>
         </div>
       </div>
 
