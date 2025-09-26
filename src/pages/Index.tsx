@@ -17,29 +17,32 @@ const Index = () => {
       <Header />
       <Navigation />
       
-      {/* 1. Hero Banner / Welcome Section */}
-      <HeroSection />
+      {/* Main Container */}
+      <div className="container mx-auto px-4 max-w-7xl">
+        {/* 1. Hero Banner / Welcome Section */}
+        <HeroSection />
 
-      {/* 2. Message from the Proprietor / Head Teacher */}
-      <ProprietressWelcomeSection />
+        {/* 2. Message from the Proprietor / Head Teacher */}
+        <ProprietressWelcomeSection />
 
-      {/* 3. About the School */}
-      <AboutSection />
+        {/* 3. About the School */}
+        <AboutSection />
 
-      {/* 4. Academics / Programs Offered */}
-      <AcademicProgramsSection />
+        {/* 4. Academics / Programs Offered */}
+        <AcademicProgramsSection />
 
-      {/* 5. Gallery / Media */}
-      <GallerySliderSection />
+        {/* 5. Gallery / Media */}
+        <GallerySliderSection />
 
-      {/* 6. Latest News & Announcements */}
-      <NewsSection />
+        {/* 6. Latest News & Announcements */}
+        <NewsSection />
 
-      {/* 7. School Facilities */}
-      <FacilitiesSection />
+        {/* 7. School Facilities */}
+        <FacilitiesSection />
 
-      {/* 8. Contact Information */}
-      <ContactSection />
+        {/* 8. Contact Information */}
+        <ContactSection />
+      </div>
 
       <Footer />
     </div>
