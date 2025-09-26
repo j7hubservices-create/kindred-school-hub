@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { Dialog, DialogContent, DialogClose } from '@/components/ui/dialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -110,14 +111,25 @@ const AwardCelebrationModal: React.FC<AwardCelebrationModalProps> = ({ onCelebra
             </Badge>
           </div>
 
-          {/* CTA Button */}
-          <div className="pt-2 md:pt-4">
+          {/* CTA Buttons */}
+          <div className="pt-2 md:pt-4 space-y-3">
             <Button
               onClick={handleCelebrate}
               size="lg"
-              className="bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-primary-foreground font-semibold px-6 md:px-8 py-2.5 md:py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+              className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-primary-foreground font-semibold px-6 md:px-8 py-2.5 md:py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
             >
               🎉 Celebrate With Us
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="w-full border-primary/20 text-primary hover:bg-primary/10 font-semibold px-6 md:px-8 py-2.5 md:py-3 rounded-xl"
+            >
+              <Link to="/results">
+                <Trophy className="w-4 h-4 mr-2" />
+                View All Results & Awards
+              </Link>
             </Button>
           </div>
 
