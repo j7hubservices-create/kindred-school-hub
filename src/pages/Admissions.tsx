@@ -310,19 +310,22 @@ const Admissions = () => {
             <div className="flex flex-col items-center">
               <Phone className="h-8 w-8 mb-4" />
               <h3 className="font-semibold mb-2">Call Us</h3>
-              <p>+234 801 234 5678</p>
+              <div className="space-y-1">
+                <a href="tel:08027625129" className="block hover:text-accent transition-colors">08027625129</a>
+                <a href="tel:08033089735" className="block hover:text-accent transition-colors">08033089735</a>
+              </div>
             </div>
             
             <div className="flex flex-col items-center">
               <Mail className="h-8 w-8 mb-4" />
               <h3 className="font-semibold mb-2">Email Us</h3>
-              <p>admissions@ogrcschool.edu.ng</p>
+              <a href="mailto:ogrcs@yahoo.com" className="hover:text-accent transition-colors">ogrcs@yahoo.com</a>
             </div>
             
             <div className="flex flex-col items-center">
               <MapPin className="h-8 w-8 mb-4" />
               <h3 className="font-semibold mb-2">Visit Us</h3>
-              <p>School Address, City</p>
+              <p>23, Bolanle Awosika Street, Ojuore Ota</p>
             </div>
           </div>
           

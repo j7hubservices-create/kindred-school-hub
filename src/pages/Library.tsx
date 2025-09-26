@@ -291,7 +291,10 @@ const Library = () => {
             <div className="flex flex-col items-center">
               <Phone className="h-8 w-8 mb-4" />
               <h3 className="font-semibold mb-2">Call Library</h3>
-              <p>+234 801 234 5679</p>
+              <div className="space-y-1">
+                <a href="tel:08027625129" className="block hover:text-accent transition-colors">08027625129</a>
+                <a href="tel:08033089735" className="block hover:text-accent transition-colors">08033089735</a>
+              </div>
             </div>
             
             <div className="flex flex-col items-center">
