@@ -101,7 +101,12 @@ const AboutSection = () => {
 
         {/* Enhanced Statistics */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-          {stats.map((stat, index) => {})}
+          {stats.map((stat, index) => (
+            <div key={index} className="text-center p-6 bg-white/5 rounded-lg border border-white/10">
+              <div className="text-3xl font-bold text-accent mb-2">{stat.value}</div>
+              <div className="text-primary-foreground/80">{stat.label}</div>
+            </div>
+          ))}
         </div>
 
 
