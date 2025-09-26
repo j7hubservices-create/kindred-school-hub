@@ -25,7 +25,7 @@ import { useAuth } from "@/contexts/AuthContext";
 
 const adminMenuItems = [
   { title: "Dashboard", url: "/admin-cms", icon: LayoutDashboard },
-  { title: "Posts", url: "/admin-cms/posts", icon: FileText },
+  { title: "All Posts", url: "/admin-cms/posts", icon: FileText },
   { title: "Categories", url: "/admin-cms/categories", icon: FolderOpen },
   { title: "Gallery", url: "/admin-cms/gallery", icon: Image },
   { title: "Results & Awards", url: "/admin-cms/results", icon: Trophy },
