@@ -74,7 +74,7 @@ const CreatePost = () => {
         .from('content_items')
         .select('*')
         .eq('id', postId)
-        .single();
+        .maybeSingle();
 
       if (error) throw error;
 
@@ -188,7 +188,7 @@ const CreatePost = () => {
         data = result.data;
         error = result.error;
       } else {
-        // Create new post - use minimal required fields only
+        // Create new post with all required fields including status
         const result = await supabase
           .from('content_items')
           .insert({
@@ -197,21 +197,14 @@ const CreatePost = () => {
             excerpt: submitData.excerpt,
             image_url: submitData.featured_image_url || null,
             author_id: profile?.user_id || null,
-            content_type: 'news'
+            content_type: 'news',
+            status: submitData.status
           })
           .select()
           .single();
         
         data = result.data;
         error = result.error;
-        
-        // Update with status if creation succeeded and status is not draft
-        if (!error && data && submitData.status !== 'draft') {
-          await supabase
-            .from('content_items')
-            .update({ status: submitData.status })
-            .eq('id', data.id);
-        }
       }
 
       if (error) throw error;
