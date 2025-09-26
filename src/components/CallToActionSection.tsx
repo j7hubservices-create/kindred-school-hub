@@ -70,9 +70,9 @@ const CallToActionSection = () => {
               <Phone className="h-8 w-8 mx-auto mb-4 text-accent" />
               <h3 className="font-bold mb-2">Call Us Now</h3>
               <p className="text-sm opacity-90 mb-3">Speak with our admission team</p>
-              <div className="text-sm">
-                <div>08027625129</div>
-                <div>08033089735</div>
+              <div className="text-sm space-y-1">
+                <a href="tel:08027625129" className="block hover:text-accent transition-colors">08027625129</a>
+                <a href="tel:08033089735" className="block hover:text-accent transition-colors">08033089735</a>
               </div>
             </CardContent>
           </Card>

@@ -83,11 +83,14 @@ const About = () => {
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Phone:</span>
-                      <span className="font-medium">08027625129, 08033089735</span>
+                      <span className="font-medium">
+                        <a href="tel:08027625129" className="hover:text-primary transition-colors">08027625129</a>, 
+                        <a href="tel:08033089735" className="hover:text-primary transition-colors">08033089735</a>
+                      </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Email:</span>
-                      <span className="font-medium">ogrcs@yahoo.com</span>
+                      <a href="mailto:ogrcs@yahoo.com" className="font-medium hover:text-primary transition-colors">ogrcs@yahoo.com</a>
                     </div>
                     <div className="flex justify-between">
                       <span className="text-muted-foreground">Session:</span>

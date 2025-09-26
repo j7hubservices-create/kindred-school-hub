@@ -93,14 +93,16 @@ const Footer = () => {
               
               <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-yellow-300" />
-                <div className="text-sm text-white/90">
-                  08027625129 , 08033089735
+                <div className="text-sm text-white/90 space-x-2">
+                  <a href="tel:08027625129" className="hover:text-yellow-300 transition-colors">08027625129</a>
+                  <span>,</span>
+                  <a href="tel:08033089735" className="hover:text-yellow-300 transition-colors">08033089735</a>
                 </div>
               </div>
               
               <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-yellow-300" />
-                <span className="text-sm text-white/90">ogrcs@yahoo.com</span>
+                <a href="mailto:ogrcs@yahoo.com" className="text-sm text-white/90 hover:text-yellow-300 transition-colors">ogrcs@yahoo.com</a>
               </div>
             </div>
             
@@ -129,7 +131,7 @@ const Footer = () => {
               © 2025 Our God Reigns Crystal School. All rights reserved.
             </div>
             <div className="text-sm text-white/80">
-              Developed by: <span className="text-yellow-300">Jerry Emeka 08134813380</span> | <a href="#" className="text-yellow-300 hover:underline">jThub.com/contact-us</a>
+              Developed by: <span className="text-yellow-300">Jerry Emeka <a href="tel:08134813380" className="hover:underline">08134813380</a></span> | <a href="#" className="text-yellow-300 hover:underline">jThub.com/contact-us</a>
             </div>
           </div>
         </div>
