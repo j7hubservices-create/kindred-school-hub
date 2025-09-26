@@ -92,7 +92,7 @@ const AboutSection = () => {
           <Badge className="bg-accent text-accent-foreground mb-3 px-4 py-2 text-lg shadow-accent">
             🏫 About Our School
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Excellence in Education</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-4">Excelence in Education</h2>
           <p className="text-lg text-foreground max-w-3xl mx-auto leading-relaxed">
             Our God Reigns Crystal School is a beacon of academic excellence and moral integrity, 
             committed to nurturing young minds and shaping future leaders.
@@ -100,14 +100,7 @@ const AboutSection = () => {
         </div>
 
         {/* Enhanced Statistics */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-12">
-          {stats.map((stat, index) => (
-            <div key={index} className="text-center p-6 bg-white/5 rounded-lg border border-white/10">
-              <div className="text-3xl font-bold text-accent mb-2">{stat.value}</div>
-              <div className="text-primary-foreground/80">{stat.label}</div>
-            </div>
-          ))}
-        </div>
+        
 
 
         {/* Core Values - Simplified */}
