@@ -43,58 +43,49 @@ const PostView = () => {
   }, [slug]);
 
   const fetchPost = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('content_items')
-        .select(`
-          id,
-          title,
-          content,
-          excerpt,
-          image_url,
-          created_at,
-          profiles:author_id(full_name)
-        `)
-        .eq('id', slug)
-        .eq('published', true)
-        .single();
-
-      if (error) {
-        console.error('Error fetching post:', error);
-        return;
+    // Mock data for now
+    const mockPosts = [
+      {
+        id: "1",
+        title: "Welcome to Our God Reigns Crystal School",
+        content: "We are delighted to welcome you to Our God Reigns Crystal School, where academic excellence meets Christian values. Our mission is to provide quality education that nurtures both intellectual growth and spiritual development. At our school, we believe in holistic education that develops not just academic prowess but also character, creativity, and critical thinking skills.",
+        excerpt: "Welcome to Our God Reigns Crystal School - where academic excellence meets Christian values.",
+        image_url: "/src/assets/news-adeyemo.jpg",
+        created_at: new Date().toISOString(),
+        profiles: { full_name: "Admin" }
+      },
+      {
+        id: "2",
+        title: "NECO Results Excellence",
+        content: "Our students have once again demonstrated exceptional performance in the recent NECO examinations, with a 95% pass rate across all subjects. This achievement reflects our commitment to academic excellence and the dedicated efforts of our teaching staff.",
+        excerpt: "Outstanding NECO results with 95% pass rate achieved by our dedicated students.",
+        image_url: "/src/assets/news-neco.jpg",
+        created_at: new Date().toISOString(),
+        profiles: { full_name: "Admin" }
+      },
+      {
+        id: "3",
+        title: "Cultural Day Celebration",
+        content: "Our annual cultural day celebration was a resounding success, showcasing the rich diversity of Nigerian culture through traditional dances, songs, and exhibitions by our talented students.",
+        excerpt: "Annual cultural day celebrates Nigerian heritage with student performances.",
+        image_url: "/src/assets/news-cultural.jpg",
+        created_at: new Date().toISOString(),
+        profiles: { full_name: "Admin" }
       }
+    ];
 
-      setPost(data);
-    } catch (error) {
-      console.error('Error fetching post:', error);
-    } finally {
-      setLoading(false);
+    const foundPost = mockPosts.find(p => p.id === slug);
+    if (foundPost) {
+      setPost(foundPost);
+      // Set related posts (excluding current post)
+      setRelatedPosts(mockPosts.filter(p => p.id !== slug).slice(0, 3));
     }
+    
+    setLoading(false);
   };
 
   const fetchRelatedPosts = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('content_items')
-        .select(`
-          id,
-          title,
-          excerpt,
-          image_url,
-          created_at,
-          profiles:author_id(full_name)
-        `)
-        .eq('published', true)
-        .neq('id', slug)
-        .order('created_at', { ascending: false })
-        .limit(3);
-
-      if (data && !error) {
-        setRelatedPosts(data);
-      }
-    } catch (error) {
-      console.error('Error fetching related posts:', error);
-    }
+    // Already handled in fetchPost
   };
 
   if (loading) {

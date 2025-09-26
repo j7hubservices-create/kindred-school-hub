@@ -31,20 +31,39 @@ const Blog = () => {
   }, []);
 
   const fetchPosts = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('content_items')
-        .select(`*, profiles:author_id (full_name)`)
-        .eq('published', true)
-        .order('created_at', { ascending: false });
-      
-      if (error) throw error;
-      setPosts(data || []);
-    } catch (error) {
-      console.error('Error fetching posts:', error);
-    } finally {
-      setLoading(false);
-    }
+    // Mock data for now
+    const mockPosts = [
+      {
+        id: "1",
+        title: "Welcome to Our God Reigns Crystal School",
+        content: "We are delighted to welcome you to Our God Reigns Crystal School, where academic excellence meets Christian values. Our mission is to provide quality education that nurtures both intellectual growth and spiritual development.",
+        excerpt: "Welcome to Our God Reigns Crystal School - where academic excellence meets Christian values.",
+        image_url: "/src/assets/news-adeyemo.jpg",
+        created_at: new Date().toISOString(),
+        profiles: { full_name: "Admin" }
+      },
+      {
+        id: "2",
+        title: "NECO Results Excellence", 
+        content: "Our students have once again demonstrated exceptional performance in the recent NECO examinations, with a 95% pass rate across all subjects. This achievement reflects our commitment to academic excellence.",
+        excerpt: "Outstanding NECO results with 95% pass rate achieved by our dedicated students.",
+        image_url: "/src/assets/news-neco.jpg",
+        created_at: new Date().toISOString(),
+        profiles: { full_name: "Admin" }
+      },
+      {
+        id: "3",
+        title: "Cultural Day Celebration",
+        content: "Our annual cultural day celebration was a resounding success, showcasing the rich diversity of Nigerian culture through traditional dances, songs, and exhibitions by our talented students.",
+        excerpt: "Annual cultural day celebrates Nigerian heritage with student performances.",
+        image_url: "/src/assets/news-cultural.jpg", 
+        created_at: new Date().toISOString(),
+        profiles: { full_name: "Admin" }
+      }
+    ];
+    
+    setPosts(mockPosts);
+    setLoading(false);
   };
 
   return (

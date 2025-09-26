@@ -46,20 +46,9 @@ const NewsSection = ({ id }: { id?: string }) => {
   }, []);
 
   const fetchPosts = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('content_items')
-        .select(`*, profiles:author_id (full_name)`)
-        .eq('published', true)
-        .order('created_at', { ascending: false })
-        .limit(3);
-      if (error) throw error;
-      setPosts(data || []);
-    } catch (error) {
-      console.error('Error fetching posts:', error);
-    } finally {
-      setLoading(false);
-    }
+    // Using static news data for now
+    setPosts(staticNews);
+    setLoading(false);
   };
 
   const displayPosts = posts.length > 0 ? posts : staticNews;
