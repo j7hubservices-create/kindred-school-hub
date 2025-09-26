@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { ChevronLeft, ChevronRight, Camera } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
 
 interface GalleryImage {
   id: string;
@@ -34,36 +33,30 @@ const Gallery = () => {
         .order('created_at', { ascending: false });
 
       if (error) throw error;
-
-      // If no images in database, use static fallback images
-      if (!data || data.length === 0) {
-        const fallbackImages = [
-          {
-            id: '1',
-            title: 'School Students in Green Uniforms',
-            alt_text: 'Students performing at school event',
-            image_url: '/src/assets/students-background.jpg'
-          },
-          {
-            id: '2', 
-            title: 'School Building',
-            alt_text: 'Main school building',
-            image_url: '/src/assets/school-facilities.jpg'
-          },
-          {
-            id: '3',
-            title: 'Graduation Ceremony',
-            alt_text: 'Students during graduation',
-            image_url: '/src/assets/graduands.jpg'
-          }
-        ];
-        setGalleryImages(fallbackImages);
-      } else {
-        setGalleryImages(data);
-      }
+      setGalleryImages(data || []);
     } catch (error) {
       console.error('Error fetching gallery images:', error);
-      toast.error('Failed to load gallery images');
+      // Fallback to static images if database fetch fails
+      setGalleryImages([
+        {
+          id: '1',
+          title: 'School Students in Green Uniforms',
+          alt_text: 'Students performing at school event',
+          image_url: '/src/assets/students-background.jpg'
+        },
+        {
+          id: '2', 
+          title: 'School Building',
+          alt_text: 'Main school building',
+          image_url: '/src/assets/school-facilities.jpg'
+        },
+        {
+          id: '3',
+          title: 'Graduation Ceremony',
+          alt_text: 'Students during graduation',
+          image_url: '/src/assets/graduands.jpg'
+        }
+      ]);
     } finally {
       setLoading(false);
     }

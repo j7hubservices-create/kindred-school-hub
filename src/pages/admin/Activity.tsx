@@ -14,6 +14,7 @@ interface ActivityLog {
   resource_id: string | null;
   details: any;
   created_at: string;
+  user_id: string | null;
   profiles: {
     full_name: string | null;
     email: string | null;
@@ -46,7 +47,6 @@ const Activity = () => {
         .limit(100);
 
       if (error) throw error;
-
       setActivities(data || []);
     } catch (error) {
       console.error('Error fetching activities:', error);
