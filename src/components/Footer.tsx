@@ -13,7 +13,7 @@ const Footer = () => {
   ];
 
   const portals = [
-    { name: "Admin Portal", path: "/admin", internal: true },
+    { name: "Admin Portal", path: "/admin-cms", internal: true },
     { name: "Staff Portal", url: "https://ogrcs.edutams.net/" },
     { name: "Parent Portal", url: "https://ogrcs.edutams.net/" },
     { name: "Student Portal", url: "https://ogrcs.edutams.net/" }
