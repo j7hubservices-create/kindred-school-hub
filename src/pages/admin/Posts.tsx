@@ -51,10 +51,7 @@ const Posts = () => {
     try {
       const { data, error } = await supabase
         .from('content_items')
-        .select(`
-          *,
-          profiles:author_id (full_name)
-        `)
+        .select('id, title, content, excerpt, image_url, status, created_at, updated_at, author_id')
         .order('created_at', { ascending: false });
 
       if (error) throw error;
