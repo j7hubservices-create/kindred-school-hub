@@ -21,8 +21,118 @@ import {
 import admissionFlyerImage from "@/assets/admission-flyer-new.jpg";
 import schoolLogoMain from "@/assets/school-logo-main.jpeg";
 import admissionsHero from "@/assets/admissions-hero.jpg";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 const Admissions = () => {
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const downloadSchoolFees = () => {
+    const schoolFeesData = `
+OUR GOD REIGNS CRYSTAL SCHOOL
+SCHOOL FEES STRUCTURE 2025/2026 SESSION
+
+JUNIOR SECONDARY SCHOOL (JSS1-JSS3)
+===========================================
+Tuition Fee (per term): ₦45,000
+Development Fee (annual): ₦15,000
+Examination Fee (per term): ₦5,000
+Library Fee (annual): ₦3,000
+Laboratory Fee (annual): ₦5,000
+Sports Fee (annual): ₦2,000
+ID Card (one-time): ₦1,000
+PTA Levy (annual): ₦3,000
+-------------------------------------------
+Total per term: ₦50,000
+Total per session: ₦150,000
+First term (with annual fees): ₦79,000
+
+SENIOR SECONDARY SCHOOL (SSS1-SSS3)
+===========================================
+Tuition Fee (per term): ₦55,000
+Development Fee (annual): ₦20,000
+Examination Fee (per term): ₦7,000
+Laboratory Fee (annual): ₦8,000
+Library Fee (annual): ₦4,000
+Computer Fee (annual): ₦5,000
+Sports Fee (annual): ₦2,000
+ID Card (one-time): ₦1,000
+PTA Levy (annual): ₦4,000
+-------------------------------------------
+Total per term: ₦62,000
+Total per session: ₦186,000
+First term (with annual fees): ₦105,000
+
+ADDITIONAL INFORMATION
+===========================================
+• Payment can be made termly or in full session
+• 5% discount for full session payment
+• Uniform and textbooks sold separately
+• Late payment attracts 5% penalty after 2 weeks
+• All fees are subject to review
+
+PAYMENT METHODS
+===========================================
+Bank Transfer:
+Account Name: Our God Reigns Crystal School
+Account Number: 1234567890
+Bank: First Bank Nigeria
+Sort Code: 011-152-003
+
+For inquiries, contact:
+Phone: 08027625129, 08033089735
+Email: ogrcs@yahoo.com
+Address: 23, Bolanle Awosika Street, Ojuore Ota
+
+Generated on: ${new Date().toLocaleDateString()}
+    `;
+    
+    const blob = new Blob([schoolFeesData], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'OGRCS_School_Fees_2025-2026.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    
+    toast({
+      title: "Download Complete",
+      description: "School fees structure has been downloaded successfully.",
+    });
+  };
+
+  const handleApplyNow = () => {
+    toast({
+      title: "Application Portal",
+      description: "Redirecting to online application form...",
+    });
+    // In a real app, this would redirect to an application form
+    setTimeout(() => {
+      window.open('mailto:ogrcs@yahoo.com?subject=Admission Application&body=I am interested in applying for admission to Our God Reigns Crystal School.', '_blank');
+    }, 1000);
+  };
+
+  const handleContactAdmissions = () => {
+    toast({
+      title: "Contact Admissions",
+      description: "Opening contact options...",
+    });
+    window.open('tel:08027625129', '_self');
+  };
+
+  const handleScheduleTour = () => {
+    toast({
+      title: "School Tour",
+      description: "Scheduling a tour for you...",
+    });
+    setTimeout(() => {
+      window.open('mailto:ogrcs@yahoo.com?subject=School Tour Request&body=I would like to schedule a tour of Our God Reigns Crystal School.', '_blank');
+    }, 1000);
+  };
+
   const admissionRequirements = [
     "Birth Certificate or Age Declaration",
     "Previous School Report Card/Results",
@@ -75,6 +185,7 @@ const Admissions = () => {
             <Button 
               size="lg" 
               className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-4 text-lg font-semibold"
+              onClick={handleApplyNow}
             >
               <GraduationCap className="mr-2 h-5 w-5" />
               Apply Now
@@ -83,6 +194,7 @@ const Admissions = () => {
               size="lg" 
               variant="outline" 
               className="border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 py-4 text-lg"
+              onClick={downloadSchoolFees}
             >
               <FileText className="mr-2 h-5 w-5" />
               Download Prospectus
@@ -177,6 +289,7 @@ const Admissions = () => {
                 <Button 
                   size="lg" 
                   className="bg-primary hover:bg-primary-dark text-primary-foreground"
+                  onClick={handleApplyNow}
                 >
                   <GraduationCap className="mr-2 h-5 w-5" />
                   Start Application
@@ -185,6 +298,7 @@ const Admissions = () => {
                   size="lg" 
                   variant="outline" 
                   className="border-primary text-primary hover:bg-primary hover:text-primary-foreground"
+                  onClick={handleContactAdmissions}
                 >
                   <Phone className="mr-2 h-5 w-5" />
                   Contact Admissions
@@ -334,6 +448,7 @@ const Admissions = () => {
           <Button 
             size="lg" 
             className="bg-secondary hover:bg-secondary/90 text-secondary-foreground px-8 py-4"
+            onClick={handleScheduleTour}
           >
             <Clock className="mr-2 h-5 w-5" />
             Schedule a School Tour
