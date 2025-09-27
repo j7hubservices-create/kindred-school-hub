@@ -6,12 +6,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import About from "./pages/About";
-import Leadership from "./pages/Leadership";
 import Admissions from "./pages/Admissions";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import Blog from "./pages/Blog";
-import PostView from "./pages/PostView";
 import Library from "./pages/Library";
 import ELearning from "./pages/ELearning";
 import SchoolFees from "./pages/SchoolFees";
@@ -26,7 +24,6 @@ import SiteSettings from "./pages/admin/SiteSettings";
 import AdminGallery from "./pages/admin/Gallery";
 import Users from "./pages/admin/Users";
 import Activity from "./pages/admin/Activity";
-import Achievements from "./pages/Achievements";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -41,17 +38,14 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} />
-            <Route path="/leadership" element={<Leadership />} />
             <Route path="/admissions" element={<Admissions />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/blog" element={<Blog />} />
-            <Route path="/post/:slug" element={<PostView />} />
             <Route path="/library" element={<Library />} />
             <Route path="/e-learning" element={<ELearning />} />
             <Route path="/school-fees" element={<SchoolFees />} />
             <Route path="/portals" element={<Portals />} />
-            <Route path="/achievements" element={<Achievements />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/admin-cms" element={<AdminCMS />}>
               <Route index element={<Dashboard />} />
