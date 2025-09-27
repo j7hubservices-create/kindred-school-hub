@@ -1,0 +1,25 @@
+name: Run Supabase User Script
+
+on:
+  workflow_dispatch:   # Allows manual triggering from GitHub Actions tab
+
+jobs:
+  set-passwords:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+      SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install @supabase/supabase-js
+
+      - name: Run batch user script
+        run: node scripts/batch-manage-users.js
