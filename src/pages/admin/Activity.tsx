@@ -34,15 +34,19 @@ const Activity = () => {
   const fetchActivities = async () => {
     try {
       const { data, error } = await supabase
-        .from('admin_activities')
+        .from('activity_logs')
         .select(`
           *,
-          profiles:user_id (full_name, email)
+          profiles:user_id (
+            full_name,
+            email
+          )
         `)
         .order('created_at', { ascending: false })
         .limit(100);
 
       if (error) throw error;
+
       setActivities(data || []);
     } catch (error) {
       console.error('Error fetching activities:', error);

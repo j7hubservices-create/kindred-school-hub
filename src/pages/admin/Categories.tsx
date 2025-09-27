@@ -64,8 +64,14 @@ const Categories = () => {
 
   const fetchCategories = async () => {
     try {
-      // Categories table doesn't exist yet, using empty array
-      setCategories([]);
+      const { data, error } = await supabase
+        .from('categories')
+        .select('*')
+        .order('created_at', { ascending: false });
+
+      if (error) throw error;
+
+      setCategories(data || []);
     } catch (error) {
       console.error('Error fetching categories:', error);
       toast.error('Failed to load categories');
@@ -116,9 +122,55 @@ const Categories = () => {
     try {
       categorySchema.parse(formData);
 
-      // Categories functionality is disabled - table doesn't exist
-      toast.error('Categories functionality is not available yet');
-      return;
+      if (editingCategory) {
+        const { error } = await supabase
+          .from('categories')
+          .update({
+            name: formData.name,
+            slug: formData.slug,
+            description: formData.description || null
+          })
+          .eq('id', editingCategory.id);
+
+        if (error) throw error;
+
+        toast.success('Category updated successfully');
+        
+        // Log activity
+        await supabase.from('activity_logs').insert({
+          action: 'updated',
+          resource_type: 'category',
+          resource_id: editingCategory.id,
+          details: { name: formData.name, updated_keys: ['name', 'slug', 'description'] },
+          user_id: profile?.user_id
+        });
+      } else {
+        const { data, error } = await supabase
+          .from('categories')
+          .insert({
+            name: formData.name,
+            slug: formData.slug,
+            description: formData.description || null
+          })
+          .select()
+          .single();
+
+        if (error) throw error;
+
+        toast.success('Category created successfully');
+        
+        // Log activity
+        await supabase.from('activity_logs').insert({
+          action: 'created',
+          resource_type: 'category',
+          resource_id: data.id,
+          details: { name: formData.name },
+          user_id: profile?.user_id
+        });
+      }
+
+      setDialogOpen(false);
+      fetchCategories();
 
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -138,8 +190,27 @@ const Categories = () => {
 
   const handleDeleteCategory = async (categoryId: string) => {
     try {
-      // Categories functionality is disabled - table doesn't exist
-      toast.error('Categories functionality is not available yet');
+      const categoryToDeleteItem = categories.find(c => c.id === categoryId);
+      
+      const { error } = await supabase
+        .from('categories')
+        .delete()
+        .eq('id', categoryId);
+
+      if (error) throw error;
+
+      toast.success('Category deleted successfully');
+      
+      // Log activity
+      await supabase.from('activity_logs').insert({
+        action: 'deleted',
+        resource_type: 'category',
+        resource_id: categoryId,
+        details: { name: categoryToDeleteItem?.name },
+        user_id: profile?.user_id
+      });
+
+      fetchCategories();
     } catch (error) {
       console.error('Error deleting category:', error);
       toast.error('Failed to delete category');

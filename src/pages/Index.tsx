@@ -10,10 +10,20 @@ import GallerySliderSection from "@/components/GallerySliderSection";
 import FacilitiesSection from "@/components/FacilitiesSection";
 import ContactSection from "@/components/ContactSection";
 import NewsSection from "@/components/NewsSection";
+import AwardCelebrationModal from "@/components/AwardCelebrationModal";
 
 const Index = () => {
+  const handleCelebrate = () => {
+    // Navigate to blog post or news section
+    const newsSection = document.getElementById('news-section');
+    if (newsSection) {
+      newsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-secondary/15">
+      <AwardCelebrationModal onCelebrate={handleCelebrate} />
       <Header />
       <Navigation />
       
@@ -35,7 +45,7 @@ const Index = () => {
         <GallerySliderSection />
 
         {/* 6. Latest News & Announcements */}
-        <NewsSection />
+        <NewsSection id="news-section" />
 
         {/* 7. School Facilities */}
         <FacilitiesSection />
