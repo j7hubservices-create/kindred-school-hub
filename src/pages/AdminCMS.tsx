@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect } from 'react';
 import { Outlet, Navigate } from 'react-router-dom';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 import { AdminSidebar } from '@/components/admin/AdminSidebar';
@@ -6,10 +6,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 
 const AdminCMS = () => {
-  const { user, setUser, profile, loading } = useAuth(); // make sure setUser is available
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [loggedIn, setLoggedIn] = useState(!!user);
+  const { user, profile, loading } = useAuth();
 
   // ✅ Whitelist of allowed admin emails
   const allowedAdmins = [
@@ -19,24 +16,13 @@ const AdminCMS = () => {
     'sanyaadetuberu@gmail.com'
   ];
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+  const isWhitelisted = allowedAdmins.includes(user?.email);
 
-    if (!allowedAdmins.includes(email)) {
+  useEffect(() => {
+    if (!loading && user && !isWhitelisted) {
       toast.error('Access denied. Admin privileges required.');
-      return;
     }
-
-    if (password !== 'admin123') {
-      toast.error('Incorrect password.');
-      return;
-    }
-
-    // ✅ Set user in context
-    setUser({ email, full_name: 'Admin' });
-    setLoggedIn(true);
-    toast.success('Login successful!');
-  };
+  }, [loading, user, isWhitelisted]);
 
   if (loading) {
     return (
@@ -46,47 +32,32 @@ const AdminCMS = () => {
     );
   }
 
-  if (!loggedIn) {
-    // ✅ Show login form
+  if (!user) {
+    return <Navigate to="/auth" replace />;
+  }
+
+  if (!isWhitelisted) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <form
-          onSubmit={handleLogin}
-          className="bg-white p-6 rounded shadow-md w-80"
-        >
-          <h2 className="text-xl font-semibold mb-4">Admin Login</h2>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full mb-3 p-2 border rounded"
-            required
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full mb-3 p-2 border rounded"
-            required
-          />
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-gray-800 mb-2">Access Denied</h1>
+          <p className="text-gray-600 mb-4">You need admin privileges to access this area.</p>
           <button
-            type="submit"
-            className="w-full bg-emerald-600 text-white py-2 rounded hover:bg-emerald-700"
+            onClick={() => window.history.back()}
+            className="bg-emerald-600 text-white px-4 py-2 rounded hover:bg-emerald-700"
           >
-            Login
+            Go Back
           </button>
-        </form>
+        </div>
       </div>
     );
   }
 
-  // ✅ Logged-in admin dashboard
   return (
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-gray-50">
         <AdminSidebar />
+        
         <div className="flex-1 flex flex-col">
           <header className="h-16 bg-white border-b border-gray-200 flex items-center px-4">
             <SidebarTrigger className="mr-4" />
@@ -101,6 +72,7 @@ const AdminCMS = () => {
               </div>
             </div>
           </header>
+          
           <main className="flex-1 p-6">
             <Outlet />
           </main>
