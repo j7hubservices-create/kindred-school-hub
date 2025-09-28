@@ -6,14 +6,16 @@ import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 
 const AdminCMS = () => {
-  const { user, profile, loading, isAdmin } = useAuth();
-  const isWhitelisted = user?.email === 'jerryemeka22@gmail.com';
+  const { user, profile, loading } = useAuth();
+
+  // ✅ Check if the logged-in user is an admin via user_metadata
+  const isAdmin = user?.user_metadata?.role === 'admin';
 
   useEffect(() => {
-    if (!loading && user && !(isAdmin || isWhitelisted)) {
+    if (!loading && user && !isAdmin) {
       toast.error('Access denied. Admin privileges required.');
     }
-  }, [loading, user, isAdmin, isWhitelisted]);
+  }, [loading, user, isAdmin]);
 
   if (loading) {
     return (
@@ -27,7 +29,7 @@ const AdminCMS = () => {
     return <Navigate to="/auth" replace />;
   }
 
-  if (!(isAdmin || isWhitelisted)) {
+  if (!isAdmin) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
