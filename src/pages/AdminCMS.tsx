@@ -5,17 +5,18 @@ import { AdminSidebar } from '@/components/admin/AdminSidebar';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
 
-const allowedAdmins = [
-  'jerryemeka22@gmail.com',
-  'ogrcs@yahoo.com',
-  'j7hubservices@gmail.com',
-  'sanyaadetuberu@gmail.com'
-].map(email => email.toLowerCase());
-
 const AdminCMS = () => {
   const { user, profile, loading } = useAuth();
-  const userEmail = user?.email?.toLowerCase() || '';
-  const isWhitelisted = allowedAdmins.includes(userEmail);
+
+  // ✅ Whitelist of allowed admin emails
+  const allowedAdmins = [
+    'jerryemeka22@gmail.com',
+    'ogrcs@yahoo.com',
+    'j7hubservices@gmail.com',
+    'sanyaadetuberu@gmail.com'
+  ];
+
+  const isWhitelisted = allowedAdmins.includes(user?.email);
 
   useEffect(() => {
     if (!loading && user && !isWhitelisted) {
@@ -56,6 +57,7 @@ const AdminCMS = () => {
     <SidebarProvider>
       <div className="min-h-screen flex w-full bg-gray-50">
         <AdminSidebar />
+        
         <div className="flex-1 flex flex-col">
           <header className="h-16 bg-white border-b border-gray-200 flex items-center px-4">
             <SidebarTrigger className="mr-4" />
@@ -70,6 +72,7 @@ const AdminCMS = () => {
               </div>
             </div>
           </header>
+          
           <main className="flex-1 p-6">
             <Outlet />
           </main>
