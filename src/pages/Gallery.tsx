@@ -6,7 +6,8 @@ import PageHero from "@/components/PageHero";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ChevronLeft, ChevronRight, Camera } from "lucide-react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { ChevronLeft, ChevronRight, Camera, X } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 
@@ -21,6 +22,8 @@ const Gallery = () => {
   const [galleryImages, setGalleryImages] = useState<GalleryImage[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   useEffect(() => {
     fetchGalleryImages();
@@ -81,6 +84,19 @@ const Gallery = () => {
     setCurrentSlide(index);
   };
 
+  const openLightbox = (index: number) => {
+    setLightboxIndex(index);
+    setLightboxOpen(true);
+  };
+
+  const nextLightboxImage = () => {
+    setLightboxIndex((prev) => (prev + 1) % galleryImages.length);
+  };
+
+  const prevLightboxImage = () => {
+    setLightboxIndex((prev) => (prev - 1 + galleryImages.length) % galleryImages.length);
+  };
+
   if (loading) {
     return (
       <div className="min-h-screen">
@@ -117,7 +133,7 @@ const Gallery = () => {
                   style={{ transform: `translateX(-${currentSlide * 100}%)` }}
                 >
                   {galleryImages.map((image, index) => (
-                    <div key={image.id} className="w-full flex-shrink-0 relative">
+                    <div key={image.id} className="w-full flex-shrink-0 relative cursor-pointer" onClick={() => openLightbox(index)}>
                       <img
                         src={image.image_url}
                         alt={image.alt_text || image.title}
@@ -217,6 +233,64 @@ const Gallery = () => {
           )}
         </div>
       </section>
+
+      {/* Lightbox Modal */}
+      <Dialog open={lightboxOpen} onOpenChange={setLightboxOpen}>
+        <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 bg-black/95 border-none">
+          <div className="relative w-full h-full flex items-center justify-center">
+            <img
+              src={galleryImages[lightboxIndex]?.image_url}
+              alt={galleryImages[lightboxIndex]?.alt_text || galleryImages[lightboxIndex]?.title}
+              className="max-w-full max-h-[90vh] object-contain"
+              onError={(e) => {
+                e.currentTarget.src = '/placeholder.svg';
+              }}
+            />
+            
+            {/* Close button */}
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute top-4 right-4 text-white hover:bg-white/20"
+              onClick={() => setLightboxOpen(false)}
+            >
+              <X className="h-6 w-6" />
+            </Button>
+
+            {/* Navigation buttons */}
+            {galleryImages.length > 1 && (
+              <>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 text-white hover:bg-white/20"
+                  onClick={prevLightboxImage}
+                >
+                  <ChevronLeft className="h-8 w-8" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-white hover:bg-white/20"
+                  onClick={nextLightboxImage}
+                >
+                  <ChevronRight className="h-8 w-8" />
+                </Button>
+              </>
+            )}
+
+            {/* Image info */}
+            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6">
+              <h3 className="text-white text-xl font-semibold mb-1">
+                {galleryImages[lightboxIndex]?.title}
+              </h3>
+              <p className="text-white/70">
+                Image {lightboxIndex + 1} of {galleryImages.length}
+              </p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <Footer />
     </div>

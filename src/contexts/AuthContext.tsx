@@ -162,7 +162,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     });
     
     if (error) {
-      toast.error(error.message);
+      toast.error('Invalid email or password. Please try again.');
     } else {
       toast.success('Signed in successfully');
     }

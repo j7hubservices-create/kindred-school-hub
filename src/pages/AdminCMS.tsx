@@ -58,22 +58,22 @@ const AdminCMS = () => {
       <div className="min-h-screen flex w-full bg-gray-50">
         <AdminSidebar />
         
-        <div className="flex-1 flex flex-col">
-          <header className="h-16 bg-white border-b border-gray-200 flex items-center px-4">
+        <div className="flex-1 flex flex-col w-full">
+          <header className="h-16 bg-white border-b border-gray-200 flex items-center px-4 sticky top-0 z-10">
             <SidebarTrigger className="mr-4" />
             <div className="flex items-center justify-between w-full">
               <h1 className="text-xl font-semibold text-gray-800">
                 School CMS Dashboard
               </h1>
               <div className="flex items-center gap-4">
-                <span className="text-sm text-gray-600">
+                <span className="text-sm text-gray-600 hidden sm:block">
                   Welcome, {profile?.full_name || 'Admin'}
                 </span>
               </div>
             </div>
           </header>
           
-          <main className="flex-1 p-6">
+          <main className="flex-1 p-4 sm:p-6 overflow-auto">
             <Outlet />
           </main>
         </div>
