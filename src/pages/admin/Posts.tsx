@@ -50,18 +50,22 @@ const Posts = () => {
   const fetchPosts = async () => {
     try {
       const { data, error } = await supabase
-        .from('content_items' as any)
-        .select('*')
+        .from('content_items')
+        .select(`
+          *,
+          profiles:author_id (full_name)
+        `)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
 
-      const processedPosts = data?.map((post: any) => ({
+      const processedPosts = data?.map(post => ({
         ...post,
-        author: { full_name: 'Admin' }, // Simplified since author relation is complex
+        author: post.profiles,
         category: null,
+        status: post.published ? 'published' : 'draft',
         slug: post.title.toLowerCase().replace(/\s+/g, '-'),
-        published_at: post.status === 'published' ? post.created_at : null
+        published_at: post.created_at
       })) || [];
 
       setPosts(processedPosts);

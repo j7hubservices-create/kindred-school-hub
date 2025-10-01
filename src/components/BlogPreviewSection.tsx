@@ -33,7 +33,7 @@ const BlogPreviewSection = () => {
   const fetchPosts = async () => {
     try {
       const { data, error } = await supabase
-        .from('content_items' as any)
+        .from('content_items')
         .select(`
           id,
           title,
@@ -41,9 +41,11 @@ const BlogPreviewSection = () => {
           excerpt,
           image_url,
           created_at,
-          author_id
+          profiles:author_id (
+            full_name
+          )
         `)
-        .eq('status', 'published')
+        .eq('published', true)
         .order('created_at', { ascending: false })
         .limit(3);
 
@@ -51,19 +53,7 @@ const BlogPreviewSection = () => {
         console.error('Error fetching posts:', error);
         setPosts([]);
       } else {
-        // Fetch author names separately if needed
-        const postsWithAuthors = await Promise.all((data || []).map(async (post: any) => {
-          if (post.author_id) {
-            const { data: profile } = await supabase
-              .from('profiles')
-              .select('full_name')
-              .eq('user_id', post.author_id)
-              .single();
-            return { ...post, profiles: profile };
-          }
-          return { ...post, profiles: null };
-        }));
-        setPosts(postsWithAuthors as any);
+        setPosts(data || []);
       }
     } catch (error) {
       console.error('Error fetching posts:', error);

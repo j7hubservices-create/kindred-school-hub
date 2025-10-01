@@ -33,13 +33,13 @@ const Blog = () => {
   const fetchPosts = async () => {
     try {
       const { data, error } = await supabase
-        .from('content_items' as any)
-        .select('*')
-        .eq('status', 'published')
+        .from('content_items')
+        .select(`*, profiles:author_id (full_name)`)
+        .eq('published', true)
         .order('created_at', { ascending: false });
       
       if (error) throw error;
-      setPosts((data || []) as any);
+      setPosts(data || []);
     } catch (error) {
       console.error('Error fetching posts:', error);
     } finally {
