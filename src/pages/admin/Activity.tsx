@@ -35,19 +35,26 @@ const Activity = () => {
     try {
       const { data, error } = await supabase
         .from('activity_logs')
-        .select(`
-          *,
-          profiles:user_id (
-            full_name,
-            email
-          )
-        `)
+        .select('*')
         .order('created_at', { ascending: false })
         .limit(100);
 
       if (error) throw error;
 
-      setActivities(data || []);
+      // Fetch user profiles separately and attach them
+      const activitiesWithProfiles = await Promise.all((data || []).map(async (activity) => {
+        if (activity.user_id) {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('full_name, email')
+            .eq('user_id', activity.user_id)
+            .single();
+          return { ...activity, profiles: profile || { full_name: null, email: null } };
+        }
+        return { ...activity, profiles: { full_name: null, email: null } };
+      }));
+
+      setActivities(activitiesWithProfiles as any);
     } catch (error) {
       console.error('Error fetching activities:', error);
       toast.error('Failed to load activity log');

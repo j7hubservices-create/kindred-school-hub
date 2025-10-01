@@ -45,26 +45,18 @@ const PostView = () => {
   const fetchPost = async () => {
     try {
       const { data, error } = await supabase
-        .from('content_items')
-        .select(`
-          id,
-          title,
-          content,
-          excerpt,
-          image_url,
-          created_at,
-          profiles:author_id(full_name)
-        `)
+        .from('content_items' as any)
+        .select('*')
         .eq('id', slug)
-        .eq('published', true)
-        .single();
+        .eq('status', 'published')
+        .maybeSingle();
 
       if (error) {
         console.error('Error fetching post:', error);
         return;
       }
 
-      setPost(data);
+      setPost(data as any);
     } catch (error) {
       console.error('Error fetching post:', error);
     } finally {
@@ -75,22 +67,15 @@ const PostView = () => {
   const fetchRelatedPosts = async () => {
     try {
       const { data, error } = await supabase
-        .from('content_items')
-        .select(`
-          id,
-          title,
-          excerpt,
-          image_url,
-          created_at,
-          profiles:author_id(full_name)
-        `)
-        .eq('published', true)
+        .from('content_items' as any)
+        .select('*')
+        .eq('status', 'published')
         .neq('id', slug)
         .order('created_at', { ascending: false })
         .limit(3);
 
       if (data && !error) {
-        setRelatedPosts(data);
+        setRelatedPosts(data as any);
       }
     } catch (error) {
       console.error('Error fetching related posts:', error);
