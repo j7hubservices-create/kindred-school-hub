@@ -1,3 +1,0 @@
--- Enable realtime for gallery table
-ALTER TABLE public.gallery REPLICA IDENTITY FULL;
-ALTER PUBLICATION supabase_realtime ADD TABLE public.gallery;
