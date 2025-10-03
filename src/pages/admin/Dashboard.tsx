@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import { FileText, FolderOpen, Image, Users, Activity, Eye } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { formatDistance } from 'date-fns';
 
 interface Stats {
   totalPosts: number;
@@ -23,6 +26,18 @@ interface RecentActivity {
   };
 }
 
+interface Post {
+  id: string;
+  title: string;
+  excerpt: string | null;
+  created_at: string;
+  status: string;
+  image_url: string | null;
+  profiles: {
+    full_name: string;
+  } | null;
+}
+
 const Dashboard = () => {
   const [stats, setStats] = useState<Stats>({
     totalPosts: 0,
@@ -33,6 +48,7 @@ const Dashboard = () => {
     totalUsers: 0
   });
   const [recentActivities, setRecentActivities] = useState<RecentActivity[]>([]);
+  const [recentPosts, setRecentPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -64,6 +80,15 @@ const Dashboard = () => {
         totalUsers: usersCount || 0
       });
 
+      // Fetch recent published posts
+      const { data: recentPostsData } = await supabase
+        .from('content_items' as any)
+        .select(`*, profiles:author_id (full_name)`)
+        .eq('status', 'published')
+        .order('created_at', { ascending: false })
+        .limit(3);
+      
+      setRecentPosts((recentPostsData || []) as any);
       setRecentActivities([]);
     } catch (error) {
       console.error('Error fetching dashboard data:', error);
@@ -138,34 +163,58 @@ const Dashboard = () => {
         </Card>
       </div>
 
-      {/* Recent Activities */}
+      {/* Recent Published Posts */}
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Activity className="h-5 w-5 text-emerald-600" />
-            Recent Activity
+          <CardTitle className="flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <Eye className="h-5 w-5 text-emerald-600" />
+              Recent Published Posts
+            </div>
+            <Button asChild variant="outline" size="sm">
+              <Link to="/admin-cms/posts">View All</Link>
+            </Button>
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {recentActivities.length === 0 ? (
-            <p className="text-gray-500 text-center py-4">No recent activities</p>
+          {recentPosts.length === 0 ? (
+            <p className="text-gray-500 text-center py-4">No published posts yet</p>
           ) : (
             <div className="space-y-4">
-              {recentActivities.map((activity) => (
-                <div key={activity.id} className="flex items-center justify-between py-2 border-b border-gray-100 last:border-b-0">
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-emerald-500 rounded-full"></div>
-                    <div>
-                      <p className="text-sm font-medium text-gray-800">
-                        {activity.action} {activity.resource_type}
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        by {activity.user?.full_name || 'Unknown User'}
-                      </p>
+              {recentPosts.map((post) => (
+                <div key={post.id} className="flex items-start gap-4 py-3 border-b border-gray-100 last:border-b-0">
+                  {post.image_url && (
+                    <img 
+                      src={post.image_url} 
+                      alt={post.title}
+                      className="w-20 h-20 object-cover rounded-lg"
+                    />
+                  )}
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2 mb-1">
+                      <Badge variant="secondary" className="text-xs">
+                        Published
+                      </Badge>
+                      <span className="text-xs text-gray-500">
+                        {formatDistance(new Date(post.created_at), new Date(), { addSuffix: true })}
+                      </span>
                     </div>
-                  </div>
-                  <div className="text-xs text-gray-500">
-                    {new Date(activity.created_at).toLocaleDateString()}
+                    <h3 className="font-medium text-gray-800 line-clamp-1 mb-1">
+                      {post.title}
+                    </h3>
+                    {post.excerpt && (
+                      <p className="text-sm text-gray-600 line-clamp-2 mb-2">
+                        {post.excerpt}
+                      </p>
+                    )}
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs text-gray-500">
+                        By {post.profiles?.full_name || 'Admin'}
+                      </span>
+                      <Button asChild variant="ghost" size="sm" className="h-auto py-1 px-2">
+                        <Link to={`/post/${post.id}`}>View</Link>
+                      </Button>
+                    </div>
                   </div>
                 </div>
               ))}
