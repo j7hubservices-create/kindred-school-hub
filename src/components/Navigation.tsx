@@ -113,30 +113,46 @@ const Navigation = () => {
 
         {/* Mobile Navigation */}
         {isMobileMenuOpen && (
-          <>
-            {/* Backdrop overlay */}
-            <div 
-              className="md:hidden fixed inset-0 bg-black/20 z-40 animate-fade-in" 
-              onClick={() => setIsMobileMenuOpen(false)}
-              aria-hidden="true"
-            />
-            
-            {/* Menu panel */}
-            <div className="md:hidden fixed inset-x-0 top-16 z-50 border-t border-border animate-fade-in bg-primary-foreground shadow-lg max-h-[calc(100vh-4rem)] overflow-y-auto">
-              <div className="px-2 pt-4 pb-6 space-y-2">
-                {navItems.map((item) => (
+          <div className="md:hidden border-t border-border animate-fade-in">
+            <div className="px-2 pt-4 pb-6 space-y-2">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  to={item.path}
+                  className="block px-4 py-3 text-primary hover:text-secondary hover:bg-muted/50 rounded-lg font-semibold text-base touch-manipulation"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.name}
+                </Link>
+              ))}
+              <div className="border-t border-border pt-4 mt-4">
+                <p className="px-4 py-2 text-sm font-semibold text-muted-foreground uppercase tracking-wider">About</p>
+                {aboutItems.map((item) => (
                   <Link
                     key={item.name}
                     to={item.path}
-                    className="block px-4 py-3 text-primary hover:text-secondary hover:bg-muted/50 rounded-lg font-semibold text-base touch-manipulation"
+                    className="block px-4 py-3 text-primary hover:text-secondary hover:bg-muted/50 rounded-lg text-base touch-manipulation"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {item.name}
                   </Link>
                 ))}
-                <div className="border-t border-border pt-4 mt-4">
-                  <p className="px-4 py-2 text-sm font-semibold text-muted-foreground uppercase tracking-wider">About</p>
-                  {aboutItems.map((item) => (
+              </div>
+              <div className="border-t border-border pt-4 mt-4">
+                <p className="px-4 py-2 text-sm font-semibold text-muted-foreground uppercase tracking-wider">Portals</p>
+                {portalItems.map((item) => (
+                  item.path.startsWith('http') ? (
+                    <a
+                      key={item.name}
+                      href={item.path}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block px-4 py-3 text-primary hover:text-secondary hover:bg-muted/50 rounded-lg text-base touch-manipulation"
+                      onClick={() => setIsMobileMenuOpen(false)}
+                    >
+                      {item.name}
+                    </a>
+                  ) : (
                     <Link
                       key={item.name}
                       to={item.path}
@@ -145,42 +161,16 @@ const Navigation = () => {
                     >
                       {item.name}
                     </Link>
-                  ))}
-                </div>
-                <div className="border-t border-border pt-4 mt-4">
-                  <p className="px-4 py-2 text-sm font-semibold text-muted-foreground uppercase tracking-wider">Portals</p>
-                  {portalItems.map((item) => (
-                    item.path.startsWith('http') ? (
-                      <a
-                        key={item.name}
-                        href={item.path}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block px-4 py-3 text-primary hover:text-secondary hover:bg-muted/50 rounded-lg text-base touch-manipulation"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        {item.name}
-                      </a>
-                    ) : (
-                      <Link
-                        key={item.name}
-                        to={item.path}
-                        className="block px-4 py-3 text-primary hover:text-secondary hover:bg-muted/50 rounded-lg text-base touch-manipulation"
-                        onClick={() => setIsMobileMenuOpen(false)}
-                      >
-                        {item.name}
-                      </Link>
-                    )
-                  ))}
-                </div>
-                <div className="pt-4 mt-4">
-                  <Button asChild className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold text-lg py-4 touch-manipulation">
-                    <Link to="/admissions" onClick={() => setIsMobileMenuOpen(false)}>🚀 Apply Now</Link>
-                  </Button>
-                </div>
+                  )
+                ))}
+              </div>
+              <div className="pt-4 mt-4">
+                <Button asChild className="w-full bg-secondary hover:bg-secondary/90 text-secondary-foreground font-bold text-lg py-4 touch-manipulation">
+                  <Link to="/admissions" onClick={() => setIsMobileMenuOpen(false)}>🚀 Apply Now</Link>
+                </Button>
               </div>
             </div>
-          </>
+          </div>
         )}
       </div>
     </nav>
