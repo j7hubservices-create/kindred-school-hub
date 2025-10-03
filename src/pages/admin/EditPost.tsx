@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -9,24 +9,15 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { toast } from 'sonner';
-import { z } from 'zod';
 import { ArrowLeft, Upload, X } from 'lucide-react';
-
-const postSchema = z.object({
-  title: z.string().min(1, 'Title is required').max(200, 'Title must be less than 200 characters'),
-  slug: z.string().min(1, 'URL slug is required').max(100, 'Slug must be less than 100 characters'),
-  excerpt: z.string().max(500, 'Excerpt must be less than 500 characters').optional(),
-  content: z.string().optional(),
-  category_id: z.string().uuid('Please select a valid category').optional(),
-  status: z.enum(['draft', 'published', 'archived'])
-});
 
 interface Category {
   id: string;
   name: string;
 }
 
-const CreatePost = () => {
+const EditPost = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const { profile } = useAuth();
   const [loading, setLoading] = useState(false);
@@ -34,18 +25,17 @@ const CreatePost = () => {
   const [categories, setCategories] = useState<Category[]>([]);
   const [formData, setFormData] = useState({
     title: '',
-    slug: '',
     excerpt: '',
     content: '',
-    featured_image_url: '',
+    image_url: '',
     category_id: '',
-    status: 'draft' as const
+    status: 'draft'
   });
-  const [errors, setErrors] = useState<any>({});
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+    fetchPost();
+  }, [id]);
 
   const fetchCategories = async () => {
     try {
@@ -58,26 +48,35 @@ const CreatePost = () => {
       setCategories(data || []);
     } catch (error) {
       console.error('Error fetching categories:', error);
-      setCategories([]);
     }
   };
 
-  const generateSlug = (title: string) => {
-    return title
-      .toLowerCase()
-      .replace(/[^a-z0-9 -]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .trim()
-      .substring(0, 100);
-  };
+  const fetchPost = async () => {
+    if (!id) return;
+    
+    try {
+      const { data, error } = await supabase
+        .from('content_items')
+        .select('*')
+        .eq('id', id)
+        .maybeSingle();
 
-  const handleTitleChange = (value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      title: value,
-      slug: generateSlug(value)
-    }));
+      if (error) throw error;
+      
+      if (data) {
+        setFormData({
+          title: data.title || '',
+          excerpt: data.excerpt || '',
+          content: data.content || '',
+          image_url: data.image_url || '',
+          category_id: data.category_id || '',
+          status: data.status || 'draft'
+        });
+      }
+    } catch (error) {
+      console.error('Error fetching post:', error);
+      toast.error('Failed to load post');
+    }
   };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,7 +104,7 @@ const CreatePost = () => {
         .from('gallery')
         .getPublicUrl(fileName);
 
-      setFormData({ ...formData, featured_image_url: data.publicUrl });
+      setFormData({ ...formData, image_url: data.publicUrl });
       toast.success('Image uploaded successfully');
     } catch (error) {
       console.error('Error uploading image:', error);
@@ -116,61 +115,33 @@ const CreatePost = () => {
   };
 
   const removeImage = () => {
-    setFormData({ ...formData, featured_image_url: '' });
+    setFormData({ ...formData, image_url: '' });
   };
 
   const handleSubmit = async (e: React.FormEvent, publishNow: boolean = false) => {
     e.preventDefault();
     setLoading(true);
-    setErrors({});
 
     try {
-      const submitData = {
-        ...formData,
-        status: publishNow ? 'published' as const : formData.status,
-        category_id: formData.category_id || null
-      };
-
-      postSchema.parse(submitData);
-
-      // Use content_items table instead of posts
-      const { data, error } = await supabase
-        .from('content_items' as any)
-        .insert({
-          title: submitData.title,
-          content: submitData.content,
-          excerpt: submitData.excerpt,
-          image_url: submitData.featured_image_url || null,
-          content_type: 'news',
-          status: publishNow ? 'published' : 'draft',
-          featured: false,
-          author_id: profile?.user_id || null
+      const { error } = await supabase
+        .from('content_items')
+        .update({
+          title: formData.title,
+          content: formData.content,
+          excerpt: formData.excerpt,
+          image_url: formData.image_url || null,
+          status: publishNow ? 'published' : formData.status,
+          category_id: formData.category_id || null
         })
-        .select()
-        .maybeSingle();
+        .eq('id', id);
 
       if (error) throw error;
 
-      if (data && (data as any).id) {
-        toast.success(`Post ${publishNow ? 'published' : 'saved as draft'} successfully`);
-        navigate(`/post/${(data as any).id}`);
-      } else {
-        toast.success(`Post ${publishNow ? 'published' : 'saved as draft'} successfully`);
-        navigate('/admin-cms/posts');
-      }
+      toast.success(`Post ${publishNow ? 'published' : 'updated'} successfully`);
+      navigate('/admin-cms/posts');
     } catch (error) {
-      if (error instanceof z.ZodError) {
-        const fieldErrors: any = {};
-        error.errors.forEach((err) => {
-          if (err.path) {
-            fieldErrors[err.path[0]] = err.message;
-          }
-        });
-        setErrors(fieldErrors);
-      } else {
-        console.error('Error creating post:', error);
-        toast.error('Failed to create post');
-      }
+      console.error('Error updating post:', error);
+      toast.error('Failed to update post');
     } finally {
       setLoading(false);
     }
@@ -184,8 +155,8 @@ const CreatePost = () => {
           Back to Posts
         </Button>
         <div>
-          <h2 className="text-3xl font-bold text-gray-800">Create New Post</h2>
-          <p className="text-gray-600">Add a new blog post or article</p>
+          <h2 className="text-3xl font-bold text-gray-800">Edit Post</h2>
+          <p className="text-gray-600">Update your blog post</p>
         </div>
       </div>
 
@@ -195,30 +166,14 @@ const CreatePost = () => {
             <CardTitle>Post Details</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label htmlFor="title">Title *</Label>
-                <Input
-                  id="title"
-                  value={formData.title}
-                  onChange={(e) => handleTitleChange(e.target.value)}
-                  className={errors.title ? 'border-red-500' : ''}
-                  placeholder="Enter post title..."
-                />
-                {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="slug">URL Slug *</Label>
-                <Input
-                  id="slug"
-                  value={formData.slug}
-                  onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                  className={errors.slug ? 'border-red-500' : ''}
-                  placeholder="post-url-slug"
-                />
-                {errors.slug && <p className="text-red-500 text-sm">{errors.slug}</p>}
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="title">Title</Label>
+              <Input
+                id="title"
+                value={formData.title}
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                placeholder="Enter post title..."
+              />
             </div>
 
             <div className="space-y-2">
@@ -227,23 +182,18 @@ const CreatePost = () => {
                 id="excerpt"
                 value={formData.excerpt}
                 onChange={(e) => setFormData({ ...formData, excerpt: e.target.value })}
-                className={errors.excerpt ? 'border-red-500' : ''}
                 placeholder="Write a compelling excerpt..."
                 rows={3}
               />
-              {errors.excerpt && <p className="text-red-500 text-sm">{errors.excerpt}</p>}
-              <p className="text-xs text-gray-500">
-                {formData.excerpt.length}/500 characters
-              </p>
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="featured_image">Featured Image</Label>
-              {formData.featured_image_url ? (
+              {formData.image_url ? (
                 <div className="space-y-2">
                   <div className="relative w-full h-48 bg-muted rounded-lg overflow-hidden">
                     <img
-                      src={formData.featured_image_url}
+                      src={formData.image_url}
                       alt="Featured image preview"
                       className="w-full h-full object-cover"
                       onError={(e) => {
@@ -276,8 +226,8 @@ const CreatePost = () => {
                     <p className="text-sm text-muted-foreground">Or enter image URL:</p>
                     <Input
                       type="url"
-                      value={formData.featured_image_url}
-                      onChange={(e) => setFormData({ ...formData, featured_image_url: e.target.value })}
+                      value={formData.image_url}
+                      onChange={(e) => setFormData({ ...formData, image_url: e.target.value })}
                       placeholder="https://example.com/image.jpg"
                       className="mt-2"
                     />
@@ -292,18 +242,16 @@ const CreatePost = () => {
                 id="content"
                 value={formData.content}
                 onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                className={errors.content ? 'border-red-500' : ''}
                 placeholder="Write your post content..."
                 rows={12}
               />
-              {errors.content && <p className="text-red-500 text-sm">{errors.content}</p>}
             </div>
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <div className="space-y-2">
                 <Label htmlFor="category">Category</Label>
                 <Select value={formData.category_id} onValueChange={(value) => setFormData({ ...formData, category_id: value })}>
-                  <SelectTrigger className={errors.category_id ? 'border-red-500' : ''}>
+                  <SelectTrigger>
                     <SelectValue placeholder="Select a category" />
                   </SelectTrigger>
                   <SelectContent className="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg z-[100]">
@@ -320,7 +268,6 @@ const CreatePost = () => {
                     )}
                   </SelectContent>
                 </Select>
-                {errors.category_id && <p className="text-red-500 text-sm">{errors.category_id}</p>}
               </div>
 
               <div className="space-y-2">
@@ -353,7 +300,7 @@ const CreatePost = () => {
             variant="outline"
             disabled={loading}
           >
-            {loading ? 'Saving...' : 'Save as Draft'}
+            {loading ? 'Saving...' : 'Save Changes'}
           </Button>
           <Button
             type="button"
@@ -369,4 +316,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default EditPost;
