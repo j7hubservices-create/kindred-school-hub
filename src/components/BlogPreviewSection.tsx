@@ -33,7 +33,7 @@ const BlogPreviewSection = () => {
   const fetchPosts = async () => {
     try {
       const { data, error } = await supabase
-        .from('content_items' as any)
+        .from('content_items')
         .select(`
           id,
           title,
@@ -45,7 +45,7 @@ const BlogPreviewSection = () => {
             full_name
           )
         `)
-        .eq('status', 'published')
+        .eq('published', true)
         .order('created_at', { ascending: false })
         .limit(3);
 
@@ -53,7 +53,7 @@ const BlogPreviewSection = () => {
         console.error('Error fetching posts:', error);
         setPosts([]);
       } else {
-        setPosts((data || []) as any);
+        setPosts(data || []);
       }
     } catch (error) {
       console.error('Error fetching posts:', error);
