@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatDistance } from "date-fns";
 import { supabase } from "@/integrations/supabase/client";
+import { useScrollToTop } from "@/hooks/useScrollToTop";
 
 interface Post {
   id: string;
@@ -23,6 +24,7 @@ interface Post {
 }
 
 const Blog = () => {
+  useScrollToTop();
   const [posts, setPosts] = useState<Post[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -33,13 +35,13 @@ const Blog = () => {
   const fetchPosts = async () => {
     try {
       const { data, error } = await supabase
-        .from('content_items')
+        .from('content_items' as any)
         .select(`*, profiles:author_id (full_name)`)
-        .eq('published', true)
+        .eq('status', 'published')
         .order('created_at', { ascending: false });
       
       if (error) throw error;
-      setPosts(data || []);
+      setPosts((data || []) as any);
     } catch (error) {
       console.error('Error fetching posts:', error);
     } finally {
