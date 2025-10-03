@@ -1,0 +1,148 @@
+-- Create profiles table for user management
+CREATE TABLE public.profiles (
+  id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id UUID NOT NULL UNIQUE REFERENCES auth.users(id) ON DELETE CASCADE,
+  full_name TEXT,
+  email TEXT,
+  role TEXT DEFAULT 'user',
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+
+-- Enable RLS on profiles
+ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
+
+-- Create policies for profiles
+CREATE POLICY "Profiles are viewable by everyone" 
+ON public.profiles 
+FOR SELECT 
+USING (true);
+
+CREATE POLICY "Users can update their own profile" 
+ON public.profiles 
+FOR UPDATE 
+USING (auth.uid() = user_id);
+
+CREATE POLICY "Users can insert their own profile" 
+ON public.profiles 
+FOR INSERT 
+WITH CHECK (auth.uid() = user_id);
+
+-- Create categories table for blog posts
+CREATE TABLE public.categories (
+  id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+  name TEXT NOT NULL,
+  slug TEXT NOT NULL UNIQUE,
+  description TEXT,
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+
+-- Enable RLS on categories
+ALTER TABLE public.categories ENABLE ROW LEVEL SECURITY;
+
+-- Create policy for categories (public read, admin write)
+CREATE POLICY "Categories are viewable by everyone" 
+ON public.categories 
+FOR SELECT 
+USING (true);
+
+-- Create posts table for news/blog
+CREATE TABLE public.posts (
+  id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+  title TEXT NOT NULL,
+  content TEXT,
+  excerpt TEXT,
+  featured_image_url TEXT,
+  status TEXT DEFAULT 'draft',
+  category_id UUID REFERENCES public.categories(id),
+  author_id UUID REFERENCES public.profiles(id),
+  published_at TIMESTAMP WITH TIME ZONE,
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now(),
+  updated_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+
+-- Enable RLS on posts
+ALTER TABLE public.posts ENABLE ROW LEVEL SECURITY;
+
+-- Create policies for posts
+CREATE POLICY "Published posts are viewable by everyone" 
+ON public.posts 
+FOR SELECT 
+USING (status = 'published');
+
+-- Create gallery_images table
+CREATE TABLE public.gallery_images (
+  id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+  title TEXT,
+  image_url TEXT NOT NULL,
+  category TEXT,
+  description TEXT,
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+
+-- Enable RLS on gallery_images
+ALTER TABLE public.gallery_images ENABLE ROW LEVEL SECURITY;
+
+-- Create policy for gallery images
+CREATE POLICY "Gallery images are viewable by everyone" 
+ON public.gallery_images 
+FOR SELECT 
+USING (true);
+
+-- Create admin_activities table for activity tracking
+CREATE TABLE public.admin_activities (
+  id UUID NOT NULL DEFAULT gen_random_uuid() PRIMARY KEY,
+  user_id UUID REFERENCES public.profiles(id),
+  action TEXT NOT NULL,
+  details JSONB,
+  created_at TIMESTAMP WITH TIME ZONE NOT NULL DEFAULT now()
+);
+
+-- Enable RLS on admin_activities
+ALTER TABLE public.admin_activities ENABLE ROW LEVEL SECURITY;
+
+-- Create policy for admin activities (only viewable by admins)
+CREATE POLICY "Admin activities viewable by admins only" 
+ON public.admin_activities 
+FOR SELECT 
+USING (
+  EXISTS (
+    SELECT 1 FROM public.profiles 
+    WHERE profiles.user_id = auth.uid() 
+    AND profiles.role = 'admin'
+  )
+);
+
+-- Create function to update timestamps
+CREATE OR REPLACE FUNCTION public.update_updated_at_column()
+RETURNS TRIGGER AS $$
+BEGIN
+  NEW.updated_at = now();
+  RETURN NEW;
+END;
+$$ LANGUAGE plpgsql SET search_path = public;
+
+-- Create triggers for automatic timestamp updates
+CREATE TRIGGER update_profiles_updated_at
+BEFORE UPDATE ON public.profiles
+FOR EACH ROW
+EXECUTE FUNCTION public.update_updated_at_column();
+
+CREATE TRIGGER update_posts_updated_at
+BEFORE UPDATE ON public.posts
+FOR EACH ROW
+EXECUTE FUNCTION public.update_updated_at_column();
+
+-- Insert some default categories
+INSERT INTO public.categories (name, slug, description) VALUES 
+('Achievement', 'achievement', 'Student and school achievements'),
+('Events', 'events', 'School events and activities'),
+('News', 'news', 'General school news'),
+('Announcements', 'announcements', 'Important announcements');
+
+-- Insert some sample gallery images
+INSERT INTO public.gallery_images (title, image_url, category, description) VALUES 
+('School Building', '/assets/gallery-1.jpg', 'Campus', 'Main school building'),
+('Students in Class', '/assets/gallery-students-1.jpg', 'Academic', 'Students during class'),
+('Graduation Ceremony', '/assets/gallery-graduation-1.jpg', 'Events', 'Graduation ceremony'),
+('School Staff', '/assets/gallery-staff.jpg', 'Staff', 'Our dedicated teaching staff');
