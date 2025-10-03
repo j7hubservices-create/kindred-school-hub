@@ -48,13 +48,13 @@ const NewsSection = ({ id }: { id?: string }) => {
   const fetchPosts = async () => {
     try {
       const { data, error } = await supabase
-        .from('content_items')
+        .from('content_items' as any)
         .select(`*, profiles:author_id (full_name)`)
-        .eq('published', true)
+        .eq('status', 'published')
         .order('created_at', { ascending: false })
         .limit(3);
       if (error) throw error;
-      setPosts(data || []);
+      setPosts((data || []) as any);
     } catch (error) {
       console.error('Error fetching posts:', error);
     } finally {
