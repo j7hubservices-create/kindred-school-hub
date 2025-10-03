@@ -135,29 +135,24 @@ const CreatePost = () => {
 
       // Use content_items table instead of posts
       const { data, error } = await supabase
-        .from('content_items' as any)
+        .from('content_items')
         .insert({
           title: submitData.title,
           content: submitData.content,
           excerpt: submitData.excerpt,
           image_url: submitData.featured_image_url || null,
           content_type: 'news',
-          status: publishNow ? 'published' : 'draft',
+          published: publishNow,
           featured: false,
-          author_id: profile?.user_id || null
+          author_id: profile?.id || null
         })
         .select()
-        .maybeSingle();
+        .single();
 
       if (error) throw error;
 
-      if (data && (data as any).id) {
-        toast.success(`Post ${publishNow ? 'published' : 'saved as draft'} successfully`);
-        navigate(`/post/${(data as any).id}`);
-      } else {
-        toast.success(`Post ${publishNow ? 'published' : 'saved as draft'} successfully`);
-        navigate('/admin-cms/posts');
-      }
+      toast.success(`Post ${publishNow ? 'published' : 'saved as draft'} successfully`);
+      navigate(`/post/${data.id}`);
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors: any = {};
