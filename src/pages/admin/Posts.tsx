@@ -201,11 +201,6 @@ const Posts = () => {
                   
                   <div className="flex items-center gap-2 ml-4">
                     <Button variant="outline" size="sm" asChild>
-                      <Link to={`/admin-cms/posts/${post.id}/view`}>
-                        <Eye className="h-4 w-4" />
-                      </Link>
-                    </Button>
-                    <Button variant="outline" size="sm" asChild>
                       <Link to={`/admin-cms/posts/${post.id}/edit`}>
                         <Edit className="h-4 w-4" />
                       </Link>

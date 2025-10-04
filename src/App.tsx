@@ -22,6 +22,7 @@ import AdminCMS from "./pages/AdminCMS";
 import Dashboard from "./pages/admin/Dashboard";
 import Posts from "./pages/admin/Posts";
 import CreatePost from "./pages/admin/CreatePost";
+import EditPost from "./pages/admin/EditPost";
 import Categories from "./pages/admin/Categories";
 import SiteSettings from "./pages/admin/SiteSettings";
 import AdminGallery from "./pages/admin/Gallery";
@@ -55,6 +56,7 @@ const AppContent = () => {
         <Route index element={<Dashboard />} />
         <Route path="posts" element={<Posts />} />
         <Route path="posts/create" element={<CreatePost />} />
+        <Route path="posts/:id/edit" element={<EditPost />} />
         <Route path="categories" element={<Categories />} />
         <Route path="gallery" element={<AdminGallery />} />
         <Route path="settings" element={<SiteSettings />} />

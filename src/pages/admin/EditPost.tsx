@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -14,7 +14,6 @@ import { ArrowLeft, Upload, X } from 'lucide-react';
 
 const postSchema = z.object({
   title: z.string().min(1, 'Title is required').max(200, 'Title must be less than 200 characters'),
-  slug: z.string().min(1, 'URL slug is required').max(100, 'Slug must be less than 100 characters'),
   excerpt: z.string().max(500, 'Excerpt must be less than 500 characters').optional(),
   content: z.string().optional(),
   category_id: z.string().uuid('Please select a valid category').optional(),
@@ -26,15 +25,15 @@ interface Category {
   name: string;
 }
 
-const CreatePost = () => {
+const EditPost = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const { profile } = useAuth();
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
   const [formData, setFormData] = useState({
     title: '',
-    slug: '',
     excerpt: '',
     content: '',
     featured_image_url: '',
@@ -45,7 +44,33 @@ const CreatePost = () => {
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+    fetchPost();
+  }, [id]);
+
+  const fetchPost = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('content_items' as any)
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (error) throw error;
+
+      setFormData({
+        title: (data as any).title || '',
+        excerpt: (data as any).excerpt || '',
+        content: (data as any).content || '',
+        featured_image_url: (data as any).image_url || '',
+        category_id: (data as any).category_id || '',
+        status: (data as any).status || 'draft'
+      });
+    } catch (error) {
+      console.error('Error fetching post:', error);
+      toast.error('Failed to load post');
+      navigate('/admin-cms/posts');
+    }
+  };
 
   const fetchCategories = async () => {
     try {
@@ -60,24 +85,6 @@ const CreatePost = () => {
       console.error('Error fetching categories:', error);
       setCategories([]);
     }
-  };
-
-  const generateSlug = (title: string) => {
-    return title
-      .toLowerCase()
-      .replace(/[^a-z0-9 -]/g, '')
-      .replace(/\s+/g, '-')
-      .replace(/-+/g, '-')
-      .trim()
-      .substring(0, 100);
-  };
-
-  const handleTitleChange = (value: string) => {
-    setFormData(prev => ({
-      ...prev,
-      title: value,
-      slug: generateSlug(value)
-    }));
   };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -133,25 +140,21 @@ const CreatePost = () => {
 
       postSchema.parse(submitData);
 
-      // Use content_items table instead of posts
-      const { data, error } = await supabase
+      const { error } = await supabase
         .from('content_items' as any)
-        .insert({
+        .update({
           title: submitData.title,
           content: submitData.content,
           excerpt: submitData.excerpt,
           image_url: submitData.featured_image_url || null,
-          content_type: 'news',
-          status: publishNow ? 'published' : 'draft',
-          featured: false,
-          author_id: profile?.id || null
+          status: submitData.status,
+          category_id: submitData.category_id
         })
-        .select()
-        .single();
+        .eq('id', id);
 
       if (error) throw error;
 
-      toast.success(`Post ${publishNow ? 'published' : 'saved as draft'} successfully`);
+      toast.success(`Post ${publishNow ? 'published' : 'updated'} successfully`);
       navigate('/admin-cms/posts');
     } catch (error) {
       if (error instanceof z.ZodError) {
@@ -163,8 +166,8 @@ const CreatePost = () => {
         });
         setErrors(fieldErrors);
       } else {
-        console.error('Error creating post:', error);
-        toast.error('Failed to create post');
+        console.error('Error updating post:', error);
+        toast.error('Failed to update post');
       }
     } finally {
       setLoading(false);
@@ -179,8 +182,8 @@ const CreatePost = () => {
           Back to Posts
         </Button>
         <div>
-          <h2 className="text-3xl font-bold text-gray-800">Create New Post</h2>
-          <p className="text-gray-600">Add a new blog post or article</p>
+          <h2 className="text-3xl font-bold text-gray-800">Edit Post</h2>
+          <p className="text-gray-600">Update your blog post or article</p>
         </div>
       </div>
 
@@ -190,30 +193,16 @@ const CreatePost = () => {
             <CardTitle>Post Details</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <div className="space-y-2">
-                <Label htmlFor="title">Title *</Label>
-                <Input
-                  id="title"
-                  value={formData.title}
-                  onChange={(e) => handleTitleChange(e.target.value)}
-                  className={errors.title ? 'border-red-500' : ''}
-                  placeholder="Enter post title..."
-                />
-                {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
-              </div>
-
-              <div className="space-y-2">
-                <Label htmlFor="slug">URL Slug *</Label>
-                <Input
-                  id="slug"
-                  value={formData.slug}
-                  onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                  className={errors.slug ? 'border-red-500' : ''}
-                  placeholder="post-url-slug"
-                />
-                {errors.slug && <p className="text-red-500 text-sm">{errors.slug}</p>}
-              </div>
+            <div className="space-y-2">
+              <Label htmlFor="title">Title *</Label>
+              <Input
+                id="title"
+                value={formData.title}
+                onChange={(e) => setFormData({ ...formData, title: e.target.value })}
+                className={errors.title ? 'border-red-500' : ''}
+                placeholder="Enter post title..."
+              />
+              {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
             </div>
 
             <div className="space-y-2">
@@ -348,7 +337,7 @@ const CreatePost = () => {
             variant="outline"
             disabled={loading}
           >
-            {loading ? 'Saving...' : 'Save as Draft'}
+            {loading ? 'Saving...' : 'Save Changes'}
           </Button>
           <Button
             type="button"
@@ -364,4 +353,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default EditPost;
