@@ -50,7 +50,7 @@ const NewsSection = ({ id }: { id?: string }) => {
       const { data, error } = await supabase
         .from('content_items')
         .select(`*, profiles:author_id (full_name)`)
-        .eq('published', true)
+        .eq('status', 'published')
         .order('created_at', { ascending: false })
         .limit(3);
       if (error) throw error;

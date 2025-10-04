@@ -45,7 +45,7 @@ const BlogPreviewSection = () => {
             full_name
           )
         `)
-        .eq('published', true)
+        .eq('status', 'published')
         .order('created_at', { ascending: false })
         .limit(3);
 

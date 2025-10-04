@@ -63,7 +63,6 @@ const Posts = () => {
         ...post,
         author: post.profiles,
         category: null,
-        status: post.published ? 'published' : 'draft',
         slug: post.title.toLowerCase().replace(/\s+/g, '-'),
         published_at: post.created_at
       })) || [];

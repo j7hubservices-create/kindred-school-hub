@@ -142,7 +142,7 @@ const CreatePost = () => {
           excerpt: submitData.excerpt,
           image_url: submitData.featured_image_url || null,
           content_type: 'news',
-          published: publishNow,
+          status: publishNow ? 'published' : 'draft',
           featured: false,
           author_id: profile?.id || null
         })

@@ -35,7 +35,7 @@ const Blog = () => {
       const { data, error } = await supabase
         .from('content_items')
         .select(`*, profiles:author_id (full_name)`)
-        .eq('published', true)
+        .eq('status', 'published')
         .order('created_at', { ascending: false });
       
       if (error) throw error;

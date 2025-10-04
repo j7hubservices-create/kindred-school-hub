@@ -56,7 +56,7 @@ const PostView = () => {
           profiles:author_id(full_name)
         `)
         .eq('id', slug)
-        .eq('published', true)
+        .eq('status', 'published')
         .single();
 
       if (error) {
@@ -84,7 +84,7 @@ const PostView = () => {
           created_at,
           profiles:author_id(full_name)
         `)
-        .eq('published', true)
+        .eq('status', 'published')
         .neq('id', slug)
         .order('created_at', { ascending: false })
         .limit(3);
