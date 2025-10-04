@@ -135,7 +135,7 @@ const CreatePost = () => {
 
       // Use content_items table instead of posts
       const { data, error } = await supabase
-        .from('content_items')
+        .from('content_items' as any)
         .insert({
           title: submitData.title,
           content: submitData.content,
@@ -152,7 +152,7 @@ const CreatePost = () => {
       if (error) throw error;
 
       toast.success(`Post ${publishNow ? 'published' : 'saved as draft'} successfully`);
-      navigate(`/post/${data.id}`);
+      navigate(`/post/${(data as any).id}`);
     } catch (error) {
       if (error instanceof z.ZodError) {
         const fieldErrors: any = {};

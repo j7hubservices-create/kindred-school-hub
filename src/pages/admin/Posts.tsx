@@ -50,7 +50,7 @@ const Posts = () => {
   const fetchPosts = async () => {
     try {
       const { data, error } = await supabase
-        .from('content_items')
+        .from('content_items' as any)
         .select(`
           *,
           profiles:author_id (full_name)
@@ -59,7 +59,7 @@ const Posts = () => {
 
       if (error) throw error;
 
-      const processedPosts = data?.map(post => ({
+      const processedPosts = data?.map((post: any) => ({
         ...post,
         author: post.profiles,
         category: null,
@@ -67,7 +67,7 @@ const Posts = () => {
         published_at: post.created_at
       })) || [];
 
-      setPosts(processedPosts);
+      setPosts(processedPosts as any);
     } catch (error) {
       console.error('Error fetching posts:', error);
       toast.error('Failed to load posts');
@@ -79,7 +79,7 @@ const Posts = () => {
   const handleDeletePost = async (postId: string) => {
     try {
       const { error } = await supabase
-        .from('content_items')
+        .from('content_items' as any)
         .delete()
         .eq('id', postId);
 

@@ -45,7 +45,7 @@ const PostView = () => {
   const fetchPost = async () => {
     try {
       const { data, error } = await supabase
-        .from('content_items')
+        .from('content_items' as any)
         .select(`
           id,
           title,
@@ -64,7 +64,7 @@ const PostView = () => {
         return;
       }
 
-      setPost(data);
+      setPost(data as any);
     } catch (error) {
       console.error('Error fetching post:', error);
     } finally {
@@ -75,7 +75,7 @@ const PostView = () => {
   const fetchRelatedPosts = async () => {
     try {
       const { data, error } = await supabase
-        .from('content_items')
+        .from('content_items' as any)
         .select(`
           id,
           title,
@@ -90,7 +90,7 @@ const PostView = () => {
         .limit(3);
 
       if (data && !error) {
-        setRelatedPosts(data);
+        setRelatedPosts(data as any);
       }
     } catch (error) {
       console.error('Error fetching related posts:', error);
