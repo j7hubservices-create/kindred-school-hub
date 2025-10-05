@@ -123,105 +123,147 @@ const Posts = () => {
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <div>
-          <h2 className="text-3xl font-bold text-gray-800">Posts</h2>
-          <p className="text-gray-600">Manage your blog posts and articles</p>
-        </div>
-        <Link to="/admin-cms/posts/create">
-          <Button className="bg-emerald-600 hover:bg-emerald-700">
-            <Plus className="h-4 w-4 mr-2" />
-            Create New Post
-          </Button>
-        </Link>
-      </div>
-
-      {/* Search */}
-      <div className="flex items-center gap-4">
-        <div className="relative flex-1 max-w-md">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-          <Input
-            placeholder="Search posts..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="pl-10"
-          />
-        </div>
-        <div className="text-sm text-gray-500">
-          {filteredPosts.length} of {posts.length} posts
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
+      {/* Header */}
+      <div className="bg-background border-b sticky top-0 z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-bold">Posts</h1>
+              <p className="text-sm text-muted-foreground">Manage your blog posts and articles</p>
+            </div>
+            <Link to="/admin-cms/posts/create">
+              <Button className="bg-blue-600 hover:bg-blue-700">
+                <Plus className="h-4 w-4 mr-2" />
+                Add New
+              </Button>
+            </Link>
+          </div>
         </div>
       </div>
 
-      {/* Posts List */}
-      <div className="grid gap-4">
-        {filteredPosts.length === 0 ? (
-          <Card>
-            <CardContent className="text-center py-12">
-              <p className="text-gray-500">No posts found</p>
-            </CardContent>
-          </Card>
-        ) : (
-          filteredPosts.map((post) => (
-            <Card key={post.id} className="hover:shadow-md transition-shadow">
-              <CardContent className="p-6">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-2">
-                      <h3 className="text-lg font-semibold text-gray-800">
-                        {post.title}
-                      </h3>
-                      <Badge className={getStatusBadgeColor(post.status)}>
-                        {post.status}
-                      </Badge>
-                      {post.category && (
-                        <Badge variant="outline" className="text-xs">
-                          {post.category.name}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-4">
+        {/* Search and Filters */}
+        <div className="bg-background rounded-lg border p-4">
+          <div className="flex items-center justify-between gap-4">
+            <div className="relative flex-1 max-w-md">
+              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search posts..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+            <div className="text-sm text-muted-foreground">
+              {filteredPosts.length} {filteredPosts.length === 1 ? 'item' : 'items'}
+            </div>
+          </div>
+        </div>
+
+        {/* Posts Table */}
+        <div className="bg-background rounded-lg border overflow-hidden">
+          {filteredPosts.length === 0 ? (
+            <div className="text-center py-12">
+              <p className="text-muted-foreground">No posts found</p>
+              {searchTerm && (
+                <Button
+                  variant="link"
+                  onClick={() => setSearchTerm('')}
+                  className="mt-2"
+                >
+                  Clear search
+                </Button>
+              )}
+            </div>
+          ) : (
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="bg-muted/50 border-b">
+                  <tr>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                      Title
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                      Author
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                      Status
+                    </th>
+                    <th className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                      Date
+                    </th>
+                    <th className="px-6 py-3 text-right text-xs font-medium text-muted-foreground uppercase tracking-wider">
+                      Actions
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y">
+                  {filteredPosts.map((post) => (
+                    <tr key={post.id} className="hover:bg-muted/30 transition-colors">
+                      <td className="px-6 py-4">
+                        <div>
+                          <div className="font-medium text-foreground">
+                            {post.title}
+                          </div>
+                          {post.excerpt && (
+                            <div className="text-sm text-muted-foreground line-clamp-1 mt-1">
+                              {post.excerpt}
+                            </div>
+                          )}
+                        </div>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-muted-foreground">
+                        {post.author?.full_name || 'Unknown'}
+                      </td>
+                      <td className="px-6 py-4">
+                        <Badge className={getStatusBadgeColor(post.status)}>
+                          {post.status}
                         </Badge>
-                      )}
-                    </div>
-                    
-                    {post.excerpt && (
-                      <p className="text-gray-600 text-sm mb-3 line-clamp-2">
-                        {post.excerpt}
-                      </p>
-                    )}
-                    
-                    <div className="flex items-center gap-4 text-xs text-gray-500">
-                      <span>By {post.author?.full_name || 'Unknown'}</span>
-                      <span>•</span>
-                      <span>
+                      </td>
+                      <td className="px-6 py-4 text-sm text-muted-foreground">
                         {post.published_at 
-                          ? `Published ${new Date(post.published_at).toLocaleDateString()}`
-                          : `Created ${new Date(post.created_at).toLocaleDateString()}`
+                          ? new Date(post.published_at).toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: 'short',
+                              day: 'numeric'
+                            })
+                          : new Date(post.created_at).toLocaleDateString('en-US', {
+                              year: 'numeric',
+                              month: 'short',
+                              day: 'numeric'
+                            })
                         }
-                      </span>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center gap-2 ml-4">
-                    <Button variant="outline" size="sm" asChild>
-                      <Link to={`/admin-cms/posts/${post.id}/edit`}>
-                        <Edit className="h-4 w-4" />
-                      </Link>
-                    </Button>
-                    <Button 
-                      variant="outline" 
-                      size="sm"
-                      onClick={() => {
-                        setPostToDelete(post.id);
-                        setDeleteDialogOpen(true);
-                      }}
-                      className="text-red-600 hover:text-red-700 hover:bg-red-50"
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          ))
-        )}
+                      </td>
+                      <td className="px-6 py-4 text-right">
+                        <div className="flex items-center justify-end gap-2">
+                          <Button variant="ghost" size="sm" asChild>
+                            <Link to={`/admin-cms/posts/${post.id}/edit`}>
+                              <Edit className="h-4 w-4 mr-1" />
+                              Edit
+                            </Link>
+                          </Button>
+                          <Button 
+                            variant="ghost" 
+                            size="sm"
+                            onClick={() => {
+                              setPostToDelete(post.id);
+                              setDeleteDialogOpen(true);
+                            }}
+                            className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                          >
+                            <Trash2 className="h-4 w-4 mr-1" />
+                            Delete
+                          </Button>
+                        </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Delete Confirmation Dialog */}
