@@ -144,15 +144,18 @@ const EditPost = () => {
         .from('content_items' as any)
         .update({
           title: submitData.title,
-          content: submitData.content,
-          excerpt: submitData.excerpt,
+          content: submitData.content || '', // Ensure content is never null
+          excerpt: submitData.excerpt || null,
           image_url: submitData.featured_image_url || null,
           status: submitData.status,
           category_id: submitData.category_id
         })
         .eq('id', id);
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error:', error);
+        throw error;
+      }
 
       toast.success(`Post ${publishNow ? 'published' : 'updated'} successfully`);
       navigate('/admin-cms/posts');
@@ -165,9 +168,10 @@ const EditPost = () => {
           }
         });
         setErrors(fieldErrors);
+        toast.error('Please check the form for errors');
       } else {
         console.error('Error updating post:', error);
-        toast.error('Failed to update post');
+        toast.error(`Failed to update post: ${error.message || 'Unknown error'}`);
       }
     } finally {
       setLoading(false);

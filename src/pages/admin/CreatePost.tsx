@@ -125,6 +125,14 @@ const CreatePost = () => {
     setErrors({});
 
     try {
+      // Get current user
+      const { data: { user } } = await supabase.auth.getUser();
+      
+      if (!user) {
+        toast.error('You must be logged in to create a post');
+        return;
+      }
+
       const submitData = {
         ...formData,
         status: publishNow ? 'published' as const : formData.status,
@@ -138,18 +146,22 @@ const CreatePost = () => {
         .from('content_items' as any)
         .insert({
           title: submitData.title,
-          content: submitData.content,
-          excerpt: submitData.excerpt,
+          content: submitData.content || '', // Ensure content is never null
+          excerpt: submitData.excerpt || null,
           image_url: submitData.featured_image_url || null,
           content_type: 'news',
           status: publishNow ? 'published' : 'draft',
           featured: false,
-          author_id: profile?.id || null
+          author_id: user.id,
+          category_id: submitData.category_id
         })
         .select()
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error('Supabase error:', error);
+        throw error;
+      }
 
       toast.success(`Post ${publishNow ? 'published' : 'saved as draft'} successfully`);
       navigate('/admin-cms/posts');
@@ -162,9 +174,10 @@ const CreatePost = () => {
           }
         });
         setErrors(fieldErrors);
+        toast.error('Please check the form for errors');
       } else {
         console.error('Error creating post:', error);
-        toast.error('Failed to create post');
+        toast.error(`Failed to create post: ${error.message || 'Unknown error'}`);
       }
     } finally {
       setLoading(false);
