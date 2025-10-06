@@ -99,19 +99,21 @@ const CreatePost = () => {
         return;
       }
 
+      const insertData: any = {
+        title: formData.title,
+        content: formData.content || '',
+        excerpt: formData.excerpt || null,
+        image_url: formData.featured_image_url || null,
+        content_type: 'news',
+        status: status,
+        featured: false,
+        author_id: user.id,
+        category_id: formData.category_id || null
+      };
+
       const { error } = await supabase
-        .from('content_items' as any)
-        .insert({
-          title: formData.title,
-          content: formData.content || '',
-          excerpt: formData.excerpt || null,
-          image_url: formData.featured_image_url || null,
-          content_type: 'news',
-          status: status,
-          featured: false,
-          author_id: user.id,
-          category_id: formData.category_id || null
-        });
+        .from('content_items')
+        .insert(insertData);
 
       if (error) {
         console.error('Supabase error:', error);

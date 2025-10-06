@@ -119,16 +119,18 @@ const EditPost = () => {
     setLoading(true);
 
     try {
+      const updateData: any = {
+        title: formData.title,
+        content: formData.content || '',
+        excerpt: formData.excerpt || null,
+        image_url: formData.featured_image_url || null,
+        status: status,
+        category_id: formData.category_id || null
+      };
+
       const { error } = await supabase
-        .from('content_items' as any)
-        .update({
-          title: formData.title,
-          content: formData.content || '',
-          excerpt: formData.excerpt || null,
-          image_url: formData.featured_image_url || null,
-          status: status,
-          category_id: formData.category_id || null
-        })
+        .from('content_items')
+        .update(updateData)
         .eq('id', id);
 
       if (error) {
