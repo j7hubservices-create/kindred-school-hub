@@ -1,0 +1,2 @@
+-- Step 1: Add superadmin role to the enum
+ALTER TYPE user_role ADD VALUE IF NOT EXISTS 'superadmin';

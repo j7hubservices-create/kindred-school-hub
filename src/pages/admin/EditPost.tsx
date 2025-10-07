@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
-import { ArrowLeft, Upload, X, Save, Eye } from 'lucide-react';
+import { ArrowLeft, X, Save, Eye } from 'lucide-react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
@@ -16,8 +16,9 @@ interface Category {
   name: string;
 }
 
-const CreatePost = () => {
+const EditPost = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -32,7 +33,33 @@ const CreatePost = () => {
 
   useEffect(() => {
     fetchCategories();
-  }, []);
+    fetchPost();
+  }, [id]);
+
+  const fetchPost = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('content_items' as any)
+        .select('*')
+        .eq('id', id)
+        .single();
+
+      if (error) throw error;
+
+      setFormData({
+        title: (data as any).title || '',
+        excerpt: (data as any).excerpt || '',
+        content: (data as any).content || '',
+        featured_image_url: (data as any).image_url || '',
+        category_id: (data as any).category_id || '',
+        status: (data as any).status || 'draft'
+      });
+    } catch (error) {
+      console.error('Error fetching post:', error);
+      toast.error('Failed to load post');
+      navigate('/admin-cms/posts');
+    }
+  };
 
   const fetchCategories = async () => {
     try {
@@ -92,39 +119,30 @@ const CreatePost = () => {
     setLoading(true);
 
     try {
-      const { data: { user } } = await supabase.auth.getUser();
-      
-      if (!user) {
-        toast.error('You must be logged in');
-        return;
-      }
-
-      const insertData: any = {
+      const updateData: any = {
         title: formData.title,
         content: formData.content || '',
         excerpt: formData.excerpt || null,
         image_url: formData.featured_image_url || null,
-        content_type: 'news',
         status: status,
-        featured: false,
-        author_id: user.id,
         category_id: formData.category_id || null
       };
 
       const { error } = await supabase
         .from('content_items')
-        .insert(insertData);
+        .update(updateData)
+        .eq('id', id);
 
       if (error) {
         console.error('Supabase error:', error);
         throw error;
       }
 
-      toast.success(`Post ${status === 'published' ? 'published' : 'saved'} successfully`);
+      toast.success(`Post ${status === 'published' ? 'published' : 'updated'} successfully`);
       navigate('/admin-cms/posts');
     } catch (error: any) {
-      console.error('Error creating post:', error);
-      toast.error(`Failed to create post: ${error.message || 'Unknown error'}`);
+      console.error('Error updating post:', error);
+      toast.error(`Failed to update post: ${error.message || 'Unknown error'}`);
     } finally {
       setLoading(false);
     }
@@ -150,7 +168,7 @@ const CreatePost = () => {
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back
             </Button>
-            <h1 className="text-2xl font-bold">Add New Post</h1>
+            <h1 className="text-2xl font-bold">Edit Post</h1>
           </div>
           <div className="flex items-center gap-2">
             <Button
@@ -167,7 +185,7 @@ const CreatePost = () => {
               className="bg-blue-600 hover:bg-blue-700"
             >
               <Eye className="h-4 w-4 mr-2" />
-              Publish
+              Update & Publish
             </Button>
           </div>
         </div>
@@ -320,4 +338,4 @@ const CreatePost = () => {
   );
 };
 
-export default CreatePost;
+export default EditPost;
