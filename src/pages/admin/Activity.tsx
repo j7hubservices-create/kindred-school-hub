@@ -34,7 +34,7 @@ const Activity = () => {
   const fetchActivities = async () => {
     try {
       const { data, error } = await supabase
-        .from('activity_logs' as any)
+        .from('activity_logs')
         .select(`
           *,
           profiles:user_id (
@@ -47,7 +47,7 @@ const Activity = () => {
 
       if (error) throw error;
 
-      setActivities(data as any || []);
+      setActivities(data || []);
     } catch (error) {
       console.error('Error fetching activities:', error);
       toast.error('Failed to load activity log');
